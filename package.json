@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "build": "",
+    "build": "node -v",
     "start": "cross-env webpack-dev-server",
     "lint": "eslint ./src",
     "lint:css": "stylelint ./src"
