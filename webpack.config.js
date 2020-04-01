@@ -101,8 +101,8 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   devServer: {
-    host: 'localhost',
-    port: 8080,
+    host: '0.0.0.0',
+    port: 3000,
     disableHostCheck: true,
     contentBase: './dist',
     historyApiFallback: true,
