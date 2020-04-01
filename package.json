@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "build": "node -v",
-    "start": "webpack-dev-server",
+    "build": "SKIP_PREFLIGHT_CHECK=true cross-env webpack",
+    "start": "cross-env webpack-dev-server",
     "lint": "eslint ./src",
     "lint:css": "stylelint ./src"
   },
