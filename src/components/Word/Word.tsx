@@ -4,14 +4,36 @@ import { Card, Button, Modal, Form, Input } from 'antd';
 import { useFormik } from 'formik';
 import { SERVER_URL } from 'constants/url';
 import { useToggle } from 'hooks';
+import { Frequency } from 'components/Frequency';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import { FETCH_WORDS_LIST_URL } from '../../constants';
 import * as S from './styles';
 import { IWord } from './IWord';
+import { IWordInput } from '../AddWord/IWordInput';
+import { FileInput } from '../AddWord/FileInput';
 
 const { Meta } = Card;
 
-const inputs: Array<string> = ['word', 'example', 'translate', 'explanation'];
+const inputs: Array<IWordInput> = [
+  { name: 'word', type: 'input' },
+  { name: 'translate', type: 'input' },
+  { name: 'definition', type: 'textarea' },
+  { name: 'context', type: 'textarea' },
+  { name: 'example', type: 'textarea' },
+  { name: 'synonym', type: 'input' },
+  { name: 'antonym', type: 'input' },
+];
+
+const FormItem = ({ type, ...props }: { type: 'input' | 'textarea' }) => {
+  const { TextArea } = Input;
+
+  const formItemsType = {
+    input: <Input {...props} />,
+    textarea: <TextArea {...props} />,
+  };
+
+  return formItemsType[type] || <Input {...props} />;
+};
 
 export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
   const { fetchWordsList } = useFetchWordsList();
@@ -29,15 +51,18 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
     }
   };
 
-  const { handleSubmit, handleChange } = useFormik({
+  const { handleSubmit, handleChange, setFieldValue } = useFormik({
     initialValues: {
       word: '',
-      example: '',
       translate: '',
-      explanation: '',
+      definition: '',
+      context: '',
+      example: '',
+      synonym: '',
+      antonym: '',
       imageSrc: '',
     },
-    onSubmit: async (body: IWord) => {
+    onSubmit: async (body: Omit<IWord, 'id'>) => {
       await fetch(`${FETCH_WORDS_LIST_URL}/${id}`, {
         method: 'PUT',
         headers: {
@@ -52,7 +77,7 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
     <>
       <Card
         actions={[
-          <Link to={`word/${id}`}>
+          <Link key={id} to={`word/${id}`}>
             <Button key="update">Open</Button>
           </Link>,
           <Button key="update" onClick={openAddWordModal}>
@@ -64,7 +89,10 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
         ]}
       >
         <S.CardBody>
-          <Meta title={word} description={translate} />
+          <div>
+            <Frequency showTitle={false} word={word} />
+            <Meta title={word} description={translate} />
+          </div>
           <S.CardImage src={`${SERVER_URL}/image/${imageSrc}`} alt={word} />
         </S.CardBody>
       </Card>
@@ -75,16 +103,18 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
         onCancel={closeAddWordModal}
       >
         <Form onSubmit={handleSubmit}>
-          {inputs.map((input: string) => (
-            <S.InputWrapper key={input}>
-              <Input
-                key={input}
-                name={input}
-                placeholder={input}
+          {inputs.map(({ name, type }: IWordInput) => (
+            <S.InputWrapper key={name}>
+              <FormItem
+                key={name}
+                name={name}
+                type={type}
+                placeholder={name}
                 onChange={handleChange}
               />
             </S.InputWrapper>
           ))}
+          <FileInput setFieldValue={setFieldValue} />
           <S.ButtonWrapper>
             <Button type="primary" htmlType="submit">
               Update word

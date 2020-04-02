@@ -1,7 +1,7 @@
 export const fetchWordFromRapid = async (
   type: string,
   word: string,
-): Promise<object> => {
+): Promise<any> => {
   const response = await fetch(
     `https://wordsapiv1.p.rapidapi.com/words/${word}/${type}`,
     {

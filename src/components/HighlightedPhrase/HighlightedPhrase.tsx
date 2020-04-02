@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as S from './styles';
 
-export const HighlightedPhrase = ({ phrase, word }) => {
-  return (
-    <S.HighlightedPhrase
-      dangerouslySetInnerHTML={{
-        __html: phrase.replace(word, `<span>${word}</span>`),
-      }}
-    />
-  );
-};
+interface HighlightedPhraseProps {
+  word: string;
+  phrase: string;
+}
+
+export const HighlightedPhrase: FC<HighlightedPhraseProps> = ({
+  word,
+  phrase,
+}) => (
+  <S.HighlightedPhrase
+    dangerouslySetInnerHTML={{
+      __html: phrase.replace(word, `<span>${word}</span>`),
+    }}
+  />
+);

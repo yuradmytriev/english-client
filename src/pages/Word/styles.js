@@ -28,11 +28,3 @@ export const WordTitle = styled.span`
 export const WordPage = styled.div`
   display: flex;
 `;
-
-export const Color = styled.span`
-  width: 30px;
-  height: 30px;
-  background: ${props => props.color};
-  display: inline-block;
-  border-radius: 50%;
-`;

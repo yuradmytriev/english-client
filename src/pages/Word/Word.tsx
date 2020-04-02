@@ -3,52 +3,40 @@ import { useParams } from 'react-router-dom';
 import { Suggestion } from 'components/Suggestion';
 import { Video } from 'components/Video';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
-import * as S from './styles';
-import { SERVER_URL } from '../../constants/url';
 import { Navigation } from 'components/Navigation';
+import { Frequency } from 'components/Frequency';
 import { FETCH_WORD_URL } from '../../constants';
-import { fetchWordFromRapid } from '../../utils/wordsApiFetch';
+import { SERVER_URL } from '../../constants/url';
+import * as S from './styles';
 
-const checkFrequency = frequency => {
-  const number = Math.ceil(frequency);
-  const is = {
-    1: {
-      color: '#880000',
-      title: 'very rare',
-    },
-    2: {
-      color: '#ff0202',
-      title: 'rare',
-    },
-    3: {
-      color: '#f97777',
-      title: 'seldom',
-    },
-    4: {
-      color: '#abc0f3',
-      title: 'sometimes',
-    },
-    5: {
-      color: '#6693ff',
-      title: 'regular',
-    },
-    6: {
-      color: '#054eff',
-      title: 'often',
-    },
-    7: {
-      color: '#002b94',
-      title: 'frequently',
-    },
-  };
-
-  return is[number];
-};
+interface IWord {
+  word: string;
+  translate: string;
+  definition?: string;
+  context?: string;
+  example?: string;
+  synonym?: string;
+  antonym?: string;
+  imageSrc: string;
+}
 
 export const Word: FC = () => {
   const { id } = useParams();
-  const [fetchedWord, setWord] = useState({});
-  const [wordFrequency, setWordFrequency] = useState({});
+  const [fetchedWord, setWord] = useState<IWord | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(`${FETCH_WORD_URL}/${id}`);
+      const word: IWord = await response.json();
+
+      setWord(word);
+    })();
+  }, []);
+
+  if (!fetchedWord) {
+    return null;
+  }
+
   const {
     word,
     translate,
@@ -60,21 +48,7 @@ export const Word: FC = () => {
     imageSrc,
   } = fetchedWord;
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(`${FETCH_WORD_URL}/${id}`);
-      const word = await response.json();
-      setWord(word);
-      const {
-        frequency: { zipf },
-      } = await fetchWordFromRapid('frequency', word.word);
-
-      const data = checkFrequency(zipf);
-      setWordFrequency(data);
-    })();
-  }, []);
-
-  return word ? (
+  return (
     <S.WordPage>
       <S.WordWrapper>
         <S.Image src={`${SERVER_URL}/image/${imageSrc}`} alt={word} />
@@ -89,38 +63,47 @@ export const Word: FC = () => {
           <span>{translate}</span>
         </S.WordProperty>
 
-        <S.WordProperty>
-          <S.WordTitle>Definition: </S.WordTitle>
-          <span>{definition}</span>
-        </S.WordProperty>
+        {definition && (
+          <S.WordProperty>
+            <S.WordTitle>Definition: </S.WordTitle>
+            <span>{definition}</span>
+          </S.WordProperty>
+        )}
 
-        <S.WordProperty>
-          <S.WordTitle>Context: </S.WordTitle>
-          <HighlightedPhrase phrase={context} word={word} />
-        </S.WordProperty>
+        {context && (
+          <S.WordProperty>
+            <S.WordTitle>Context: </S.WordTitle>
+            <HighlightedPhrase phrase={context} word={word} />
+          </S.WordProperty>
+        )}
 
-        <S.WordProperty>
-          <S.WordTitle>Example: </S.WordTitle>
-          <HighlightedPhrase phrase={example} word={word} />
-        </S.WordProperty>
+        {example && (
+          <S.WordProperty>
+            <S.WordTitle>Example: </S.WordTitle>
+            <HighlightedPhrase phrase={example} word={word} />
+          </S.WordProperty>
+        )}
 
-        <S.WordProperty>
-          <Suggestion title="synonym" word={synonym} originalWord={word} />
-        </S.WordProperty>
+        {synonym && (
+          <S.WordProperty>
+            <Suggestion title="synonym" word={synonym} originalWord={word} />
+          </S.WordProperty>
+        )}
 
-        <S.WordProperty>
-          <Suggestion title="antonym" word={antonym} originalWord={word} />
-        </S.WordProperty>
+        {antonym && (
+          <S.WordProperty>
+            <Suggestion title="antonym" word={antonym} originalWord={word} />
+          </S.WordProperty>
+        )}
 
         <S.WordProperty>
           <S.WordTitle>Frequency: </S.WordTitle>
-          <span>{wordFrequency.title}</span>
-          <S.Color color={wordFrequency.color} />
+          <Frequency showTitle word={word} />
         </S.WordProperty>
 
         <Video word={word} />
       </S.WordWrapper>
       <Navigation />
     </S.WordPage>
-  ) : null;
+  );
 };
