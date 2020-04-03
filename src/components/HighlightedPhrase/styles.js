@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const HighlightedPhrase = styled.span`
   font-size: 18px;
   text-align: center;
+  font-style: italic;
   & span {
     background: #edff00;
     padding: 2px 5px;

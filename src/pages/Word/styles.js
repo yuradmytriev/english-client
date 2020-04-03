@@ -63,3 +63,15 @@ export const FrequencyWrapper = styled.div`
   top: -5px;
   right: -5px;
 `;
+
+export const MoreExamplesWrapper = styled.div`
+  margin-top: 10px;
+`;
+
+export const Definition = styled.span`
+  font-style: italic;
+`;
+
+export const Example = styled.span`
+  font-style: italic;
+`;

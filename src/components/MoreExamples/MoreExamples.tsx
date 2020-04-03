@@ -25,12 +25,12 @@ const ExamplesList = ({ examples }: { examples: string[] }) => {
     : null;
 };
 
-export const MoreExamples: FC<{ example: string }> = ({ example }) => {
+export const MoreExamples: FC<{ word: string }> = ({ word }) => {
   const [examples, setExamples] = useState<IDefinition[] | null>(null);
 
   useEffect(() => {
     (async () => {
-      const examples = await fetchWordFromRapid('examples', example);
+      const examples = await fetchWordFromRapid('examples', word);
 
       setExamples(examples.examples);
     })();

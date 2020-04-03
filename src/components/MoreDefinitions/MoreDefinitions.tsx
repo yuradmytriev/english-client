@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState, Children } from 'react';
-import { Popconfirm, Button } from 'antd';
+import { Popconfirm, Button, Alert } from 'antd';
 import { fetchWordFromRapid } from 'utils/wordsApiFetch';
-import * as S from './styles';
 
 interface IDefinition {
   definition: string;
@@ -24,7 +23,7 @@ const DefinitionsList = ({ definitions }: { definitions: IDefinition[] }) => {
         definitions
           .filter(shouldShowFiveDefinitions)
           .map((definition: IDefinition) => (
-            <S.Alert
+            <Alert
               type="info"
               message={<Definition definition={definition} />}
             />
@@ -33,12 +32,12 @@ const DefinitionsList = ({ definitions }: { definitions: IDefinition[] }) => {
     : null;
 };
 
-export const MoreDefinitions: FC<{ definition: string }> = ({ definition }) => {
+export const MoreDefinitions: FC<{ word: string }> = ({ word }) => {
   const [definitions, setDefinitions] = useState<IDefinition[] | null>(null);
 
   useEffect(() => {
     (async () => {
-      const definitions = await fetchWordFromRapid('definitions', definition);
+      const definitions = await fetchWordFromRapid('definitions', word);
 
       setDefinitions(definitions.definitions);
     })();

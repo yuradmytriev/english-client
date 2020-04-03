@@ -16,6 +16,7 @@ export const VideoBackground = styled.div`
   padding: 10px 20px 20px 20px;
   text-align: center;
   border-radius: 3px;
+  margin-top: 30px;
 `;
 
 export const Arrow = styled(Icon)`

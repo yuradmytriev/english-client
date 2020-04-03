@@ -1,2 +1,15 @@
-.test {
+.ant-popover-message-title {
+    padding-left: 0;
+}
+
+.ant-popover-buttons {
+    display: none;
+}
+
+.ant-popover-message-title div {
+    margin-bottom: 15px;
+}
+
+.ant-popover-message-title div:last-child {
+    margin-bottom: 0;
 }

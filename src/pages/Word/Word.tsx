@@ -70,16 +70,6 @@ export const Word: FC = () => {
           <span>{translate}</span>
         </S.TranslateProperty>
 
-        {definition && (
-          <S.WordProperty>
-            <S.WordTitle>Definition: </S.WordTitle>
-            <span>{definition}</span>
-            <div>
-              <MoreDefinitions definition={definition} />
-            </div>
-          </S.WordProperty>
-        )}
-
         {context && (
           <S.WordProperty>
             <S.WordTitle>Context: </S.WordTitle>
@@ -87,13 +77,23 @@ export const Word: FC = () => {
           </S.WordProperty>
         )}
 
+        {definition && (
+          <S.WordProperty>
+            <S.WordTitle>Definition: </S.WordTitle>
+            <S.Definition>{definition}</S.Definition>
+            <S.MoreExamplesWrapper>
+              <MoreDefinitions word={word} />
+            </S.MoreExamplesWrapper>
+          </S.WordProperty>
+        )}
+
         {example && (
           <S.WordProperty>
             <S.WordTitle>Example: </S.WordTitle>
             <HighlightedPhrase phrase={example} word={word} />
-            <div>
-              <MoreExamples example={example} />
-            </div>
+            <S.MoreExamplesWrapper>
+              <MoreExamples word={word} />
+            </S.MoreExamplesWrapper>
           </S.WordProperty>
         )}
 
