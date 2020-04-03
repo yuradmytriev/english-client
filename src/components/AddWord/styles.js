@@ -1,18 +1,24 @@
 import styled from 'styled-components';
-
 import { colors } from 'constants/colors';
 
 const { grey } = colors;
 
 export const Container = styled.div`
-  border: 1px dashed ${grey};
   display: flex;
-  padding: 1rem;
+  padding: 10px;
   align-items: center;
-  flex-direction: column;
-  border-radius: 2px;
   cursor: pointer;
-  margin-bottom: 2rem;
+  position: fixed;
+  z-index: 1;
+  bottom: 15px;
+  right: 15px;
+  border-radius: 50%;
+  background: #008dff;
+  font-size: 35px;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  color: #fff;
 `;
 
 export const Plus = styled.span`

@@ -68,10 +68,7 @@ const AddWord: FC = () => {
   return (
     <>
       <S.Container onClick={openAddWordModal}>
-        <S.Plus>
-          <Icon type="plus" />
-        </S.Plus>
-        <span>Add new word</span>
+        <Icon type="plus" />
       </S.Container>
       <Modal
         title="Add new word"

@@ -37,7 +37,7 @@ const FormItem = ({ type, ...props }: { type: 'input' | 'textarea' }) => {
 
 export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
   const { fetchWordsList } = useFetchWordsList();
-  const { visible, openAddWordModal, closeAddWordModal } = useToggle();
+  const { visible, closeAddWordModal } = useToggle();
 
   const deleteWordCard = async () => {
     const response = await fetch(`${FETCH_WORDS_LIST_URL}/${id}`, {
@@ -80,9 +80,6 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
           <Link key={id} to={`word/${id}`}>
             <Button key="update">Open</Button>
           </Link>,
-          <Button key="update" onClick={openAddWordModal}>
-            Update
-          </Button>,
           <Button key="delete" type="danger" onClick={deleteWordCard}>
             Delete
           </Button>,
@@ -91,7 +88,7 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
         <S.CardBody>
           <div>
             <Frequency showTitle={false} word={word} />
-            <Meta title={word} description={translate} />
+            <S.Meta title={word} description={translate} />
           </div>
           <S.CardImage src={`${SERVER_URL}/image/${imageSrc}`} alt={word} />
         </S.CardBody>

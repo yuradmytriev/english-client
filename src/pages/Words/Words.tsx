@@ -28,10 +28,8 @@ export const Words: React.FC = () => {
   return (
     <>
       <S.WordWrapper gutter={12}>
-        <Col xs={24} sm={12} md={8} lg={8} xl={6}>
-          <AddWord />
-        </Col>
         {!isEmpty(words) && words.map(renderWords)}
+        <AddWord />
       </S.WordWrapper>
     </>
   );
