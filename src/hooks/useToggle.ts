@@ -6,5 +6,5 @@ export const useToggle = () => {
   const openAddWordModal = (): void => toggleVisible(true);
   const closeAddWordModal = (): void => toggleVisible(false);
 
-  return { visible, openAddWordModal, closeAddWordModal };
+  return { visible, openAddWordModal, closeAddWordModal, toggleVisible };
 };

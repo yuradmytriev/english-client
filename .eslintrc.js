@@ -223,6 +223,7 @@ module.exports = {
       },
     ],
     'jsx-a11y/anchor-is-valid': 0,
+    'react/jsx-key': 0,
 
     // eslint-plugin-import
     'import/no-unresolved': 0,

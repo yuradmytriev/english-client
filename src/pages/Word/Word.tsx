@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Suggestion } from 'components/Suggestion';
 import { Video } from 'components/Video';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
+import { Definition } from 'components/Definition';
 import { Navigation } from 'components/Navigation';
 import { Frequency } from 'components/Frequency';
 import { FETCH_WORD_URL } from '../../constants';
@@ -67,6 +68,7 @@ export const Word: FC = () => {
           <S.WordProperty>
             <S.WordTitle>Definition: </S.WordTitle>
             <span>{definition}</span>
+            <Definition definition={definition} />
           </S.WordProperty>
         )}
 
