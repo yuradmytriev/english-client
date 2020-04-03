@@ -1,4 +1,5 @@
 import React, { useEffect, useState, FC } from 'react';
+import { Tooltip } from 'antd';
 import { fetchWordFromRapid } from '../../utils/wordsApiFetch';
 import * as S from './styles';
 
@@ -64,8 +65,9 @@ export const Frequency: FC<{ word: string; showTitle: boolean }> = ({
 
   return frequency ? (
     <>
-      {showTitle && <span>{frequency.title}</span>}
-      <S.Color color={frequency.color} />
+      <Tooltip title={showTitle ? <span>{frequency.title}</span> : null}>
+        <S.Color color={frequency.color} />
+      </Tooltip>
     </>
   ) : null;
 };

@@ -8,4 +8,5 @@ export const MoreSynonymsButton = styled(Button)`
 
 export const WordTitle = styled.span`
   font-weight: bold;
+  text-transform: capitalize;
 `;

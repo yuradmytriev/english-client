@@ -32,7 +32,7 @@ export const Video: FC<{ word: string }> = ({ word }) => {
   };
 
   return !isEmpty(phrases) ? (
-    <>
+    <S.VideoBackground>
       <S.VideoWrapper>
         <S.Arrow
           disabled={!isPreviousVideoExists}
@@ -51,6 +51,6 @@ export const Video: FC<{ word: string }> = ({ word }) => {
         />
       </S.VideoWrapper>
       <HighlightedPhrase phrase={phrases[videoId].text} word={word} />
-    </>
+    </S.VideoBackground>
   ) : null;
 };

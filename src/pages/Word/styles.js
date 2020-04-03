@@ -21,10 +21,45 @@ export const WordProperty = styled.div`
   font-size: 17px;
 `;
 
+export const MainWordProperty = styled(WordProperty)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 25px;
+  margin-bottom: 0;
+`;
+
+export const TranslateProperty = styled(WordProperty)`
+  display: flex;
+  justify-content: center;
+  text-transform: capitalize;
+  font-size: 20px;
+  color: grey;
+`;
+
 export const WordTitle = styled.span`
   font-weight: bold;
 `;
 
 export const WordPage = styled.div`
   display: flex;
+`;
+
+export const ImageWithFrequency = styled.div`
+  position: relative;
+  margin: 0 auto;
+  max-width: 300px;
+`;
+
+export const FrequencyWrapper = styled.div`
+  width: 20px;
+  height: 20px;
+  background: #abc0f3;
+  display: inline-block;
+  border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  right: -5px;
 `;

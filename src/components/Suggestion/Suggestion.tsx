@@ -4,6 +4,7 @@ import { Tag } from 'antd';
 import pluralize from 'pluralize';
 import { fetchWordFromRapid } from 'utils/wordsApiFetch';
 import * as S from './styles';
+import { useToggle } from '../../hooks';
 
 const { CheckableTag } = Tag;
 
@@ -24,8 +25,10 @@ export const Suggestion: React.FC<{
   originalWord: string;
 }> = ({ title, word, originalWord }) => {
   const [synonyms, setWord] = useState([]);
+  const { visible, toggleVisible } = useToggle();
 
   const handleClick = async () => {
+    toggleVisible(prev => !prev);
     const data = await fetchWordFromRapid(
       pluralize(title),
       word || originalWord,
@@ -36,12 +39,12 @@ export const Suggestion: React.FC<{
 
   return word ? (
     <div>
-      <S.WordTitle>Word: </S.WordTitle>
+      <S.WordTitle>{`${title}: `}</S.WordTitle>
       <span>{word}</span>
       <S.MoreSynonymsButton type="primary" size="small" onClick={handleClick}>
         See more
       </S.MoreSynonymsButton>
-      <SuggestionsList words={synonyms} />
+      {visible && <SuggestionsList words={synonyms} />}
     </div>
   ) : null;
 };

@@ -1,11 +1,13 @@
 import React, { useEffect, FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Suggestion } from 'components/Suggestion';
 import { Video } from 'components/Video';
-import { HighlightedPhrase } from 'components/HighlightedPhrase';
-import { Definition } from 'components/Definition';
-import { Navigation } from 'components/Navigation';
 import { Frequency } from 'components/Frequency';
+import { Navigation } from 'components/Navigation';
+import { Suggestion } from 'components/Suggestion';
+import { MoreExamples } from 'components/MoreExamples';
+import { MoreDefinitions } from 'components/MoreDefinitions';
+import { WordPronunciation } from 'components/WordPronunciation';
+import { HighlightedPhrase } from 'components/HighlightedPhrase';
 import { FETCH_WORD_URL } from '../../constants';
 import { SERVER_URL } from '../../constants/url';
 import * as S from './styles';
@@ -52,23 +54,29 @@ export const Word: FC = () => {
   return (
     <S.WordPage>
       <S.WordWrapper>
-        <S.Image src={`${SERVER_URL}/image/${imageSrc}`} alt={word} />
+        <S.ImageWithFrequency>
+          <S.Image src={`${SERVER_URL}/image/${imageSrc}`} alt={word} />
+          <S.FrequencyWrapper>
+            <Frequency showTitle word={word} />
+          </S.FrequencyWrapper>
+        </S.ImageWithFrequency>
 
-        <S.WordProperty>
-          <S.WordTitle>Word: </S.WordTitle>
+        <S.MainWordProperty>
           <span>{word}</span>
-        </S.WordProperty>
+          <WordPronunciation word={word} />
+        </S.MainWordProperty>
 
-        <S.WordProperty>
-          <S.WordTitle>Translate: </S.WordTitle>
+        <S.TranslateProperty>
           <span>{translate}</span>
-        </S.WordProperty>
+        </S.TranslateProperty>
 
         {definition && (
           <S.WordProperty>
             <S.WordTitle>Definition: </S.WordTitle>
             <span>{definition}</span>
-            <Definition definition={definition} />
+            <div>
+              <MoreDefinitions definition={definition} />
+            </div>
           </S.WordProperty>
         )}
 
@@ -83,6 +91,9 @@ export const Word: FC = () => {
           <S.WordProperty>
             <S.WordTitle>Example: </S.WordTitle>
             <HighlightedPhrase phrase={example} word={word} />
+            <div>
+              <MoreExamples example={example} />
+            </div>
           </S.WordProperty>
         )}
 
@@ -97,11 +108,6 @@ export const Word: FC = () => {
             <Suggestion title="antonym" word={antonym} originalWord={word} />
           </S.WordProperty>
         )}
-
-        <S.WordProperty>
-          <S.WordTitle>Frequency: </S.WordTitle>
-          <Frequency showTitle word={word} />
-        </S.WordProperty>
 
         <Video word={word} />
       </S.WordWrapper>

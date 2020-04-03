@@ -11,6 +11,13 @@ export const VideoWrapper = styled.div`
   align-items: center;
 `;
 
+export const VideoBackground = styled.div`
+  background: #e8e8e8;
+  padding: 10px 20px 20px 20px;
+  text-align: center;
+  border-radius: 3px;
+`;
+
 export const Arrow = styled(Icon)`
   font-size: 35px;
   color: ${props => (props.disabled ? '#d6d6d6' : 'grey')};

@@ -33,7 +33,7 @@ const DefinitionsList = ({ definitions }: { definitions: IDefinition[] }) => {
     : null;
 };
 
-export const Definition: FC<{ definition: string }> = ({ definition }) => {
+export const MoreDefinitions: FC<{ definition: string }> = ({ definition }) => {
   const [definitions, setDefinitions] = useState<IDefinition[] | null>(null);
 
   useEffect(() => {
@@ -47,7 +47,6 @@ export const Definition: FC<{ definition: string }> = ({ definition }) => {
   return definitions ? (
     <Popconfirm
       icon={null}
-      okText="Close"
       placement="bottom"
       title={<DefinitionsList definitions={definitions} />}
     >
