@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FC } from 'react';
+import { Upload, Icon } from 'antd';
 import * as S from './styles';
 
 interface IFileInput {
@@ -17,14 +18,19 @@ const FileInput: FC<IFileInput> = ({ setFieldValue }) => {
 
   return (
     <>
-      <S.Input
-        id="imageSrc"
-        name="imageSrc"
-        type="file"
-        onChange={setFileNameToFormValues}
-      />
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label htmlFor="imageSrc">Download</label>
+      <Upload.Dragger>
+        <p className="ant-upload-drag-icon">
+          <Icon type="inbox" />
+        </p>
+        <S.Input
+          id="imageSrc"
+          name="imageSrc"
+          type="file"
+          onChange={setFileNameToFormValues}
+        />
+        <label htmlFor="imageSrc">Upload an image</label>
+      </Upload.Dragger>
+      <br/>
     </>
   );
 };

@@ -49,7 +49,7 @@ export const MoreDefinitions: FC<{ word: string }> = ({ word }) => {
       placement="bottom"
       title={<DefinitionsList definitions={definitions} />}
     >
-      <Button>Show more definitions</Button>
+      <Button type="primary">Show more definitions</Button>
     </Popconfirm>
   ) : null;
 };

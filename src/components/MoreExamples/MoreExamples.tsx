@@ -42,7 +42,7 @@ export const MoreExamples: FC<{ word: string }> = ({ word }) => {
       placement="bottom"
       title={<ExamplesList examples={examples} />}
     >
-      <Button>Show more examples</Button>
+      <Button type="primary">Show more examples</Button>
     </Popconfirm>
   ) : null;
 };

@@ -10,4 +10,5 @@ export const NavigationContainer = styled.div`
   background: #fff;
   display: flex;
   justify-content: space-between;
+  font-size: 17px;
 `;

@@ -1,12 +1,13 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
+import { Icon } from 'antd';
 import * as S from './styles';
 
 export const Navigation: FC = ({ enableEditMode }) => (
   <S.NavigationContainer>
     <Link to="/words">
-      <strong>View words</strong>
+      <Icon type="left" />
     </Link>
-    <strong onClick={() => enableEditMode(prev => !prev)}>Edit</strong>
+    <span onClick={() => enableEditMode(prev => !prev)}>Edit</span>
   </S.NavigationContainer>
 );

@@ -115,7 +115,7 @@ export const Word: FC = () => {
                   {context}
                 </S.Text>
               ) : (
-                <span>{context}</span>
+                <HighlightedPhrase phrase={context} word={word} />
               )}
             </S.WordLabel>
           </S.WordProperty>
@@ -154,7 +154,7 @@ export const Word: FC = () => {
                   {example}
                 </S.Text>
               ) : (
-                <span>{example}</span>
+                <HighlightedPhrase phrase={example} word={word} />
               )}
             </S.WordLabel>
             <S.MoreExamplesWrapper>
