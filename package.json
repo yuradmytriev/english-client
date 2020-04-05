@@ -1,8 +1,11 @@
 {
-  "name": "client-english",
+  "name": "english-mind",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "ISC",
+  "keywords": ["english", "vocablurary"],
+  "author": "Yurii Dmytriev",
+  "email": "yuramijs@gmai.com",
   "scripts": {
     "build": "SKIP_PREFLIGHT_CHECK=true cross-env webpack",
     "start": "cross-env NODE_ENV=production webpack-dev-server",

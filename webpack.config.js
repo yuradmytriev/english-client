@@ -10,6 +10,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const htmlPlugin = new HtmlWebpackPlugin({
   template: path.resolve(__dirname, 'src/index.html'),
+  favicon: path.resolve(__dirname, 'src/favicon.png'),
   minify: {
     collapseWhitespace: isProd,
     removeComments: isProd,

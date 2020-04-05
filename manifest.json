@@ -1,9 +1,9 @@
 {
-  "name": "test",
-  "short_name": "test",
+  "name": "english-mind",
+  "short_name": "english-mind",
   "start_url": "dist/index.html",
   "display": "standalone",
-  "background_color": "#fdfdfd",
-  "theme_color": "#db4938",
+  "background_color": "#1890ff",
+  "theme_color": "#1890ff",
   "orientation": "portrait-primary"
 }
