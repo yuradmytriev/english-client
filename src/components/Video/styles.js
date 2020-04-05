@@ -13,7 +13,7 @@ export const VideoWrapper = styled.div`
 
 export const VideoBackground = styled.div`
   background: #e8e8e8;
-  padding: 10px 20px 20px 20px;
+  padding: 20px 5px 20px 5px;
   text-align: center;
   border-radius: 3px;
   margin-top: 30px;
@@ -26,9 +26,7 @@ export const Arrow = styled(Icon)`
 
 export const Video = styled.video`
   border-radius: 5px;
-  max-width: 400px;
-  width: 100%;
-  height: 200px;
-  display: block;
+  width: 100% !important;
+  height: auto !important;
   margin-bottom: 10px;
 `;

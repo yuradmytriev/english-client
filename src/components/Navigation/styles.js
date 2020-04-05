@@ -8,4 +8,6 @@ export const NavigationContainer = styled.div`
   padding: 10px;
   left: 0;
   background: #fff;
+  display: flex;
+  justify-content: space-between;
 `;

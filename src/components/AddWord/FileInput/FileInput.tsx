@@ -1,12 +1,11 @@
-import React, { ChangeEvent } from 'react';
-
+import React, { ChangeEvent, FC } from 'react';
 import * as S from './styles';
 
 interface IFileInput {
   setFieldValue: (field: string, value: any) => void;
 }
 
-const FileInput: React.FC<IFileInput> = ({ setFieldValue }) => {
+const FileInput: FC<IFileInput> = ({ setFieldValue }) => {
   const setFileNameToFormValues = (
     inputData: ChangeEvent<HTMLInputElement>,
   ): void => {

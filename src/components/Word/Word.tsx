@@ -12,8 +12,6 @@ import { IWord } from './IWord';
 import { IWordInput } from '../AddWord/IWordInput';
 import { FileInput } from '../AddWord/FileInput';
 
-const { Meta } = Card;
-
 const inputs: Array<IWordInput> = [
   { name: 'word', type: 'input' },
   { name: 'translate', type: 'input' },
@@ -75,24 +73,19 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
 
   return (
     <>
-      <Card
-        actions={[
-          <Link key={id} to={`word/${id}`}>
-            <Button key="update">Open</Button>
-          </Link>,
-          <Button key="delete" type="danger" onClick={deleteWordCard}>
-            Delete
-          </Button>,
-        ]}
-      >
-        <S.CardBody>
-          <div>
-            <Frequency showTitle={false} word={word} />
-            <S.Meta title={word} description={translate} />
-          </div>
-          <S.CardImage src={`${SERVER_URL}/image/${imageSrc}`} alt={word} />
-        </S.CardBody>
-      </Card>
+      <Link key={id} to={`word/${id}`}>
+        <S.WordCard>
+          <S.CardBody>
+            <div>
+              <S.Meta title={word} description={translate} />
+              <S.FrequencyWrapper>
+                <Frequency showTitle={false} word={word} />
+              </S.FrequencyWrapper>
+            </div>
+            <S.CardImage src={`${SERVER_URL}/image/${imageSrc}`} alt={word} />
+          </S.CardBody>
+        </S.WordCard>
+      </Link>
       <Modal
         title="Add new word"
         footer={null}

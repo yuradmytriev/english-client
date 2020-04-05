@@ -1,8 +1,12 @@
 import styled from 'styled-components';
+import { Typography } from 'antd';
+
+const { Paragraph } = Typography;
 
 export const WordWrapper = styled.div`
   margin: 0 auto;
   margin-bottom: 5rem;
+  max-width: 340px;
 `;
 
 export const Image = styled.img`
@@ -17,8 +21,19 @@ export const Image = styled.img`
 `;
 
 export const WordProperty = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   font-size: 17px;
+`;
+
+export const WordLabel = styled.div`
+  position: relative;
+  margin-top: 20px;
+  &:before {
+    content: '${props => props.title}: ';
+    font-size: 12px;
+    position: absolute;
+    top: -15px;
+  }
 `;
 
 export const MainWordProperty = styled(WordProperty)`
@@ -65,13 +80,23 @@ export const FrequencyWrapper = styled.div`
 `;
 
 export const MoreExamplesWrapper = styled.div`
-  margin-top: 10px;
+  margin-top: 5px;
 `;
 
-export const Definition = styled.span`
-  font-style: italic;
+export const Text = styled(Paragraph)`
+  margin-bottom: 0 !important;
+  display: inline-block;
 `;
 
-export const Example = styled.span`
-  font-style: italic;
+export const WordPronunciationWrapper = styled.div`
+  position: absolute;
+  bottom: 2px;
+  background: white;
+  padding: 5px;
+  padding-bottom: 2px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 0;
+  right: 2px;
+  font-size: 17px;
 `;

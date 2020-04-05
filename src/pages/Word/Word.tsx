@@ -8,7 +8,7 @@ import { MoreExamples } from 'components/MoreExamples';
 import { MoreDefinitions } from 'components/MoreDefinitions';
 import { WordPronunciation } from 'components/WordPronunciation';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
-import { FETCH_WORD_URL } from '../../constants';
+import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../constants';
 import { SERVER_URL } from '../../constants/url';
 import * as S from './styles';
 
@@ -26,6 +26,7 @@ interface IWord {
 export const Word: FC = () => {
   const { id } = useParams();
   const [fetchedWord, setWord] = useState<IWord | null>(null);
+  const [isEditMode, enableEditMode] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
@@ -39,6 +40,16 @@ export const Word: FC = () => {
   if (!fetchedWord) {
     return null;
   }
+
+  const onUpdate = async (type: string, value: string) => {
+    await fetch(`${FETCH_WORDS_LIST_URL}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ [type]: value }),
+    });
+  };
 
   const {
     word,
@@ -59,28 +70,72 @@ export const Word: FC = () => {
           <S.FrequencyWrapper>
             <Frequency showTitle word={word} />
           </S.FrequencyWrapper>
+          <S.WordPronunciationWrapper>
+            <WordPronunciation word={word} />
+          </S.WordPronunciationWrapper>
         </S.ImageWithFrequency>
 
         <S.MainWordProperty>
-          <span>{word}</span>
-          <WordPronunciation word={word} />
+          {isEditMode ? (
+            <S.Text
+              editable={{
+                onChange: (value: string) => onUpdate('word', value),
+              }}
+            >
+              {word}
+            </S.Text>
+          ) : (
+            <span>{word}</span>
+          )}
         </S.MainWordProperty>
 
         <S.TranslateProperty>
-          <span>{translate}</span>
+          {isEditMode ? (
+            <S.Text
+              editable={{
+                onChange: (value: string) => onUpdate('translate', value),
+              }}
+            >
+              {translate}
+            </S.Text>
+          ) : (
+            <span>{translate}</span>
+          )}
         </S.TranslateProperty>
 
         {context && (
           <S.WordProperty>
-            <S.WordTitle>Context: </S.WordTitle>
-            <HighlightedPhrase phrase={context} word={word} />
+            <S.WordLabel title="Context">
+              {isEditMode ? (
+                <S.Text
+                  editable={{
+                    onChange: (value: string) => onUpdate('context', value),
+                  }}
+                >
+                  {context}
+                </S.Text>
+              ) : (
+                <span>{context}</span>
+              )}
+            </S.WordLabel>
           </S.WordProperty>
         )}
 
         {definition && (
           <S.WordProperty>
-            <S.WordTitle>Definition: </S.WordTitle>
-            <S.Definition>{definition}</S.Definition>
+            <S.WordLabel title="Definition">
+              {isEditMode ? (
+                <S.Text
+                  editable={{
+                    onChange: (value: string) => onUpdate('definition', value),
+                  }}
+                >
+                  {definition}
+                </S.Text>
+              ) : (
+                <span>{definition}</span>
+              )}
+            </S.WordLabel>
             <S.MoreExamplesWrapper>
               <MoreDefinitions word={word} />
             </S.MoreExamplesWrapper>
@@ -89,8 +144,19 @@ export const Word: FC = () => {
 
         {example && (
           <S.WordProperty>
-            <S.WordTitle>Example: </S.WordTitle>
-            <HighlightedPhrase phrase={example} word={word} />
+            <S.WordLabel title="Example">
+              {isEditMode ? (
+                <S.Text
+                  editable={{
+                    onChange: (value: string) => onUpdate('example', value),
+                  }}
+                >
+                  {example}
+                </S.Text>
+              ) : (
+                <span>{example}</span>
+              )}
+            </S.WordLabel>
             <S.MoreExamplesWrapper>
               <MoreExamples word={word} />
             </S.MoreExamplesWrapper>
@@ -99,19 +165,29 @@ export const Word: FC = () => {
 
         {synonym && (
           <S.WordProperty>
-            <Suggestion title="synonym" word={synonym} originalWord={word} />
+            <Suggestion
+              isEditMode={isEditMode}
+              title="synonym"
+              word={synonym}
+              originalWord={word}
+            />
           </S.WordProperty>
         )}
 
         {antonym && (
           <S.WordProperty>
-            <Suggestion title="antonym" word={antonym} originalWord={word} />
+            <Suggestion
+              isEditMode={isEditMode}
+              title="antonym"
+              word={antonym}
+              originalWord={word}
+            />
           </S.WordProperty>
         )}
 
         <Video word={word} />
       </S.WordWrapper>
-      <Navigation />
+      <Navigation enableEditMode={enableEditMode} />
     </S.WordPage>
   );
 };

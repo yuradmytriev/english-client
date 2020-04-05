@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { IWord } from 'components/Word/IWord';
 import { Button, Form, Icon, Input, Modal, message } from 'antd';
 import { useToggle } from 'hooks';
+import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
 import { createFormDataBody } from './utils';
 import { FETCH_WORDS_LIST_URL } from '../../constants';
 import { IWordInput } from './IWordInput';
@@ -71,7 +72,8 @@ const AddWord: FC = () => {
         <Icon type="plus" />
       </S.Container>
       <Modal
-        title="Add new word"
+        centered
+        title="New word"
         footer={null}
         visible={visible}
         onCancel={closeAddWordModal}
@@ -83,7 +85,7 @@ const AddWord: FC = () => {
                 key={name}
                 name={name}
                 type={type}
-                placeholder={name}
+                placeholder={firstLetterToUpperCase(name)}
                 onChange={handleChange}
               />
             </S.InputWrapper>

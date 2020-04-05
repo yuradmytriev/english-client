@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-import { colors } from 'constants/colors';
-
-const { grey } = colors;
 
 export const Container = styled.div`
   display: flex;
@@ -19,13 +16,14 @@ export const Container = styled.div`
   height: 50px;
   justify-content: center;
   color: #fff;
-`;
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  transition: 0.5s;
 
-export const Plus = styled.span`
-  font-size: 40px;
-  font-weight: 300;
-  line-height: 1;
-  color: ${grey};
+  &:hover {
+    transform: scale(1.1);
+    background: #0481e6;
+  }
 `;
 
 export const InputWrapper = styled.div`

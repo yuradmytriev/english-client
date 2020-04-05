@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { Col } from 'antd';
 import isEmpty from 'lodash/isEmpty';
 import { IWord } from 'components/Word/IWord';
@@ -7,7 +7,7 @@ import { AddWord } from 'components/AddWord';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import * as S from './styles';
 
-export const Words: React.FC = () => {
+export const Words: FC = () => {
   const { words, fetchWordsList } = useFetchWordsList();
 
   useEffect(() => {
