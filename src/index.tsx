@@ -8,6 +8,6 @@ import App from './App';
 
 const HotLoaderApp = hot(App);
 
-const EntryPoint = NODE_ENV === 'production' ? App : HotLoaderApp;
+const EntryPoint = process.env.NODE_ENV === 'production' ? App : HotLoaderApp;
 
-ReactDOM.render(<EntryPoint />, document.getElementById('root'));
+ReactDOM.render(<HotLoaderApp />, document.getElementById('root'));

@@ -98,7 +98,7 @@ module.exports = {
     ],
   },
   plugins: [htmlPlugin, cleanWebpackPlugin, definePlugin()],
-  mode: 'development',
+  mode: process.env.NODE_ENV,
   devtool: 'inline-source-map',
   devServer: {
     host: '0.0.0.0',
