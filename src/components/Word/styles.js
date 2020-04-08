@@ -51,4 +51,14 @@ export const FrequencyWrapper = styled.div`
 export const IconWrapper = styled.div`
   color: red;
   font-size: 18px;
+  display: inline-block;
+  cursor: pointer;
+`;
+
+export const IconContent = styled.div`
+  color: red;
+  cursor: pointer;
+  & span {
+    margin-left: 5px;
+  }
 `;

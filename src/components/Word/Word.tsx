@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Icon } from 'antd';
+import { Icon, Popover } from 'antd';
 import { Frequency } from 'components/Frequency';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import { FETCH_WORDS_LIST_URL } from '../../constants';
@@ -34,7 +34,18 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
               </S.FrequencyWrapper>
             </Link>
             <S.IconWrapper>
-              <Icon type="delete" onClick={deleteWordCard} />
+              <Popover
+                placement="bottom"
+                content={(
+                  <S.IconContent onClick={deleteWordCard}>
+                    <Icon type="delete" />
+                    <span>Delete</span>
+                  </S.IconContent>
+                )}
+                trigger="click"
+              >
+                <div>. . .</div>
+              </Popover>
             </S.IconWrapper>
           </div>
           <S.CardImage src={imageSrc} alt={word} />
