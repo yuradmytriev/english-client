@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card } from 'antd';
+import { Card, Icon } from 'antd';
 
 const { Meta: AntdMeta } = Card;
 
@@ -46,4 +46,9 @@ export const WordCard = styled(Card)`
 
 export const FrequencyWrapper = styled.div`
   margin-top: 5px;
+`;
+
+export const IconWrapper = styled.div`
+  color: red;
+  font-size: 18px;
 `;

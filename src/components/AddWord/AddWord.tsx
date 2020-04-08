@@ -9,6 +9,7 @@ import { FETCH_WORDS_LIST_URL } from '../../constants';
 import { IWordInput } from './IWordInput';
 import { FileInput } from './FileInput';
 import * as S from './styles';
+import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 
 const inputs: Array<IWordInput> = [
   { name: 'word', type: 'input' },
@@ -31,7 +32,7 @@ const FormItem = ({ type, ...props }: { type: 'input' | 'textarea' }) => {
   return formItemsType[type] || <Input {...props} />;
 };
 
-const fromConfig = closeAddWordModal => ({
+const fromConfig = (closeAddWordModal, fetchWordsList) => ({
   initialValues: {
     word: '',
     translate: '',
@@ -53,6 +54,7 @@ const fromConfig = closeAddWordModal => ({
     if (ok) {
       message.success(statusText);
       closeAddWordModal();
+      fetchWordsList();
     } else {
       message.error(statusText);
     }
@@ -60,10 +62,11 @@ const fromConfig = closeAddWordModal => ({
 });
 
 const AddWord: FC = () => {
+  const { fetchWordsList } = useFetchWordsList();
   const { visible, openAddWordModal, closeAddWordModal } = useToggle();
 
   const { handleSubmit, handleChange, setFieldValue } = useFormik(
-    fromConfig(closeAddWordModal),
+    fromConfig(closeAddWordModal, fetchWordsList),
   );
 
   return (

@@ -66,7 +66,7 @@ export const Word: FC = () => {
     <S.WordPage>
       <S.WordWrapper>
         <S.ImageWithFrequency>
-          <S.Image src={`${SERVER_URL}/image/${imageSrc}`} alt={word} />
+          <S.Image src={imageSrc} alt={word} />
           <S.FrequencyWrapper>
             <Frequency showTitle word={word} />
           </S.FrequencyWrapper>
