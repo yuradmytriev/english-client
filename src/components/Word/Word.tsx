@@ -7,13 +7,13 @@ import { FETCH_WORDS_LIST_URL } from '../../constants';
 import * as S from './styles';
 import { IWord } from './IWord';
 
-export const Word: FC<IWord> = ({
-  id,
-  word,
-  translate,
-  imageSrc,
+export const Word: FC<{ words: IWord[]; showInfo: boolean }> = ({
+  words,
   showInfo,
 }) => {
+  const [showWord] = words;
+  const { id, word, translate, imageSrc } = showWord;
+
   const { fetchWordsList } = useFetchWordsList();
 
   const deleteWordCard = async () => {
@@ -30,7 +30,7 @@ export const Word: FC<IWord> = ({
 
   return (
     <>
-      <Link key={id} to={`word/${id}`}>
+      <Link key={id} to={`word/${word}`}>
         <S.WordCard>
           <S.CardBody>
             <div>

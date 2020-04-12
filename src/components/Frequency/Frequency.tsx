@@ -1,5 +1,6 @@
 import React, { useEffect, useState, FC } from 'react';
 import { Tooltip } from 'antd';
+import get from 'lodash/get';
 import { fetchWordFromRapid } from '../../utils/wordsApiFetch';
 import * as S from './styles';
 
@@ -53,11 +54,10 @@ export const Frequency: FC<{ word: string; showTitle: boolean }> = ({
 
   useEffect(() => {
     (async () => {
-      const {
-        frequency: { zipf },
-      } = await fetchWordFromRapid('frequency', word);
+      const response = await fetchWordFromRapid('frequency', word);
+      const frequency = get(response, 'frequency.zipf', null);
 
-      const frequencyStatus: IFrequencyStatus = getFrequencyStatus(zipf);
+      const frequencyStatus: IFrequencyStatus = getFrequencyStatus(frequency);
 
       setFrequency(frequencyStatus);
     })();

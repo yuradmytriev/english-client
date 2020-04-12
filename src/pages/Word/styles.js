@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Typography } from 'antd';
+import { Icon, Typography } from 'antd';
 
 const { Paragraph } = Typography;
 
@@ -116,4 +116,20 @@ export const ImageUpdate = styled.label`
 
 export const Input = styled.input`
   display: none;
+`;
+
+export const Arrow = styled(Icon)`
+  font-size: 35px;
+  color: ${props => (props.disabled ? '#d6d6d6' : 'grey')};
+  z-index: 1;
+  position: fixed;
+  top: 48%;
+`;
+
+export const ArrowLeft = styled(Arrow)`
+  left: 1rem;
+`;
+
+export const ArrowRight = styled(Arrow)`
+  right: 1rem;
 `;

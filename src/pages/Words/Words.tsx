@@ -1,6 +1,7 @@
 import React, { useEffect, FC, useState } from 'react';
 import { Col, Icon } from 'antd';
 import isEmpty from 'lodash/isEmpty';
+import groupBy from 'lodash/groupBy';
 import { IWord } from 'components/Word/IWord';
 import { Word } from 'components/Word';
 import { AddWord } from 'components/AddWord';
@@ -22,19 +23,27 @@ export const Words: FC = () => {
     setShowInfo(prev => !prev);
   };
 
-  const renderWords = (word: IWord) =>
-    word.word && (
-      <Col key={word.id} xs={24} sm={12} md={8} lg={8} xl={6}>
-        <S.WordContainer>
-          <Word showInfo={showInfo} {...word} />
-        </S.WordContainer>
-      </Col>
+  const renderWords = ([_, words]: [string, IWord[]]) => {
+    const [mainWord]: IWord[] = words;
+    const { id, word } = mainWord;
+    const areSeveralWords: boolean = words.length > 1;
+
+    return (
+      word && (
+        <Col key={id} xs={24} sm={12} md={8} lg={8} xl={6}>
+          <S.WordContainer areSeveralWords={areSeveralWords}>
+            <Word words={words} showInfo={showInfo} />
+          </S.WordContainer>
+        </Col>
+      )
     );
+  };
 
   return (
     <>
       <S.WordWrapper gutter={12}>
-        {!isEmpty(words) && words.map(renderWords)}
+        {!isEmpty(words) &&
+          Object.entries(groupBy(words, 'word')).map(renderWords)}
         <ExportToExelButton />
         <AddWord />
         <S.ToggleTranslate onClick={toggleInfo}>
