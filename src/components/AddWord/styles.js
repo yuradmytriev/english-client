@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Modal } from 'antd';
 
 export const Container = styled.div`
   display: flex;
@@ -33,4 +34,15 @@ export const InputWrapper = styled.div`
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+`;
+
+export const FormModal = styled(Modal)`
+  & .ant-modal-body form:nth-child(2) {
+    margin-top: 15px;
+  }
+
+  & .ant-modal-body > button {
+    margin: 0 auto;
+    display: block;
+  }
 `;

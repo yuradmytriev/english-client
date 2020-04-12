@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useFormik } from 'formik';
 import { IWord } from 'components/Word/IWord';
 import { Button, Form, Icon, Input, Modal, message } from 'antd';
@@ -53,7 +53,6 @@ const fromConfig = (closeAddWordModal, fetchWordsList) => ({
 
     if (ok) {
       message.success(statusText);
-      closeAddWordModal();
       fetchWordsList();
     } else {
       message.error(statusText);
@@ -64,6 +63,7 @@ const fromConfig = (closeAddWordModal, fetchWordsList) => ({
 const AddWord: FC = () => {
   const { fetchWordsList } = useFetchWordsList();
   const { visible, openAddWordModal, closeAddWordModal } = useToggle();
+  const [forms, addForm] = useState([1]);
 
   const { handleSubmit, handleChange, setFieldValue } = useFormik(
     fromConfig(closeAddWordModal, fetchWordsList),
@@ -74,7 +74,7 @@ const AddWord: FC = () => {
       <S.Container onClick={openAddWordModal}>
         <Icon type="plus" />
       </S.Container>
-      <Modal
+      <S.FormModal
         centered
         title="New word"
         footer={null}
@@ -82,26 +82,31 @@ const AddWord: FC = () => {
         visible={visible}
         onCancel={closeAddWordModal}
       >
-        <Form onSubmit={handleSubmit}>
-          {inputs.map(({ name, type }: IWordInput) => (
-            <S.InputWrapper key={name}>
-              <FormItem
-                key={name}
-                name={name}
-                type={type}
-                placeholder={firstLetterToUpperCase(name)}
-                onChange={handleChange}
-              />
-            </S.InputWrapper>
-          ))}
-          <FileInput setFieldValue={setFieldValue} />
-          <S.ButtonWrapper>
-            <Button type="primary" htmlType="submit">
-              Add word
-            </Button>
-          </S.ButtonWrapper>
-        </Form>
-      </Modal>
+        {forms.map(() => (
+          <Form onSubmit={handleSubmit}>
+            {inputs.map(({ name, type }: IWordInput) => (
+              <S.InputWrapper key={name}>
+                <FormItem
+                  key={name}
+                  name={name}
+                  type={type}
+                  placeholder={firstLetterToUpperCase(name)}
+                  onChange={handleChange}
+                />
+              </S.InputWrapper>
+            ))}
+            <FileInput setFieldValue={setFieldValue} />
+            <S.ButtonWrapper>
+              <Button type="primary" htmlType="submit">
+                Add word
+              </Button>
+            </S.ButtonWrapper>
+          </Form>
+        ))}
+        <Button onClick={() => addForm(prev => [...prev, 1])}>
+          Append new word
+        </Button>
+      </S.FormModal>
     </>
   );
 };

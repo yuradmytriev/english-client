@@ -117,7 +117,8 @@ export const Word: FC = () => {
                     {isEditMode ? (
                       <S.Text
                         editable={{
-                          onChange: (value: string) => onUpdate('word', value),
+                          onChange: (value: string) =>
+                            onUpdate('word', value, id),
                         }}
                       >
                         {word}
@@ -142,14 +143,14 @@ export const Word: FC = () => {
                     )}
                   </S.TranslateProperty>
 
-                  {context && (
+                  {(context || isEditMode) && (
                     <S.WordProperty>
                       <S.WordLabel title="Context">
                         {isEditMode ? (
                           <S.Text
                             editable={{
                               onChange: (value: string) =>
-                                onUpdate('context', value),
+                                onUpdate('context', value, id),
                             }}
                           >
                             {context}
@@ -161,14 +162,14 @@ export const Word: FC = () => {
                     </S.WordProperty>
                   )}
 
-                  {definition && (
+                  {(definition || isEditMode) && (
                     <S.WordProperty>
                       <S.WordLabel title="Definition">
                         {isEditMode ? (
                           <S.Text
                             editable={{
                               onChange: (value: string) =>
-                                onUpdate('definition', value),
+                                onUpdate('definition', value, id),
                             }}
                           >
                             {definition}
@@ -183,14 +184,14 @@ export const Word: FC = () => {
                     </S.WordProperty>
                   )}
 
-                  {example && (
+                  {(example || isEditMode) && (
                     <S.WordProperty>
                       <S.WordLabel title="Example">
                         {isEditMode ? (
                           <S.Text
                             editable={{
                               onChange: (value: string) =>
-                                onUpdate('example', value),
+                                onUpdate('example', value, id),
                             }}
                           >
                             {example}
@@ -205,23 +206,23 @@ export const Word: FC = () => {
                     </S.WordProperty>
                   )}
 
-                  {synonym && (
+                  {(synonym || isEditMode) && (
                     <S.WordProperty>
                       <Suggestion
                         isEditMode={isEditMode}
                         title="synonym"
-                        word={synonym}
+                        word={synonym || isEditMode}
                         originalWord={word}
                       />
                     </S.WordProperty>
                   )}
 
-                  {antonym && (
+                  {(antonym || isEditMode) && (
                     <S.WordProperty>
                       <Suggestion
                         isEditMode={isEditMode}
                         title="antonym"
-                        word={antonym}
+                        word={antonym || isEditMode}
                         originalWord={word}
                       />
                     </S.WordProperty>
