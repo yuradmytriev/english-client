@@ -1,4 +1,4 @@
-import React, { useEffect, FC, useState } from 'react';
+import React, { useEffect, FC, useState, ChangeEvent } from 'react';
 import { useParams } from 'react-router-dom';
 import { Video } from 'components/Video';
 import { Frequency } from 'components/Frequency';
@@ -9,7 +9,6 @@ import { MoreDefinitions } from 'components/MoreDefinitions';
 import { WordPronunciation } from 'components/WordPronunciation';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
 import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../constants';
-import { SERVER_URL } from '../../constants/url';
 import * as S from './styles';
 
 interface IWord {
@@ -22,6 +21,32 @@ interface IWord {
   antonym?: string;
   imageSrc: string;
 }
+
+const ImageUpdate: FC<IFileInput> = ({ id }) => {
+  const setFileToForm = (inputData: ChangeEvent<HTMLInputElement>): void => {
+    const formData: FormData = new FormData();
+    formData.append('imageSrc', inputData.target.files[0]);
+
+    fetch(`${FETCH_WORDS_LIST_URL}/${id}`, {
+      method: 'PUT',
+      body: formData,
+    });
+  };
+
+  return (
+    <>
+      <S.Input
+        type="file"
+        id="imageSrc"
+        name="imageSrc"
+        onChange={setFileToForm}
+      />
+      <S.ImageUpdate htmlFor="imageSrc">
+        <span>Update image</span>
+      </S.ImageUpdate>
+    </>
+  );
+};
 
 export const Word: FC = () => {
   const { id } = useParams();
@@ -67,6 +92,7 @@ export const Word: FC = () => {
       <S.WordWrapper>
         <S.ImageWithFrequency>
           <S.Image src={imageSrc} alt={word} />
+          {isEditMode && <ImageUpdate id={id} />}
           <S.FrequencyWrapper>
             <Frequency showTitle word={word} />
           </S.FrequencyWrapper>

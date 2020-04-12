@@ -78,6 +78,7 @@ const AddWord: FC = () => {
         centered
         title="New word"
         footer={null}
+        destroyOnClose
         visible={visible}
         onCancel={closeAddWordModal}
       >

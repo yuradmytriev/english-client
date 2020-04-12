@@ -7,7 +7,13 @@ import { FETCH_WORDS_LIST_URL } from '../../constants';
 import * as S from './styles';
 import { IWord } from './IWord';
 
-export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
+export const Word: FC<IWord> = ({
+  id,
+  word,
+  translate,
+  imageSrc,
+  showInfo,
+}) => {
   const { fetchWordsList } = useFetchWordsList();
 
   const deleteWordCard = async () => {
@@ -24,33 +30,33 @@ export const Word: FC<IWord> = ({ id, word, translate, imageSrc }) => {
 
   return (
     <>
-      <S.WordCard>
-        <S.CardBody>
-          <div>
-            <Link key={id} to={`word/${id}`}>
-              <S.Meta title={word} description={translate} />
+      <Link key={id} to={`word/${id}`}>
+        <S.WordCard>
+          <S.CardBody>
+            <div>
+              <S.Meta title={word} description={showInfo ? translate : null} />
               <S.FrequencyWrapper>
                 <Frequency showTitle={false} word={word} />
               </S.FrequencyWrapper>
-            </Link>
-            <S.IconWrapper>
-              <Popover
-                placement="bottom"
-                content={(
-                  <S.IconContent onClick={deleteWordCard}>
-                    <Icon type="delete" />
-                    <span>Delete</span>
-                  </S.IconContent>
-                )}
-                trigger="click"
-              >
-                <div>. . .</div>
-              </Popover>
-            </S.IconWrapper>
-          </div>
-          <S.CardImage src={imageSrc} alt={word} />
-        </S.CardBody>
-      </S.WordCard>
+              <S.IconWrapper>
+                <Popover
+                  placement="bottom"
+                  content={(
+                    <S.IconContent onClick={deleteWordCard}>
+                      <Icon type="delete" />
+                      <span>Delete</span>
+                    </S.IconContent>
+                  )}
+                  trigger="click"
+                >
+                  <div>. . .</div>
+                </Popover>
+              </S.IconWrapper>
+            </div>
+            {showInfo && <S.CardImage img={imageSrc} alt={word} />}
+          </S.CardBody>
+        </S.WordCard>
+      </Link>
     </>
   );
 };

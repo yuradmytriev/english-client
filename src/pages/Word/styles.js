@@ -100,3 +100,20 @@ export const WordPronunciationWrapper = styled.div`
   right: 2px;
   font-size: 17px;
 `;
+
+export const ImageUpdate = styled.label`
+  position: absolute;
+  top: 0;
+  background: #00000080;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+`;
+
+export const Input = styled.input`
+  display: none;
+`;
