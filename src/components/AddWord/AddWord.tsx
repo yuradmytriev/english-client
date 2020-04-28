@@ -1,11 +1,11 @@
 import React, { FC, useState } from 'react';
 import { useFormik } from 'formik';
 import { IWord } from 'components/Word/IWord';
-import { Button, Form, Icon, Input, Modal, message } from 'antd';
+import { Button, Form, Icon, Input, message, Modal } from 'antd';
 import { useToggle } from 'hooks';
 import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
 import { createFormDataBody } from './utils';
-import { FETCH_WORDS_LIST_URL } from '../../constants';
+import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../constants';
 import { IWordInput } from './IWordInput';
 import { FileInput } from './FileInput';
 import * as S from './styles';
@@ -21,6 +21,8 @@ const inputs: Array<IWordInput> = [
   { name: 'antonym', type: 'input' },
 ];
 
+const { confirm } = Modal;
+
 const FormItem = ({ type, ...props }: { type: 'input' | 'textarea' }) => {
   const { TextArea } = Input;
 
@@ -30,6 +32,25 @@ const FormItem = ({ type, ...props }: { type: 'input' | 'textarea' }) => {
   };
 
   return formItemsType[type] || <Input {...props} />;
+};
+
+const appendWord = async (
+  values: IWord,
+  fetchWordsList: any,
+): Promise<void> => {
+  const formDataBody: FormData = createFormDataBody(values);
+
+  const { ok, statusText } = await fetch(FETCH_WORDS_LIST_URL, {
+    method: 'POST',
+    body: formDataBody,
+  });
+
+  if (ok) {
+    message.success(statusText);
+    fetchWordsList();
+  } else {
+    message.error(statusText);
+  }
 };
 
 const fromConfig = (closeAddWordModal, fetchWordsList) => ({
@@ -44,18 +65,23 @@ const fromConfig = (closeAddWordModal, fetchWordsList) => ({
     imageSrc: '',
   },
   onSubmit: async (values: IWord) => {
-    const formDataBody: FormData = createFormDataBody(values);
+    const checkWordURL: string = `${FETCH_WORD_URL}/by-text/${values.word}`;
+    const response = await fetch(checkWordURL);
+    const words: IWord[] = await response.json();
+    const isWordExists: boolean = !!words.length;
 
-    const { ok, statusText } = await fetch(FETCH_WORDS_LIST_URL, {
-      method: 'POST',
-      body: formDataBody,
-    });
+    if (isWordExists) {
+      const [word] = words;
 
-    if (ok) {
-      message.success(statusText);
-      fetchWordsList();
+      confirm({
+        title: `This word is already exists - ${word.word}`,
+        content: 'Are you sure that you want to add it?',
+        onOk() {
+          appendWord(values, fetchWordsList);
+        },
+      });
     } else {
-      message.error(statusText);
+      await appendWord(values, fetchWordsList);
     }
   },
 });
