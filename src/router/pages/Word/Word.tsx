@@ -9,45 +9,10 @@ import { MoreExamples } from 'components/MoreExamples';
 import { MoreDefinitions } from 'components/MoreDefinitions';
 import { WordPronunciation } from 'components/WordPronunciation';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
-import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../constants';
+import { IWord } from 'interfaces/IWord';
+import { UpdateImage } from './UpdateImage';
+import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../../constants';
 import * as S from './styles';
-
-interface IWord {
-  word: string;
-  translate: string;
-  definition?: string;
-  context?: string;
-  example?: string;
-  synonym?: string;
-  antonym?: string;
-  imageSrc: string;
-}
-
-const ImageUpdate: FC<IFileInput> = ({ id }) => {
-  const setFileToForm = (inputData: ChangeEvent<HTMLInputElement>): void => {
-    const formData: FormData = new FormData();
-    formData.append('imageSrc', inputData.target.files[0]);
-
-    fetch(`${FETCH_WORDS_LIST_URL}/${id}`, {
-      method: 'PUT',
-      body: formData,
-    });
-  };
-
-  return (
-    <>
-      <S.Input
-        type="file"
-        id="imageSrc"
-        name="imageSrc"
-        onChange={setFileToForm}
-      />
-      <S.ImageUpdate htmlFor="imageSrc">
-        <span>Update image</span>
-      </S.ImageUpdate>
-    </>
-  );
-};
 
 export const Word: FC = () => {
   const { wordName } = useParams();
@@ -104,7 +69,7 @@ export const Word: FC = () => {
                 <S.WordWrapper>
                   <S.ImageWithFrequency>
                     <S.Image src={imageSrc} alt={word} />
-                    {isEditMode && <ImageUpdate id={id} />}
+                    {isEditMode && <UpdateImage wordId={id} />}
                     <S.FrequencyWrapper>
                       <Frequency showTitle word={word} />
                     </S.FrequencyWrapper>

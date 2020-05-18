@@ -15,9 +15,7 @@
     "jsx": "react",
     "isolatedModules": true,
     "baseUrl": "./src",
-    "diagnostics": true,
+    "diagnostics": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

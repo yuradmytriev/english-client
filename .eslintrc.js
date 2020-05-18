@@ -123,7 +123,7 @@ module.exports = {
     'no-useless-catch': 'error',
     'no-useless-concat': 'error', // prevent this '1' + '0'
     'no-useless-return': 'error', // prevent empty return
-    'no-warning-comments': 'error',
+    'no-warning-comments': 0,
     'no-with': 'error',
     'prefer-promise-reject-errors': 'error', // promise should be rejected with new Error
     radix: 'error', // always use parseInt("071", 10)

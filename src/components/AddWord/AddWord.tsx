@@ -1,15 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useFormik } from 'formik';
-import { IWord } from 'components/Word/IWord';
 import { Button, Form, Icon, Input, message, Modal } from 'antd';
 import { useToggle } from 'hooks';
+import { IWord } from 'components/Word/IWord';
+import { jsonFetch } from 'utils/jsonFetch';
 import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
+import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import { createFormDataBody } from './utils';
+import { useForms } from './useForms';
 import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../constants';
 import { IWordInput } from './IWordInput';
 import { FileInput } from './FileInput';
 import * as S from './styles';
-import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 
 const inputs: Array<IWordInput> = [
   { name: 'word', type: 'input' },
@@ -36,7 +38,7 @@ const FormItem = ({ type, ...props }: { type: 'input' | 'textarea' }) => {
 
 const appendWord = async (
   values: IWord,
-  fetchWordsList: any,
+  fetchWordsList: Function,
 ): Promise<void> => {
   const formDataBody: FormData = createFormDataBody(values);
 
@@ -53,7 +55,21 @@ const appendWord = async (
   }
 };
 
-const fromConfig = (closeAddWordModal, fetchWordsList) => ({
+// TODO: create single function
+const fetchSameWords = async (values: IWord): Promise<IWord[]> => {
+  const checkWordURL: string = `${FETCH_WORD_URL}/by-text/${values.word}`;
+  const response = await fetch(checkWordURL);
+
+  return response.json();
+};
+
+const fetchSimilarWords = (values: IWord): Promise<IWord[]> => {
+  const checkSimilarWordURL: string = `${FETCH_WORD_URL}/similar/${values.word}`;
+
+  return jsonFetch(checkSimilarWordURL);
+};
+
+const fromConfig = (closeAddWordModal: Function, fetchWordsList: Function) => ({
   initialValues: {
     word: '',
     translate: '',
@@ -65,16 +81,24 @@ const fromConfig = (closeAddWordModal, fetchWordsList) => ({
     imageSrc: '',
   },
   onSubmit: async (values: IWord) => {
-    const checkWordURL: string = `${FETCH_WORD_URL}/by-text/${values.word}`;
-    const response = await fetch(checkWordURL);
-    const words: IWord[] = await response.json();
-    const isWordExists: boolean = !!words.length;
+    const sameWords: IWord[] = await fetchSameWords(values);
+    const similarWords: IWord[] = await fetchSimilarWords(values);
 
-    if (isWordExists) {
-      const [word] = words;
+    if (sameWords.length) {
+      const [sameWord] = sameWords;
 
       confirm({
-        title: `This word is already exists - ${word.word}`,
+        title: `This word is already exists - ${sameWord.word}`,
+        content: 'Are you sure that you want to add it?',
+        onOk() {
+          appendWord(values, fetchWordsList);
+        },
+      });
+    } else if (similarWords.length) {
+      const [similarWord] = similarWords;
+
+      confirm({
+        title: `You have similar word - ${similarWord.word}`,
         content: 'Are you sure that you want to add it?',
         onOk() {
           appendWord(values, fetchWordsList);
@@ -87,9 +111,9 @@ const fromConfig = (closeAddWordModal, fetchWordsList) => ({
 });
 
 const AddWord: FC = () => {
+  const [forms, appendForm] = useForms();
   const { fetchWordsList } = useFetchWordsList();
   const { visible, openAddWordModal, closeAddWordModal } = useToggle();
-  const [forms, addForm] = useState([1]);
 
   const { handleSubmit, handleChange, setFieldValue } = useFormik(
     fromConfig(closeAddWordModal, fetchWordsList),
@@ -108,8 +132,8 @@ const AddWord: FC = () => {
         visible={visible}
         onCancel={closeAddWordModal}
       >
-        {forms.map(() => (
-          <Form onSubmit={handleSubmit}>
+        {forms.map(id => (
+          <Form key={id} onSubmit={handleSubmit}>
             {inputs.map(({ name, type }: IWordInput) => (
               <S.InputWrapper key={name}>
                 <FormItem
@@ -129,9 +153,7 @@ const AddWord: FC = () => {
             </S.ButtonWrapper>
           </Form>
         ))}
-        <Button onClick={() => addForm(prev => [...prev, 1])}>
-          Append new word
-        </Button>
+        <Button onClick={appendForm}>Append new word</Button>
       </S.FormModal>
     </>
   );

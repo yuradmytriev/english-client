@@ -27,7 +27,7 @@ export const Word: FC<{ words: IWord[]; showInfo: boolean }> = ({
       fetchWordsList();
     }
   };
-
+  // TODO: resolve issue with frequency requests
   return (
     <>
       <Link key={id} to={`word/${word}`}>
@@ -35,9 +35,9 @@ export const Word: FC<{ words: IWord[]; showInfo: boolean }> = ({
           <S.CardBody>
             <div>
               <S.Meta title={word} description={showInfo ? translate : null} />
-              <S.FrequencyWrapper>
-                <Frequency showTitle={false} word={word} />
-              </S.FrequencyWrapper>
+              {/* <S.FrequencyWrapper> */}
+              {/*  <Frequency showTitle={false} word={word} /> */}
+              {/* </S.FrequencyWrapper> */}
               <S.IconWrapper>
                 <Popover
                   placement="bottom"

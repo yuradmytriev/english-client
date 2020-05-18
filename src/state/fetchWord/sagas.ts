@@ -1,8 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { IWord } from 'components/Word/IWord';
-
+import { IWord } from 'interfaces/IWord';
 import { FETCH_WORD_URL } from '../../constants';
-
 import { fetchWordAction } from './actions';
 import { START_WORD_FETCHING } from './types';
 

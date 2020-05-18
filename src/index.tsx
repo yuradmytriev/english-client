@@ -6,8 +6,9 @@ import './style.css';
 
 import App from './App';
 
-const HotLoaderApp = hot(App);
+const HotLoaderApp: React.ComponentType<any> = hot(App);
 
-const EntryPoint = process.env.NODE_ENV === 'production' ? App : HotLoaderApp;
+const EntryPoint: React.ComponentType<any> =
+  process.env.NODE_ENV === 'production' ? App : HotLoaderApp;
 
 ReactDOM.render(<HotLoaderApp />, document.getElementById('root'));
