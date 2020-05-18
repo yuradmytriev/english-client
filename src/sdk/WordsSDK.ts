@@ -6,7 +6,7 @@ const ERROR: { UPLOAD_IMAGE: string } = {
 };
 
 export class WordsSDK {
-  static update({ wordId, body }: { wordId: string; body: FormData }): void {
+  static update({ wordId, body }: { wordId: number; body: FormData }): void {
     const updateWordsURL: string = `${FETCH_WORDS_LIST_URL}/${wordId}`;
 
     fetch(updateWordsURL, {

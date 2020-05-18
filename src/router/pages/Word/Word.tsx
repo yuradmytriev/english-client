@@ -1,7 +1,6 @@
-import React, { useEffect, FC, useState, ChangeEvent } from 'react';
-import { useParams } from 'react-router-dom';
-import { Carousel } from 'antd';
+import React, { FC, useState } from 'react';
 import { Video } from 'components/Video';
+import { Carousel } from 'components/Carousel';
 import { Frequency } from 'components/Frequency';
 import { Navigation } from 'components/Navigation';
 import { Suggestion } from 'components/Suggestion';
@@ -9,28 +8,18 @@ import { MoreExamples } from 'components/MoreExamples';
 import { MoreDefinitions } from 'components/MoreDefinitions';
 import { WordPronunciation } from 'components/WordPronunciation';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
+import { useFetchWordHook } from './useFetchWordHook';
 import { IWord } from 'interfaces/IWord';
 import { UpdateImage } from './UpdateImage';
-import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../../constants';
+import { FETCH_WORDS_LIST_URL } from '../../../constants';
 import * as S from './styles';
 
 export const Word: FC = () => {
-  const { wordName } = useParams();
-  const ref = React.useRef();
-
-  const [fetchedWord, setWord] = useState<IWord | null>(null);
   const [isEditMode, enableEditMode] = useState<boolean>(false);
 
-  useEffect(() => {
-    (async () => {
-      const response = await fetch(`${FETCH_WORD_URL}/by-text/${wordName}`);
-      const word: IWord = await response.json();
+  const { word }: { word: IWord[] | null } = useFetchWordHook();
 
-      setWord(word);
-    })();
-  }, []);
-
-  if (!fetchedWord) {
+  if (!word) {
     return null;
   }
 
@@ -44,15 +33,137 @@ export const Word: FC = () => {
     });
   };
 
-  return fetchedWord ? (
+  const renderWord = ({ id, word }: Pick<IWord, 'id' | 'word'>) => (
     <>
-      <S.ArrowLeft
-        disabled={false}
-        type="left"
-        onClick={() => ref.current.prev()}
-      />
-      <Carousel ref={ref}>
-        {fetchedWord.map(
+      <S.MainWordProperty>
+        {isEditMode ? (
+          <S.Text
+            editable={{
+              onChange: (value: string) => onUpdate('word', value, id),
+            }}
+          >
+            {word}
+          </S.Text>
+        ) : (
+          <span>{word}</span>
+        )}
+      </S.MainWordProperty>
+    </>
+  );
+
+  const renderTranslate = ({
+    id,
+    translate,
+  }: Pick<IWord, 'id' | 'translate'>) => (
+    <S.TranslateProperty>
+      {isEditMode ? (
+        <S.Text
+          editable={{
+            onChange: (value: string) => onUpdate('translate', value, id),
+          }}
+        >
+          {translate}
+        </S.Text>
+      ) : (
+        <span>{translate}</span>
+      )}
+    </S.TranslateProperty>
+  );
+
+  const renderContext = ({
+    id,
+    context,
+    word,
+  }: Pick<IWord, 'id' | 'context' | 'word'>) =>
+    (context || isEditMode) && (
+      <S.WordProperty>
+        <S.WordLabel title="Context">
+          {isEditMode ? (
+            <S.Text
+              editable={{
+                onChange: (value: string) => onUpdate('context', value, id),
+              }}
+            >
+              {context}
+            </S.Text>
+          ) : (
+            <HighlightedPhrase phrase={context} word={word} />
+          )}
+        </S.WordLabel>
+      </S.WordProperty>
+    );
+
+  const renderDefinition = ({
+    id,
+    definition,
+    word,
+  }: Pick<IWord, 'id' | 'definition' | 'word'>) =>
+    (definition || isEditMode) && (
+      <S.WordProperty>
+        <S.WordLabel title="Definition">
+          {isEditMode ? (
+            <S.Text
+              editable={{
+                onChange: (value: string) => onUpdate('definition', value, id),
+              }}
+            >
+              {definition}
+            </S.Text>
+          ) : (
+            <span>{definition}</span>
+          )}
+        </S.WordLabel>
+        <S.MoreExamplesWrapper>
+          <MoreDefinitions word={word} />
+        </S.MoreExamplesWrapper>
+      </S.WordProperty>
+    );
+
+  const renderExample = ({
+    id,
+    example,
+    word,
+  }: Pick<IWord, 'id' | 'example' | 'word'>) =>
+    (example || isEditMode) && (
+      <S.WordProperty>
+        <S.WordLabel title="Example">
+          {isEditMode ? (
+            <S.Text
+              editable={{
+                onChange: (value: string) => onUpdate('example', value, id),
+              }}
+            >
+              {example}
+            </S.Text>
+          ) : (
+            <HighlightedPhrase phrase={example} word={word} />
+          )}
+        </S.WordLabel>
+        <S.MoreExamplesWrapper>
+          <MoreExamples word={word} />
+        </S.MoreExamplesWrapper>
+      </S.WordProperty>
+    );
+
+  const renderSynonym = ({
+    synonym,
+    word,
+  }: Pick<IWord, 'synonym' | 'word'>) =>
+    (synonym || isEditMode) && (
+      <S.WordProperty>
+        <Suggestion
+          isEditMode={isEditMode}
+          title="synonym"
+          word={synonym || isEditMode}
+          originalWord={word}
+        />
+      </S.WordProperty>
+    );
+
+  return (
+    <>
+      <Carousel>
+        {word.map(
           ({
             id,
             word,
@@ -61,7 +172,6 @@ export const Word: FC = () => {
             context,
             example,
             synonym,
-            antonym,
             imageSrc,
           }) => (
             <div key={id}>
@@ -69,7 +179,7 @@ export const Word: FC = () => {
                 <S.WordWrapper>
                   <S.ImageWithFrequency>
                     <S.Image src={imageSrc} alt={word} />
-                    {isEditMode && <UpdateImage wordId={id} />}
+                    {isEditMode && <UpdateImage id={id} />}
                     <S.FrequencyWrapper>
                       <Frequency showTitle word={word} />
                     </S.FrequencyWrapper>
@@ -78,120 +188,12 @@ export const Word: FC = () => {
                     </S.WordPronunciationWrapper>
                   </S.ImageWithFrequency>
 
-                  <S.MainWordProperty>
-                    {isEditMode ? (
-                      <S.Text
-                        editable={{
-                          onChange: (value: string) =>
-                            onUpdate('word', value, id),
-                        }}
-                      >
-                        {word}
-                      </S.Text>
-                    ) : (
-                      <span>{word}</span>
-                    )}
-                  </S.MainWordProperty>
-
-                  <S.TranslateProperty>
-                    {isEditMode ? (
-                      <S.Text
-                        editable={{
-                          onChange: (value: string) =>
-                            onUpdate('translate', value, id),
-                        }}
-                      >
-                        {translate}
-                      </S.Text>
-                    ) : (
-                      <span>{translate}</span>
-                    )}
-                  </S.TranslateProperty>
-
-                  {(context || isEditMode) && (
-                    <S.WordProperty>
-                      <S.WordLabel title="Context">
-                        {isEditMode ? (
-                          <S.Text
-                            editable={{
-                              onChange: (value: string) =>
-                                onUpdate('context', value, id),
-                            }}
-                          >
-                            {context}
-                          </S.Text>
-                        ) : (
-                          <HighlightedPhrase phrase={context} word={word} />
-                        )}
-                      </S.WordLabel>
-                    </S.WordProperty>
-                  )}
-
-                  {(definition || isEditMode) && (
-                    <S.WordProperty>
-                      <S.WordLabel title="Definition">
-                        {isEditMode ? (
-                          <S.Text
-                            editable={{
-                              onChange: (value: string) =>
-                                onUpdate('definition', value, id),
-                            }}
-                          >
-                            {definition}
-                          </S.Text>
-                        ) : (
-                          <span>{definition}</span>
-                        )}
-                      </S.WordLabel>
-                      <S.MoreExamplesWrapper>
-                        <MoreDefinitions word={word} />
-                      </S.MoreExamplesWrapper>
-                    </S.WordProperty>
-                  )}
-
-                  {(example || isEditMode) && (
-                    <S.WordProperty>
-                      <S.WordLabel title="Example">
-                        {isEditMode ? (
-                          <S.Text
-                            editable={{
-                              onChange: (value: string) =>
-                                onUpdate('example', value, id),
-                            }}
-                          >
-                            {example}
-                          </S.Text>
-                        ) : (
-                          <HighlightedPhrase phrase={example} word={word} />
-                        )}
-                      </S.WordLabel>
-                      <S.MoreExamplesWrapper>
-                        <MoreExamples word={word} />
-                      </S.MoreExamplesWrapper>
-                    </S.WordProperty>
-                  )}
-
-                  {(synonym || isEditMode) && (
-                    <S.WordProperty>
-                      <Suggestion
-                        isEditMode={isEditMode}
-                        title="synonym"
-                        word={synonym || isEditMode}
-                        originalWord={word}
-                      />
-                    </S.WordProperty>
-                  )}
-
-                  {(antonym || isEditMode) && (
-                    <S.WordProperty>
-                      <Suggestion
-                        isEditMode={isEditMode}
-                        title="antonym"
-                        word={antonym || isEditMode}
-                        originalWord={word}
-                      />
-                    </S.WordProperty>
-                  )}
+                  {renderWord({ id, word })}
+                  {renderTranslate({ id, translate })}
+                  {renderContext({ id, context, word })}
+                  {renderDefinition({ id, definition, word })}
+                  {renderExample({ id, example, word })}
+                  {renderSynonym({ synonym, word })}
 
                   <Video word={word} />
                 </S.WordWrapper>
@@ -200,12 +202,7 @@ export const Word: FC = () => {
           ),
         )}
       </Carousel>
-      <S.ArrowRight
-        disabled={false}
-        type="right"
-        onClick={() => ref.current.next()}
-      />
       <Navigation enableEditMode={enableEditMode} />
     </>
-  ) : null;
+  );
 };

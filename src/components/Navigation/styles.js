@@ -12,3 +12,7 @@ export const NavigationContainer = styled.div`
   justify-content: space-between;
   font-size: 17px;
 `;
+
+export const Button = styled.button`
+  border: 0;
+`;
