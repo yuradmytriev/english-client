@@ -1,18 +1,24 @@
-import React, { useEffect, useState, FC } from 'react';
-import isEmpty from 'lodash/isEmpty';
+import React, { FC } from 'react';
 import { Tag } from 'antd';
-import pluralize from 'pluralize';
+import isEmpty from 'lodash/isEmpty';
 import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
-import { fetchWordFromRapid } from 'utils/wordsApiFetch';
+import { WordsSDK } from 'sdk/WordsSDK';
+import { ISuggestion } from './ISuggestion';
+import { useFetchRapidWord } from './useFetchRapidWord';
+import { useToggle } from 'hooks/useToggle';
+import { ifElse } from 'utils/ifElse';
 import * as S from './styles';
-import { useToggle } from '../../hooks';
-import { FETCH_WORDS_LIST_URL } from '../../constants';
-import { useParams } from 'react-router-dom';
 
 const { CheckableTag } = Tag;
 
-const SuggestionsList: FC<{ words: Array<string> }> = ({ words }): any =>
-  !isEmpty(words) && (
+const SuggestionsList: FC<{ words: ReadonlyArray<string> }> = ({
+  words,
+}): JSX.Element | null => {
+  if (isEmpty(words)) {
+    return null;
+  }
+
+  return (
     <div>
       {words.map(word => (
         <CheckableTag checked key={word}>
@@ -21,63 +27,51 @@ const SuggestionsList: FC<{ words: Array<string> }> = ({ words }): any =>
       ))}
     </div>
   );
+};
 
-export const Suggestion: FC<{
-  title: string;
-  word: string;
-  originalWord: string;
-  isEditMode: boolean;
-}> = ({ title, word, originalWord, isEditMode }) => {
-  const { id } = useParams();
-  const [synonyms, setWord] = useState([]);
+export const Suggestion: FC<ISuggestion> = ({
+  id,
+  type,
+  word,
+  originalWord,
+  isEditMode,
+}): JSX.Element | null => {
   const { visible, toggleVisible } = useToggle();
+  const [synonyms] = useFetchRapidWord({
+    type,
+    word,
+    originalWord,
+  });
 
-  const handleClick = async () => {
-    toggleVisible(prev => !prev);
+  if (!word) {
+    return null;
+  }
+
+  const onUpdate = (value: string): void => {
+    const body: string = JSON.stringify({ [type]: value });
+
+    WordsSDK.updateJSON({ wordId: id, body });
   };
 
-  useEffect(() => {
-    (async () => {
-      const data = await fetchWordFromRapid(
-        pluralize(title),
-        word || originalWord,
-      );
+  const toggleSuggestions = (): void => toggleVisible(prev => !prev);
 
-      setWord(data[pluralize(title)]);
-    })();
-  }, []);
+  const areSynonymsExist = synonyms?.length;
 
-  const onUpdate = async (type: string, value: string) => {
-    await fetch(`${FETCH_WORDS_LIST_URL}/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ [type]: value }),
-    });
-  };
-
-  return word ? (
+  return (
     <div>
-      <S.WordLabel title={firstLetterToUpperCase(title)}>
-        {isEditMode ? (
-          <S.Text
-            editable={{ onChange: (value: string) => onUpdate(title, value) }}
-          >
-            {word}
-          </S.Text>
-        ) : (
-          <span>{word}</span>
+      <S.WordLabel title={firstLetterToUpperCase(type)}>
+        {ifElse(
+          isEditMode,
+          <S.Text editable={{ onChange: onUpdate }}>{word}</S.Text>,
+          <span>{word}</span>,
         )}
       </S.WordLabel>
-      {synonyms && Boolean(synonyms.length) && (
-        <S.MoreSynonymsButton type="primary" onClick={handleClick}>
+      {areSynonymsExist && (
+        <S.MoreSynonymsButton type="primary" onClick={toggleSuggestions}>
           See more
         </S.MoreSynonymsButton>
       )}
-      {visible && synonyms && Boolean(synonyms.length) && (
-        <SuggestionsList words={synonyms} />
-      )}
+      {visible && areSynonymsExist && <SuggestionsList words={synonyms} />}
     </div>
-  ) : null;
+  );
 };

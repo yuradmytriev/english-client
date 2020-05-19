@@ -25,4 +25,27 @@ export class WordsSDK {
         message.error(ERROR.UPLOAD_IMAGE);
       });
   }
+
+  static updateJSON({ wordId, body }: { wordId: number; body: string }): void {
+    const updateWordsURL: string = `${FETCH_WORDS_LIST_URL}/${wordId}`;
+
+    fetch(updateWordsURL, {
+      body,
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(data => data.json())
+      .then(res => {
+        if (res.id) {
+          message.success('Updated successfully');
+        }
+
+        return res;
+      })
+      .catch(() => {
+        message.error(ERROR.UPLOAD_IMAGE);
+      });
+  }
 }

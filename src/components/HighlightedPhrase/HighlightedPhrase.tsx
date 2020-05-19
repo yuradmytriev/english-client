@@ -3,7 +3,7 @@ import * as S from './styles';
 
 interface HighlightedPhraseProps {
   word: string;
-  phrase: string;
+  phrase?: string;
 }
 
 export const HighlightedPhrase: FC<HighlightedPhraseProps> = ({
@@ -12,7 +12,7 @@ export const HighlightedPhrase: FC<HighlightedPhraseProps> = ({
 }) => (
   <S.HighlightedPhrase
     dangerouslySetInnerHTML={{
-      __html: phrase.replace(word, `<span>${word}</span>`),
+      __html: phrase?.replace(word, `<span>${word}</span>`),
     }}
   />
 );
