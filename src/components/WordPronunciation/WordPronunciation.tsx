@@ -1,16 +1,11 @@
 import React, { FC } from 'react';
+import { IWord } from 'interfaces/IWord';
 import * as S from './styles';
 
-export const WordPronunciation: FC<{ word: string }> = ({ word }) => {
-  const handleClick = (word: string): void => {
+export const WordPronunciation: FC<Pick<IWord, 'word'>> = ({ word }): JSX.Element => {
+  const handleClick = (): void => {
     window.responsiveVoice.speak(word);
   };
 
-  return (
-    <S.Icon
-      style={{ color: '#008dff' }}
-      type="sound"
-      onClick={() => handleClick(word)}
-    />
-  );
+  return <S.Icon type="sound" onClick={handleClick} />;
 };

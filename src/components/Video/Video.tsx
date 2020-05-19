@@ -71,23 +71,25 @@ export const Video: FC<Pick<IWord, 'word'>> = ({ word }) => {
 
   return (
     <S.VideoBackground>
-      <S.VideoWrapper>
-        <S.Arrow
-          type="left"
-          onClick={slideToPreviousVideo}
-          disabled={isPreviousVideoExists}
-        />
-        <S.VideoContainer>
-          <S.Video src={videoURL} controls />
-        </S.VideoContainer>
+      <div>
+        <S.VideoWrapper>
+          <S.Arrow
+            type="left"
+            onClick={slideToPreviousVideo}
+            disabled={isPreviousVideoExists}
+          />
+          <S.VideoContainer>
+            <S.Video src={videoURL} controls />
+          </S.VideoContainer>
 
-        <S.Arrow
-          type="right"
-          onClick={slideToNextVideo}
-          disabled={isNextVideoExists}
-        />
-      </S.VideoWrapper>
-      <HighlightedPhrase phrase={videoSubtitles} word={word} />
+          <S.Arrow
+            type="right"
+            onClick={slideToNextVideo}
+            disabled={isNextVideoExists}
+          />
+        </S.VideoWrapper>
+        <HighlightedPhrase phrase={videoSubtitles} word={word} />
+      </div>
     </S.VideoBackground>
   );
 };

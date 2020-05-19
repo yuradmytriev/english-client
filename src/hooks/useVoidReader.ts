@@ -2,9 +2,6 @@ import { useEffect } from 'react';
 import loadjs from 'loadjs';
 import { logger } from 'utils/logger';
 
-const voiceReaderURL: string =
-  'https://code.responsivevoice.org/responsivevoice.js?key=8me9wqCF';
-
 const voiceReaderStatuses: { success: string; error: string } = {
   success: 'Voice reader successfully downloaded!',
   error: 'Cannot download voice reader',
@@ -12,18 +9,22 @@ const voiceReaderStatuses: { success: string; error: string } = {
 
 export const useVoidReader = (): void => {
   useEffect(() => {
+    const voiceReaderURL: string =
+      'https://code.responsivevoice.org/responsivevoice.js?key=8me9wqCF';
     const voiceReader: Promise<void> = loadjs(voiceReaderURL, {
       returnPromise: true,
     });
 
-    voiceReader
-      .then(() => {
-        logger.success(voiceReaderStatuses.success);
+    if (!window.responsiveVoice) {
+      voiceReader
+        .then(response => {
+          logger.success(voiceReaderStatuses.success);
 
-        return true;
-      })
-      .catch(() => {
-        logger.error(voiceReaderStatuses.error);
-      });
-  });
+          return response;
+        })
+        .catch(() => {
+          logger.error(voiceReaderStatuses.error);
+        });
+    }
+  }, [!window.responsiveVoice]);
 };
