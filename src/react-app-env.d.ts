@@ -9,6 +9,12 @@ declare namespace NodeJS {
   }
 }
 
+interface Window {
+  responsiveVoice: {
+    speak: (word: any) => void;
+  };
+}
+
 declare module '*.bmp' {
   const src: string;
   export default src;

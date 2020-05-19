@@ -13,7 +13,7 @@ export const useFetchWordHook = () => {
         const fetchWordURL: string = `${FETCH_WORD_URL}/by-text/${wordName}`;
 
         const response: Response = await fetch(fetchWordURL);
-        const word: IWord = await response.json();
+        const word: IWord[] = await response.json();
 
         setWord(word);
       }

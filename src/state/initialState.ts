@@ -1,5 +1,5 @@
 export interface IInitialState {
-  words: array;
+  words: Array<any>;
   word: string;
 }
 

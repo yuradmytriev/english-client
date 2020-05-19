@@ -1,11 +1,7 @@
 import React, { FC, useEffect, useState, Children } from 'react';
 import { Popconfirm, Button, Alert } from 'antd';
+import { IDefinition } from 'interfaces/IDefinition';
 import { fetchWordFromRapid } from 'utils/wordsApiFetch';
-
-interface IDefinition {
-  definition: string;
-  partOfSpeech: string;
-}
 
 const DefinitionsList = ({ definitions }: { definitions: IDefinition[] }) => {
   const DEFINITIONS_LIMIT = 5;
