@@ -1,4 +1,4 @@
 export interface IWordInput {
   name: string;
-  type: string;
+  type: 'input' | 'textarea';
 }

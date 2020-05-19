@@ -12,6 +12,7 @@ import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../constants';
 import { IWordInput } from './IWordInput';
 import { FileInput } from './FileInput';
 import * as S from './styles';
+import { ISuggestion } from '../Suggestion/ISuggestion';
 
 const inputs: Array<IWordInput> = [
   { name: 'word', type: 'input' },
@@ -25,10 +26,10 @@ const inputs: Array<IWordInput> = [
 
 const { confirm } = Modal;
 
-const FormItem = ({ type, ...props }: { type: 'input' | 'textarea' }) => {
+const FormItem = ({ type, ...props }: any) => {
   const { TextArea } = Input;
 
-  const formItemsType = {
+  const formItemsType: any = {
     input: <Input {...props} />,
     textarea: <TextArea {...props} />,
   };
@@ -69,8 +70,9 @@ const fetchSimilarWords = (values: IWord): Promise<IWord[]> => {
   return jsonFetch(checkSimilarWordURL);
 };
 
-const fromConfig = (closeAddWordModal: Function, fetchWordsList: Function) => ({
+const fromConfig = (closeAddWordModal: any, fetchWordsList: any): any => ({
   initialValues: {
+    id: '',
     word: '',
     translate: '',
     definition: '',
@@ -132,7 +134,7 @@ const AddWord: FC = () => {
         visible={visible}
         onCancel={closeAddWordModal}
       >
-        {forms.map(id => (
+        {forms.map((id: number) => (
           <Form key={id} onSubmit={handleSubmit}>
             {inputs.map(({ name, type }: IWordInput) => (
               <S.InputWrapper key={name}>
@@ -153,7 +155,7 @@ const AddWord: FC = () => {
             </S.ButtonWrapper>
           </Form>
         ))}
-        <Button onClick={appendForm}>Append new word</Button>
+        <Button onClick={() => appendForm}>Append new word</Button>
       </S.FormModal>
     </>
   );
