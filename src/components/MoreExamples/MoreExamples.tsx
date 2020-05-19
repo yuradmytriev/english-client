@@ -1,52 +1,55 @@
 import React, { FC, useEffect, useState, Children } from 'react';
 import { Popconfirm, Button } from 'antd';
 import { fetchWordFromRapid } from 'utils/wordsApiFetch';
+import { ifElse } from 'utils/ifElse';
 import * as S from './styles';
 
-const ExamplesList = ({ examples }: { examples: ReadonlyArray<string> }) => {
-  const DEFINITIONS_LIMIT = 5;
-  const shouldShowFive = (example: string, index: number) =>
-    index < DEFINITIONS_LIMIT && example;
+const ExamplesList = ({
+  examples,
+}: {
+  examples: ReadonlyArray<string>;
+}): any => {
+  const shouldShowFive = (example: string, index: number) => {
+    const DEFINITIONS_LIMIT = 5;
 
-  const Example: FC<{ example: string }> = ({ example }) => (
-    <>
-      <div>{example}</div>
-    </>
+    return index < DEFINITIONS_LIMIT;
+  };
+
+  return Children.toArray(
+    examples
+      .filter(shouldShowFive)
+      .map((example: string) => (
+        <S.Alert type="info" message={<div>{example}</div>} />
+      )),
   );
-
-  return examples
-    ? Children.toArray(
-        examples
-          .filter(shouldShowFive)
-          .map((example: string) => (
-            <S.Alert type="info" message={<Example example={example} />} />
-          )),
-      )
-    : null;
 };
 
 export const MoreExamples: FC<{ word: string }> = ({ word }) => {
   const [examples, setExamples] = useState<ReadonlyArray<string> | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const examples: {
-        examples?: ReadonlyArray<string>;
-      } = await fetchWordFromRapid('examples', word);
+    fetchWordFromRapid('examples', word)
+      .then((examples: { examples?: ReadonlyArray<string> }) => {
+        if (examples.examples) {
+          setExamples(examples.examples);
+        }
 
-      if (examples.examples) {
-        setExamples(examples.examples);
-      }
-    })();
+        return examples;
+      })
+      .catch(examples => {
+        return examples;
+      });
   }, []);
 
-  return examples ? (
+  return ifElse(
+    Boolean(examples?.length),
     <Popconfirm
       icon={null}
       placement="bottom"
-      title={<ExamplesList examples={examples} />}
+      title={<ExamplesList examples={examples as ReadonlyArray<string>} />}
     >
       <Button type="primary">Show more examples</Button>
-    </Popconfirm>
-  ) : null;
+    </Popconfirm>,
+    null,
+  );
 };

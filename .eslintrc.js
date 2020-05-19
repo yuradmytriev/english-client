@@ -106,6 +106,7 @@ module.exports = {
     'no-multi-str': 'error',
     'no-new': 'error', // disallowing constructor calls using the new keyword that do not assign the resulting object
     'no-new-func': 'error',
+    'react/jsx-wrap-multilines': 0,
     'no-new-wrappers': 'error', // prevent new String()
     'no-octal': 'error', // 071 -> 57 prevent this transform
     'no-octal-escape': 'error',

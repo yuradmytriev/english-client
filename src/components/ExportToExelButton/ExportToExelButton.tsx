@@ -9,12 +9,17 @@ export const ExportToExelButton: FC = () => {
         if (res.status === 'OK') {
           return fetch('http://localhost:3008/words.xlsx');
         }
+
+        return res;
       })
-      .then(res => res.blob())
+      .then((response: Response | undefined) => response?.blob())
       .then(blob => {
         const file = window.URL.createObjectURL(blob);
         window.location.assign(file);
-      });
+
+        return blob;
+      })
+      .catch(e => e);
   };
 
   return <S.ExcelIcon type="file-excel" onClick={handleClick} />;

@@ -2,50 +2,65 @@ import React, { FC, useEffect, useState, Children } from 'react';
 import { Popconfirm, Button, Alert } from 'antd';
 import { IDefinition } from 'interfaces/IDefinition';
 import { fetchWordFromRapid } from 'utils/wordsApiFetch';
+import { ifElse } from 'utils/ifElse';
 
-const DefinitionsList = ({ definitions }: { definitions: IDefinition[] }) => {
-  const DEFINITIONS_LIMIT = 5;
-  const shouldShowFiveDefinitions = (definition: IDefinition, index: number) =>
-    index < DEFINITIONS_LIMIT && definition;
+const DefinitionsList = ({
+  definitions,
+}: {
+  definitions: ReadonlyArray<IDefinition>;
+}): any => {
+  const shouldShowFiveDefinitions = (
+    definition: IDefinition,
+    index: number,
+  ) => {
+    const DEFINITIONS_LIMIT = 5;
 
-  const Definition: FC<{ definition: IDefinition }> = ({ definition }) => (
-    <>
-      <div>{definition.definition}</div>
-    </>
+    return index < DEFINITIONS_LIMIT;
+  };
+
+  return Children.toArray(
+    (definitions as ReadonlyArray<IDefinition>)
+      .filter(shouldShowFiveDefinitions)
+      .map((definition: IDefinition) => (
+        <Alert type="info" message={<div>{definition.definition}</div>} />
+      )),
   );
-
-  return definitions
-    ? Children.toArray(
-        definitions
-          .filter(shouldShowFiveDefinitions)
-          .map((definition: IDefinition) => (
-            <Alert
-              type="info"
-              message={<Definition definition={definition} />}
-            />
-          )),
-      )
-    : null;
 };
 
-export const MoreDefinitions: FC<{ word: string }> = ({ word }) => {
-  const [definitions, setDefinitions] = useState<IDefinition[] | null>(null);
+export const MoreDefinitions: FC<{ word: string }> = ({
+  word,
+}): JSX.Element | null => {
+  const [definitions, setDefinitions] = useState<ReadonlyArray<
+    IDefinition
+  > | null>(null);
 
   useEffect(() => {
-    (async () => {
-      const definitions = await fetchWordFromRapid('definitions', word);
+    fetchWordFromRapid('definitions', word)
+      .then((definitions: { definitions?: ReadonlyArray<IDefinition> }) => {
+        if (definitions.definitions) {
+          setDefinitions(definitions.definitions);
+        }
 
-      setDefinitions(definitions.definitions);
-    })();
+        return definitions;
+      })
+      .catch(definitions => {
+        return definitions;
+      });
   }, []);
 
-  return definitions ? (
+  return ifElse(
+    Boolean(definitions?.length),
     <Popconfirm
       icon={null}
       placement="bottom"
-      title={<DefinitionsList definitions={definitions} />}
+      title={
+        <DefinitionsList
+          definitions={definitions as ReadonlyArray<IDefinition>}
+        />
+      }
     >
       <Button type="primary">Show more definitions</Button>
-    </Popconfirm>
-  ) : null;
+    </Popconfirm>,
+    null,
+  );
 };

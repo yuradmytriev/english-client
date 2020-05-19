@@ -1,2 +1,5 @@
-export const ifElse = (predicate: boolean, right: any, left: any) =>
-  predicate ? right : left;
+export const ifElse = (
+  predicate: boolean,
+  right: any,
+  left: any,
+): boolean | any => (predicate ? right : left);
