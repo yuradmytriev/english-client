@@ -2,22 +2,30 @@ import React, { FC, useEffect, useState } from 'react';
 import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
+import { ifElse } from 'utils/ifElse';
 import * as S from './styles';
 
+const createVideoByWordURL = (word: string): string =>
+  `https://www.playphrase.me/api/v1/phrases/search?q=${word}`;
+
 export const Video: FC<{ word: string }> = ({ word }) => {
-  const [videos, setVideos] = useState([]);
-  const [videoId, setVideoId] = useState(0);
+  const [videos, setVideos] = useState<string[]>([]);
+
+  const initialVideoIndex: number = 0;
+  const [videoId, setVideoId] = useState(initialVideoIndex);
 
   useEffect(() => {
-    fetch(`https://www.playphrase.me/api/v1/phrases/search?q=${word}`)
-      .then(response => response.json())
-      .then(videoList => setVideos(videoList));
+    fetch(createVideoByWordURL(word))
+      .then((response: Response) => response.json())
+      .then((videoList: { phrases: string[] }) => {
+        setVideos(videoList?.phrases);
+
+        return videoList;
+      });
   }, []);
 
-  const phrases = get(videos, 'phrases', []);
-
   const isPreviousVideoExists = videoId > 0;
-  const isNextVideoExists = videoId < phrases.length - 1;
+  const isNextVideoExists = videoId < videos.length - 1;
 
   const handlePreviousVideo = () => {
     if (isPreviousVideoExists) {
@@ -31,26 +39,21 @@ export const Video: FC<{ word: string }> = ({ word }) => {
     }
   };
 
-  return !isEmpty(phrases) ? (
+  if (!isEmpty(videos)) {
+    return null;
+  }
+
+  return (
     <S.VideoBackground>
       <S.VideoWrapper>
-        <S.Arrow
-          disabled={!isPreviousVideoExists}
-          type="left"
-          onClick={handlePreviousVideo}
-        />
-
+        <S.Arrow type="left" onClick={handlePreviousVideo} />
         <S.VideoContainer>
-          <S.Video src={phrases[videoId]['video-url']} controls />
+          <S.Video src={videos[videoId]['video-url']} controls />
         </S.VideoContainer>
 
-        <S.Arrow
-          disabled={!isNextVideoExists}
-          type="right"
-          onClick={handleNextVideo}
-        />
+        <S.Arrow type="right" onClick={handleNextVideo} />
       </S.VideoWrapper>
-      <HighlightedPhrase phrase={phrases[videoId].text} word={word} />
+      <HighlightedPhrase phrase={videos[videoId]?.text} word={word} />
     </S.VideoBackground>
-  ) : null;
+  );
 };

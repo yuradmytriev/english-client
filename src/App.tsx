@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'router';
-import store from 'state/store';
+// @ts-ignore
+import styled from 'styled-components';
 import { useVoidReader } from 'hooks';
-import { Content } from './styles';
+import store from 'state/store';
+import { spacing } from './constants/spacing';
+
+const Content = styled.div`
+  padding: ${spacing.base};
+`;
 
 const App: FC = () => {
   useVoidReader();

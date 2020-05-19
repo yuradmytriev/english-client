@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Icon, Popover } from 'antd';
-import { Frequency } from 'components/Frequency';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import { FETCH_WORDS_LIST_URL } from '../../constants';
 import * as S from './styles';
@@ -28,6 +27,7 @@ export const Word: FC<{ words: IWord[]; showInfo: boolean }> = ({
     }
   };
   // TODO: resolve issue with frequency requests
+  // @ts-ignore
   return (
     <>
       <Link key={id} to={`word/${word}`}>
@@ -35,18 +35,15 @@ export const Word: FC<{ words: IWord[]; showInfo: boolean }> = ({
           <S.CardBody>
             <div>
               <S.Meta title={word} description={showInfo ? translate : null} />
-              {/* <S.FrequencyWrapper> */}
-              {/*  <Frequency showTitle={false} word={word} /> */}
-              {/* </S.FrequencyWrapper> */}
               <S.IconWrapper>
                 <Popover
                   placement="bottom"
-                  content={(
+                  content={
                     <S.IconContent onClick={deleteWordCard}>
                       <Icon type="delete" />
                       <span>Delete</span>
                     </S.IconContent>
-                  )}
+                  }
                   trigger="click"
                 >
                   <div>. . .</div>

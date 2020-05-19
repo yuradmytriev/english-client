@@ -21,11 +21,11 @@ export const Carousel: FC = ({ children }: { children?: ReactNode }) => {
 
   return (
     <>
-      <S.ArrowLeft type="left" disabled={false} onClick={slideLeft} />
+      <S.ArrowLeft type="left" onClick={slideLeft} />
       <AntdCarousel ref={carouselRef as MutableRefObject<AntdCarousel>}>
         {children}
       </AntdCarousel>
-      <S.ArrowRight type="right" disabled={false} onClick={slideRight} />
+      <S.ArrowRight type="right" onClick={slideRight} />
     </>
   );
 };

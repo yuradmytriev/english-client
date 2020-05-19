@@ -1,3 +1,3 @@
-export const spacing: Object = {
-	base: '1rem',
+export const spacing: { base: string } = {
+  base: '1rem',
 };

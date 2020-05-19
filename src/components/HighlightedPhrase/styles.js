@@ -3,7 +3,7 @@ import { Typography } from 'antd';
 
 const { Paragraph } = Typography;
 
-export const HighlightedPhrase = styled.span`
+export const HighlightedPhrase = styled.div`
   font-size: 18px;
   text-align: center;
   font-style: italic;

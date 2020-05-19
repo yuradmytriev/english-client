@@ -55,7 +55,7 @@ export const Suggestion: FC<ISuggestion> = ({
 
   const toggleSuggestions = (): void => toggleVisible(prev => !prev);
 
-  const areSynonymsExist = synonyms?.length;
+  const areSynonymsExist: boolean = Boolean(synonyms?.length);
 
   return (
     <div>
