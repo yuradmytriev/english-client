@@ -21,7 +21,7 @@ export const VideoBackground = styled.div`
 
 export const Arrow = styled(Icon)`
   font-size: 35px;
-  color: ${props => (props.disabled ? '#d6d6d6' : 'grey')};
+  color: ${props => (props.disabled ? 'grey' : '#d6d6d6')};
 `;
 
 export const Video = styled.video`

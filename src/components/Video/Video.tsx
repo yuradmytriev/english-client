@@ -1,59 +1,93 @@
 import React, { FC, useEffect, useState } from 'react';
-import get from 'lodash/get';
 import isEmpty from 'lodash/isEmpty';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
-import { ifElse } from 'utils/ifElse';
+import { jsonFetch } from 'utils/jsonFetch';
 import * as S from './styles';
+import { IWord } from 'interfaces/IWord';
 
-const createVideoByWordURL = (word: string): string =>
-  `https://www.playphrase.me/api/v1/phrases/search?q=${word}`;
+interface IPhrases {
+  text?: string;
+  'video-url'?: string;
+}
 
-export const Video: FC<{ word: string }> = ({ word }) => {
-  const [videos, setVideos] = useState<string[]>([]);
+const useVideoSlider = (
+  videos: readonly IPhrases[],
+): [number, () => void, () => void, boolean, boolean] => {
+  const [videoIndex, setVideoIndex] = useState<number>(0);
 
-  const initialVideoIndex: number = 0;
-  const [videoId, setVideoId] = useState(initialVideoIndex);
+  const isPreviousVideoExists: boolean = videoIndex > 0;
+  const isNextVideoExists: boolean = videoIndex < videos.length - 1;
+
+  const slideToPreviousVideo = (): void => {
+    if (isPreviousVideoExists) {
+      setVideoIndex(videoIndex - 1);
+    }
+  };
+
+  const slideToNextVideo = (): void => {
+    if (isNextVideoExists) {
+      setVideoIndex(videoIndex + 1);
+    }
+  };
+
+  return [
+    videoIndex,
+    slideToPreviousVideo,
+    slideToNextVideo,
+    isPreviousVideoExists,
+    isNextVideoExists,
+  ];
+};
+
+export const Video: FC<Pick<IWord, 'word'>> = ({ word }) => {
+  const [videos, setVideos] = useState<readonly IPhrases[]>([]);
+
+  const [
+    videoIndex,
+    slideToPreviousVideo,
+    slideToNextVideo,
+    isPreviousVideoExists,
+    isNextVideoExists,
+  ] = useVideoSlider(videos);
 
   useEffect(() => {
-    fetch(createVideoByWordURL(word))
-      .then((response: Response) => response.json())
-      .then((videoList: { phrases: string[] }) => {
+    const createVideoByWordURL: string = `https://www.playphrase.me/api/v1/phrases/search?q=${word}`;
+
+    jsonFetch(createVideoByWordURL)
+      .then((videoList: { phrases: readonly IPhrases[] }) => {
         setVideos(videoList?.phrases);
 
         return videoList;
-      });
+      })
+      .catch(e => e);
   }, []);
 
-  const isPreviousVideoExists = videoId > 0;
-  const isNextVideoExists = videoId < videos.length - 1;
-
-  const handlePreviousVideo = () => {
-    if (isPreviousVideoExists) {
-      setVideoId(videoId - 1);
-    }
-  };
-
-  const handleNextVideo = () => {
-    if (isNextVideoExists) {
-      setVideoId(videoId + 1);
-    }
-  };
-
-  if (!isEmpty(videos)) {
+  if (isEmpty(videos)) {
     return null;
   }
+
+  const videoURL: string | undefined = videos[videoIndex]['video-url'];
+  const videoSubtitles: string | undefined = videos[videoIndex]?.text;
 
   return (
     <S.VideoBackground>
       <S.VideoWrapper>
-        <S.Arrow type="left" onClick={handlePreviousVideo} />
+        <S.Arrow
+          type="left"
+          onClick={slideToPreviousVideo}
+          disabled={isPreviousVideoExists}
+        />
         <S.VideoContainer>
-          <S.Video src={videos[videoId]['video-url']} controls />
+          <S.Video src={videoURL} controls />
         </S.VideoContainer>
 
-        <S.Arrow type="right" onClick={handleNextVideo} />
+        <S.Arrow
+          type="right"
+          onClick={slideToNextVideo}
+          disabled={isNextVideoExists}
+        />
       </S.VideoWrapper>
-      <HighlightedPhrase phrase={videos[videoId]?.text} word={word} />
+      <HighlightedPhrase phrase={videoSubtitles} word={word} />
     </S.VideoBackground>
   );
 };

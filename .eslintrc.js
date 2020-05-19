@@ -101,7 +101,7 @@ module.exports = {
     'no-invalid-this': 'error',
     'no-lone-blocks': 'error', // no empty blocks
     'no-loop-func': 'error', // don't declare functions in loop
-    'no-magic-numbers': 'error',
+    'no-magic-numbers': ["error", { "ignore": [1, 0] }],
     'no-multi-spaces': 'error', // prevent this case (foo   === "bar")
     'no-multi-str': 'error',
     'no-new': 'error', // disallowing constructor calls using the new keyword that do not assign the resulting object
