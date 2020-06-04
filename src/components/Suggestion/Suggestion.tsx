@@ -8,6 +8,7 @@ import { useFetchRapidWord } from './useFetchRapidWord';
 import { useToggle } from 'hooks/useToggle';
 import { ifElse } from 'utils/ifElse';
 import * as S from './styles';
+import {IWord} from "../../interfaces/IWord";
 
 const { CheckableTag } = Tag;
 
@@ -48,9 +49,9 @@ export const Suggestion: FC<ISuggestion> = ({
   }
 
   const onUpdate = (value: string): void => {
-    const body: string = JSON.stringify({ [type]: value });
+    const wordProps: Partial<IWord> = { [type]: value };
 
-    WordsSDK.updateJSON({ wordId: id, body });
+    WordsSDK.updateJSON({ wordId: id, wordProps });
   };
 
   const toggleSuggestions = (): void => toggleVisible(prev => !prev);

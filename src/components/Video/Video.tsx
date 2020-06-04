@@ -2,8 +2,8 @@ import React, { FC, useEffect, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
 import { jsonFetch } from 'utils/jsonFetch';
-import * as S from './styles';
 import { IWord } from 'interfaces/IWord';
+import * as S from './styles';
 
 interface IPhrases {
   text?: string;

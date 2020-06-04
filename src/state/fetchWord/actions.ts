@@ -1,5 +1,4 @@
-import { IWord } from 'components/Word/IWord';
-
+import { IWord } from 'interfaces/IWord';
 import { FETCH_WORD, START_WORD_FETCHING } from './types';
 
 export interface IFetchWord {

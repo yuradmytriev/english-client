@@ -2,7 +2,8 @@ import React, { useEffect, FC, useState } from 'react';
 import { Col, Icon } from 'antd';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
-import { IWord } from 'components/Word/IWord';
+import orderBy from 'lodash/orderBy';
+import { IWord } from 'interfaces/IWord';
 import { Word } from 'components/Word';
 import { AddWord } from 'components/AddWord';
 import { ExportToExelButton } from 'components/ExportToExelButton';
@@ -39,11 +40,16 @@ export const Words: FC = () => {
     );
   };
 
+  const relatedWordsGroup = orderBy(
+    Object.entries(groupBy(words, 'word')),
+    item => item[1][0]?.updatedDate,
+    ['desc'],
+  );
+
   return (
     <>
       <S.WordWrapper gutter={12}>
-        {!isEmpty(words) &&
-          Object.entries(groupBy(words, 'word')).map(renderWords)}
+        {!isEmpty(words) && relatedWordsGroup.map(renderWords)}
         <ExportToExelButton />
         <AddWord />
         <S.ToggleTranslate onClick={toggleInfo}>

@@ -8,4 +8,6 @@ export interface IWord {
   synonym?: string;
   antonym?: string;
   imageSrc: string;
+  learned?: boolean;
+  updatedDate: string;
 }

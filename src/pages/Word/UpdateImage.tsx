@@ -1,8 +1,8 @@
 import React, { FC, ChangeEvent } from 'react';
 import { message } from 'antd';
 import { WordsSDK } from 'sdk/WordsSDK';
+import { IWord } from 'interfaces/IWord';
 import * as S from './styles';
-import { IWord } from '../../../interfaces/IWord';
 
 const ERROR: { UPLOAD_FILE: string } = {
   UPLOAD_FILE: `Can't upload file`,

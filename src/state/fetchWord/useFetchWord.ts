@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { IWord } from 'components/Word/IWord';
-
+import { IWord } from 'interfaces/IWord';
 import { fetchWordByIdAction } from './actions';
 
 interface IUseFetchWord {

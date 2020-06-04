@@ -1,11 +1,5 @@
-import { IWord } from 'components/Word/IWord';
-
+import { IWord } from 'interfaces/IWord';
 import { FETCH_WORDS_LIST, FIRE_FETCH_WORDS_LIST } from './types';
-
-export interface IFetchWordsList {
-  type: typeof FETCH_WORDS_LIST;
-  words: Array<IWord>;
-}
 
 interface IFireFetchWordsList {
   type: typeof FIRE_FETCH_WORDS_LIST;
@@ -19,3 +13,8 @@ export const fetchWordsListAction = (words: Array<IWord>): IFetchWordsList => ({
 export const fireFetchWordsListAction = (): IFireFetchWordsList => ({
   type: FIRE_FETCH_WORDS_LIST,
 });
+
+export interface IFetchWordsList {
+  type: typeof FETCH_WORDS_LIST;
+  words: Array<IWord>;
+}

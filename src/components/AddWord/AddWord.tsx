@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Icon, Input, message, Modal } from 'antd';
 import { useToggle } from 'hooks';
-import { IWord } from 'components/Word/IWord';
+import { IWord } from 'interfaces/IWord';
 import { jsonFetch } from 'utils/jsonFetch';
 import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
@@ -12,7 +12,6 @@ import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../constants';
 import { IWordInput } from './IWordInput';
 import { FileInput } from './FileInput';
 import * as S from './styles';
-import { ISuggestion } from '../Suggestion/ISuggestion';
 
 const inputs: Array<IWordInput> = [
   { name: 'word', type: 'input' },

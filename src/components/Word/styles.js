@@ -1,16 +1,7 @@
 import styled from 'styled-components';
-import { Card, Icon } from 'antd';
+import { Card } from 'antd';
 
 const { Meta: AntdMeta } = Card;
-
-export const InputWrapper = styled.div`
-  margin-bottom: 1rem;
-`;
-
-export const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
 
 export const CardBody = styled.div`
   display: flex;
@@ -48,10 +39,6 @@ export const WordCard = styled(Card)`
   & .ant-card-body {
     height: 170px;
   }
-`;
-
-export const FrequencyWrapper = styled.div`
-  margin-top: 5px;
 `;
 
 export const IconWrapper = styled.div`

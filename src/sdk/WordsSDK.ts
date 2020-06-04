@@ -1,15 +1,16 @@
 import { message } from 'antd';
+import { IWord } from 'interfaces/IWord';
 import { FETCH_WORDS_LIST_URL } from '../constants';
 
 const ERROR: { UPLOAD_IMAGE: string } = {
   UPLOAD_IMAGE: `Can't upload image`,
 };
 
+const createWordsURL = (id: number) => `${FETCH_WORDS_LIST_URL}/${id}`;
+
 export class WordsSDK {
   static update({ wordId, body }: { wordId: number; body: FormData }): void {
-    const updateWordsURL: string = `${FETCH_WORDS_LIST_URL}/${wordId}`;
-
-    fetch(updateWordsURL, {
+    fetch(createWordsURL(wordId), {
       body,
       method: 'PUT',
     })
@@ -26,10 +27,16 @@ export class WordsSDK {
       });
   }
 
-  static updateJSON({ wordId, body }: { wordId: number; body: string }): void {
-    const updateWordsURL: string = `${FETCH_WORDS_LIST_URL}/${wordId}`;
+  static updateJSON({
+    wordId,
+    wordProps,
+  }: {
+    wordId: number;
+    wordProps: Partial<IWord>;
+  }): void {
+    const body: string = JSON.stringify(wordProps);
 
-    fetch(updateWordsURL, {
+    fetch(createWordsURL(wordId), {
       body,
       method: 'PUT',
       headers: {
@@ -47,5 +54,13 @@ export class WordsSDK {
       .catch(() => {
         message.error(ERROR.UPLOAD_IMAGE);
       });
+  }
+
+  static async delete(id: number) {
+    const response = await fetch(createWordsURL(id), {
+      method: 'DELETE',
+    });
+
+    return response.json();
   }
 }

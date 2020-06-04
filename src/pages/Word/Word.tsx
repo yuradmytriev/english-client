@@ -25,9 +25,9 @@ export const Word: FC = () => {
   }
 
   const onUpdate = (type: string, value: string, id: number): void => {
-    const body: string = JSON.stringify({ [type]: value });
+    const wordProps: Partial<IWord> = { [type]: value };
 
-    WordsSDK.updateJSON({ wordId: id, body });
+    WordsSDK.updateJSON({ wordId: id, wordProps });
   };
 
   const renderWord = ({ id, word }: Pick<IWord, 'id' | 'word'>) => {

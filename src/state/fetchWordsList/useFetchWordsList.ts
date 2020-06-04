@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { IWord } from 'components/Word/IWord';
-
+import { IWord } from 'interfaces/IWord';
 import { fireFetchWordsListAction } from './actions';
 
-interface IUseFetchWordsList {
+export interface IUseFetchWordsList {
   fetchWordsList: () => void;
   words: Array<IWord>;
 }
