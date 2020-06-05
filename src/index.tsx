@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
 import 'antd/dist/antd.css';
 import './reset-antd.css';
-
 import App from './App';
 
 const HotLoaderApp: React.ComponentType<any> = hot(App);

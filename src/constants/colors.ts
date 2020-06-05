@@ -1,3 +1,3 @@
 export const colors: Object = {
-	grey: '#999',
+  grey: '#999',
 };

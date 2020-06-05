@@ -16,6 +16,6 @@ export const fetchWordFromRapid = async (
 
     return response.json();
   } catch (e) {
-    console.error(e);
+    return e;
   }
 };

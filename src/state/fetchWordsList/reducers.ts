@@ -1,17 +1,15 @@
 import { IFetchWordsList } from './actions';
 import { FETCH_WORDS_LIST } from './types';
 
-const INITIAL_STATE: any = [];
+const INITIAL_STATE: string[] = [];
 
-// TODO: what reducer return
 export const fetchWordsListReducer = (
-  state: any,
+  state: string[],
   { type, words }: IFetchWordsList,
 ) => {
-  switch (type) {
-    case FETCH_WORDS_LIST:
-      return [...INITIAL_STATE, ...words];
-    default:
-      return state;
-  }
+  const options = {
+    [FETCH_WORDS_LIST]: [...INITIAL_STATE, ...words],
+  };
+
+  return options[type] || state;
 };

@@ -69,6 +69,7 @@ module.exports = {
     'no-unsafe-finally': 'error', // disallows return, throw, break, and continue statements inside finally blocks
     'no-unsafe-negation': 'error', // safe correctness of conditional
     'use-isnan': 'error',
+    'jsx-a11y/label-has-associated-control': 0,
 
     // best practice
     'array-callback-return': 'error', // fix error when don't return value from map or another function

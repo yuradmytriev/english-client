@@ -8,7 +8,7 @@ import { useFetchRapidWord } from './useFetchRapidWord';
 import { useToggle } from 'hooks/useToggle';
 import { ifElse } from 'utils/ifElse';
 import * as S from './styles';
-import {IWord} from "../../interfaces/IWord";
+import { IWord } from '../../interfaces/IWord';
 
 const { CheckableTag } = Tag;
 

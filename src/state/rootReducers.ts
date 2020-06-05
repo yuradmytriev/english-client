@@ -1,5 +1,4 @@
 import { initialState } from 'state/initialState';
-
 import { fetchWordsListReducer } from './fetchWordsList';
 import { fetchWordReducer } from './fetchWord';
 

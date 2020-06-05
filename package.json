@@ -13,7 +13,7 @@
     "build": "SKIP_PREFLIGHT_CHECK=true cross-env webpack",
     "start": "cross-env NODE_ENV=production webpack-dev-server",
     "dev": "cross-env NODE_ENV=development webpack-dev-server",
-    "lint": "eslint ./src",
+    "lint": "eslint ./src --ext 'ts, tsx' --fix",
     "lint:css": "stylelint ./src"
   },
   "husky": {
