@@ -48,10 +48,26 @@ export const IconWrapper = styled.div`
   cursor: pointer;
 `;
 
-export const IconContent = styled.div`
-  color: red;
+export const DeleteWrapper = styled.div`
+  color: #ff3c3c;
   cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    color: #cc0000;
+    transform: scale(1.1);
+  }
+
   & span {
     margin-left: 5px;
+  }
+`;
+
+export const MemorizedWrapper = styled(DeleteWrapper)`
+  color: #5f5fff;
+  margin-top: 10px;
+
+  &:hover {
+    color: #00009e;
   }
 `;

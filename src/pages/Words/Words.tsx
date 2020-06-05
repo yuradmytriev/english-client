@@ -10,6 +10,20 @@ import { ExportToExelButton } from 'components/ExportToExelButton';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import * as S from './styles';
 
+const ToggleWordInfo: FC<{
+  setShowInfo: (prev: (prev: boolean) => boolean) => void;
+}> = ({ setShowInfo }) => {
+  const toggleWordInfo = () => {
+    setShowInfo(prev => !prev);
+  };
+
+  return (
+    <S.ToggleTranslate onClick={toggleWordInfo}>
+      <Icon type="file-unknown" />
+    </S.ToggleTranslate>
+  );
+};
+
 export const Words: FC = () => {
   const { words, fetchWordsList } = useFetchWordsList();
   const [showInfo, setShowInfo] = useState(true);
@@ -19,10 +33,6 @@ export const Words: FC = () => {
 
     // eslint-disable-next-line
   }, []);
-
-  const toggleInfo = () => {
-    setShowInfo(prev => !prev);
-  };
 
   const renderWords = ([_, words]: [string, IWord[]]) => {
     const [mainWord]: IWord[] = words;
@@ -52,9 +62,7 @@ export const Words: FC = () => {
         {!isEmpty(words) && relatedWordsGroup.map(renderWords)}
         <ExportToExelButton />
         <AddWord />
-        <S.ToggleTranslate onClick={toggleInfo}>
-          <Icon type="file-unknown" />
-        </S.ToggleTranslate>
+        <ToggleWordInfo setShowInfo={setShowInfo} />
       </S.WordWrapper>
     </>
   );

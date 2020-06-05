@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Button, Icon } from 'antd';
+import { Icon } from 'antd';
 import { IWord } from 'interfaces/IWord';
 import {
   useFetchWordsList,
@@ -8,8 +8,7 @@ import {
 import { WordsSDK } from 'sdk/WordsSDK';
 import * as S from '../styles';
 
-export const WordActions: FC<{ firstWord: IWord }> = ({ firstWord }) => {
-  const { id }: IWord = firstWord;
+const DeleteWord: FC<{ id: number }> = ({ id }) => {
   const { fetchWordsList }: IUseFetchWordsList = useFetchWordsList();
 
   const deleteWord = async (): Promise<void> => {
@@ -20,20 +19,35 @@ export const WordActions: FC<{ firstWord: IWord }> = ({ firstWord }) => {
     }
   };
 
+  return (
+    <S.DeleteWrapper onClick={deleteWord}>
+      <Icon type="delete" />
+      <span>Delete</span>
+    </S.DeleteWrapper>
+  );
+};
+
+const MemorizeWord: FC<{ id: number }> = ({ id }) => {
   const memorizeWord = (): void => {
     const wordProps: Pick<IWord, 'learned'> = { learned: true };
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
 
   return (
-    <S.IconContent onClick={deleteWord}>
-      <div>
-        <Icon type="delete" />
-        <span>Delete</span>
-      </div>
-      <Button type="primary" onClick={memorizeWord}>
-        Memorized
-      </Button>
-    </S.IconContent>
+    <S.MemorizedWrapper onClick={memorizeWord}>
+      <Icon type="bulb" />
+      <span>Memorized</span>
+    </S.MemorizedWrapper>
+  );
+};
+
+export const WordActions: FC<{ firstWord: IWord }> = ({ firstWord }) => {
+  const { id }: Pick<IWord, 'id'> = firstWord;
+
+  return (
+    <>
+      <DeleteWord id={id} />
+      <MemorizeWord id={id} />
+    </>
   );
 };
