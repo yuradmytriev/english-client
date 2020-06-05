@@ -7,9 +7,11 @@ export const fetchWordsListReducer = (
   state: string[],
   { type, words }: IFetchWordsList,
 ) => {
-  const options = {
-    [FETCH_WORDS_LIST]: [...INITIAL_STATE, ...words],
-  };
-
-  return options[type] || state;
+  // eslint-disable-next-line sonarjs/no-small-switch
+  switch (type) {
+    case FETCH_WORDS_LIST:
+      return [...INITIAL_STATE, ...words];
+    default:
+      return state;
+  }
 };

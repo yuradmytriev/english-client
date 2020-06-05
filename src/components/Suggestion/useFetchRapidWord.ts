@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import pluralize from 'pluralize';
 import { logger } from 'utils/logger';
+import { fetchWordFromRapid } from 'utils/wordsApiFetch';
 import { ISuggestion } from './ISuggestion';
-import { fetchWordFromRapid } from '../../utils/wordsApiFetch';
 
 const ERROR: { FETCH_RAPID_WORD: string } = {
   FETCH_RAPID_WORD: `Can't fetch a word from Rapid API`,
