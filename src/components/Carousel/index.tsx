@@ -3,7 +3,12 @@ import React, { FC, MutableRefObject, ReactNode, useRef } from 'react';
 import { useArrayCarousel } from 'hooks/useArrayCarousel';
 import * as S from 'pages/Word/styles';
 
-export const Carousel: FC = ({ children }: { children?: ReactNode }) => {
+interface ICarousel {
+  children?: ReactNode;
+  dots: boolean;
+}
+
+export const Carousel: FC<ICarousel> = ({ children, dots }) => {
   const carouselRef: MutableRefObject<
     AntdCarousel | null | undefined
   > = useRef();
@@ -17,11 +22,13 @@ export const Carousel: FC = ({ children }: { children?: ReactNode }) => {
   ] = useArrayCarousel(children);
 
   const slideToPrev = (): void => {
+    // eslint-disable-next-line no-unused-expressions
     carouselRef?.current?.prev();
     slideToPreviousVideo();
   };
 
   const slideToNext = (): void => {
+    // eslint-disable-next-line no-unused-expressions
     carouselRef?.current?.next();
     slideToNextVideo();
   };
@@ -38,6 +45,7 @@ export const Carousel: FC = ({ children }: { children?: ReactNode }) => {
         />
       )}
       <AntdCarousel
+        dots={dots}
         infinite={false}
         ref={carouselRef as MutableRefObject<AntdCarousel>}
       >
