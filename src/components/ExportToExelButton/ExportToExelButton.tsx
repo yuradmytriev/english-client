@@ -22,5 +22,5 @@ export const ExportToExelButton: FC = () => {
       .catch(e => e);
   };
 
-  return <S.ExcelIcon type="file-excel" onClick={handleClick} />;
+  return <S.ExcelIcon theme="twoTone" type="file-excel" onClick={handleClick} />;
 };

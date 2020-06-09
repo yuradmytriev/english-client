@@ -7,5 +7,4 @@ export const ExcelIcon = styled(Icon)`
   right: 25px;
   font-size: 34px;
   cursor: pointer;
-  background: #fff;
 `;

@@ -20,7 +20,7 @@ const ToggleWordInfo: FC<{
 
   return (
     <S.ToggleTranslate onClick={toggleWordInfo}>
-      <Icon type="file-unknown" />
+      <Icon theme="twoTone" type="file-unknown" />
     </S.ToggleTranslate>
   );
 };
