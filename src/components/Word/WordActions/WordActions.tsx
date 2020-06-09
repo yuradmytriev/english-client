@@ -32,6 +32,8 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
 };
 
 const MemorizeWord: FC<{ id: number }> = ({ id }) => {
+  const { fetchWordsList } = useFetchWordsList();
+
   const memorizeWord = async (
     e: MouseEvent<HTMLButtonElement>,
   ): Promise<void> => {
@@ -43,6 +45,7 @@ const MemorizeWord: FC<{ id: number }> = ({ id }) => {
     });
 
     if (memoizedWord.id) {
+      fetchWordsList();
       message.success('Word memoized');
     }
   };

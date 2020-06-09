@@ -5,11 +5,12 @@ import { IWord } from 'interfaces/IWord';
 import { WordActions } from './WordActions';
 import * as S from './styles';
 
-const WordMemoizedMark: FC<{ word: string; learned: boolean }> = ({
+const WordMemoizedMark: FC<{ word: string; learned: boolean | undefined }> = ({
   word,
   learned,
 }) => (
   <div>
+    {/* eslint react/jsx-one-expression-per-line:0 */}
     {word} {learned && <Icon style={{ color: '#18d218' }} type="check" />}
   </div>
 );
