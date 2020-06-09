@@ -8,6 +8,7 @@ import { Word } from 'components/Word';
 import { AddWord } from 'components/AddWord';
 import { ExportToExelButton } from 'components/ExportToExelButton';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
+import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
 import * as S from './styles';
 
 const ToggleWordInfo: FC<{
@@ -34,6 +35,19 @@ export const Words: FC = () => {
     // eslint-disable-next-line
   }, []);
 
+  const relatedWordsGroup: any[] = orderBy(
+    Object.entries(groupBy(words, 'word')),
+    item => item[1][0]?.updatedDate,
+    ['desc'],
+  );
+
+  const {
+    updatedWords,
+    showMemoizedWords,
+    showUnlearnedWords,
+    showAllWords,
+  }: IUseWordsFilter = useWordsFilter(relatedWordsGroup);
+
   const renderWords = ([_, words]: [string, IWord[]]) => {
     const [mainWord]: IWord[] = words;
     const { id, word } = mainWord;
@@ -50,16 +64,15 @@ export const Words: FC = () => {
     );
   };
 
-  const relatedWordsGroup = orderBy(
-    Object.entries(groupBy(words, 'word')),
-    item => item[1][0]?.updatedDate,
-    ['desc'],
-  );
-
   return (
     <>
+      <WordsFilter
+        showMemoizedWords={showMemoizedWords}
+        showUnlearnedWords={showUnlearnedWords}
+        showAllWords={showAllWords}
+      />
       <S.WordWrapper gutter={12}>
-        {!isEmpty(words) && relatedWordsGroup.map(renderWords)}
+        {!isEmpty(words) && updatedWords.map(renderWords)}
         <ExportToExelButton />
         <AddWord />
         <ToggleWordInfo setShowInfo={setShowInfo} />
