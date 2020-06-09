@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react';
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
 import { IWord } from 'interfaces/IWord';
 import {
   useFetchWordsList,
@@ -15,10 +15,11 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
     e: MouseEvent<HTMLButtonElement>,
   ): Promise<void> => {
     e.stopPropagation();
-    const wasWordDeletedSuccessfully = await WordsSDK.delete(id);
+    const deletedWord: boolean = await WordsSDK.delete(id);
 
-    if (wasWordDeletedSuccessfully) {
+    if (deletedWord) {
       fetchWordsList();
+      message.success('Deleted successfully');
     }
   };
 
@@ -31,10 +32,19 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
 };
 
 const MemorizeWord: FC<{ id: number }> = ({ id }) => {
-  const memorizeWord = (e: MouseEvent<HTMLButtonElement>): void => {
+  const memorizeWord = async (
+    e: MouseEvent<HTMLButtonElement>,
+  ): Promise<void> => {
     e.stopPropagation();
     const wordProps: Pick<IWord, 'learned'> = { learned: true };
-    WordsSDK.updateJSON({ wordId: id, wordProps });
+    const memoizedWord: IWord = await WordsSDK.updateJSON({
+      wordId: id,
+      wordProps,
+    });
+
+    if (memoizedWord.id) {
+      message.success('Word memoized');
+    }
   };
 
   return (

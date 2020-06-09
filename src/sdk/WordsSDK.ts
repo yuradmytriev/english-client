@@ -33,10 +33,10 @@ export class WordsSDK {
   }: {
     wordId: number;
     wordProps: Partial<IWord>;
-  }): void {
+  }): Promise<IWord> {
     const body: string = JSON.stringify(wordProps);
 
-    fetch(createWordsURL(wordId), {
+    return fetch(createWordsURL(wordId), {
       body,
       method: 'PUT',
       headers: {
@@ -44,13 +44,7 @@ export class WordsSDK {
       },
     })
       .then(data => data.json())
-      .then(res => {
-        if (res.id) {
-          message.success('Updated successfully');
-        }
-
-        return res;
-      })
+      .then(res => res)
       .catch(() => {
         message.error(ERROR.UPLOAD_IMAGE);
       });
