@@ -3,41 +3,13 @@ import isEmpty from 'lodash/isEmpty';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
 import { jsonFetch } from 'utils/jsonFetch';
 import { IWord } from 'interfaces/IWord';
+import { useArrayCarousel } from 'hooks/useArrayCarousel';
 import * as S from './styles';
 
 interface IPhrases {
   text?: string;
   'video-url'?: string;
 }
-
-const useVideoSlider = (
-  videos: readonly IPhrases[],
-): [number, () => void, () => void, boolean, boolean] => {
-  const [videoIndex, setVideoIndex] = useState<number>(0);
-
-  const isPreviousVideoExists: boolean = videoIndex > 0;
-  const isNextVideoExists: boolean = videoIndex < videos.length - 1;
-
-  const slideToPreviousVideo = (): void => {
-    if (isPreviousVideoExists) {
-      setVideoIndex(videoIndex - 1);
-    }
-  };
-
-  const slideToNextVideo = (): void => {
-    if (isNextVideoExists) {
-      setVideoIndex(videoIndex + 1);
-    }
-  };
-
-  return [
-    videoIndex,
-    slideToPreviousVideo,
-    slideToNextVideo,
-    isPreviousVideoExists,
-    isNextVideoExists,
-  ];
-};
 
 export const Video: FC<Pick<IWord, 'word'>> = ({ word }) => {
   const [videos, setVideos] = useState<readonly IPhrases[]>([]);
@@ -48,7 +20,7 @@ export const Video: FC<Pick<IWord, 'word'>> = ({ word }) => {
     slideToNextVideo,
     isPreviousVideoExists,
     isNextVideoExists,
-  ] = useVideoSlider(videos);
+  ] = useArrayCarousel(videos);
 
   useEffect(() => {
     const createVideoByWordURL: string = `https://www.playphrase.me/api/v1/phrases/search?q=${word}`;

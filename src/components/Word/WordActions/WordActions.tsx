@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { Icon } from 'antd';
 import { IWord } from 'interfaces/IWord';
 import {
@@ -11,7 +11,10 @@ import * as S from '../styles';
 const DeleteWord: FC<{ id: number }> = ({ id }) => {
   const { fetchWordsList }: IUseFetchWordsList = useFetchWordsList();
 
-  const deleteWord = async (): Promise<void> => {
+  const deleteWord = async (
+    e: MouseEvent<HTMLButtonElement>,
+  ): Promise<void> => {
+    e.stopPropagation();
     const wasWordDeletedSuccessfully = await WordsSDK.delete(id);
 
     if (wasWordDeletedSuccessfully) {
@@ -28,7 +31,8 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
 };
 
 const MemorizeWord: FC<{ id: number }> = ({ id }) => {
-  const memorizeWord = (): void => {
+  const memorizeWord = (e: MouseEvent<HTMLButtonElement>): void => {
+    e.stopPropagation();
     const wordProps: Pick<IWord, 'learned'> = { learned: true };
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };

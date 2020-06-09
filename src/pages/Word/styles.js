@@ -128,8 +128,10 @@ export const Arrow = styled(Icon)`
 
 export const ArrowLeft = styled(Arrow)`
   left: 1rem;
+  color: ${props => (props.disabled ? '#d6d6d6' : 'grey')};
 `;
 
 export const ArrowRight = styled(Arrow)`
   right: 1rem;
+  color: ${props => (props.disabled ? '#d6d6d6' : 'grey')};
 `;

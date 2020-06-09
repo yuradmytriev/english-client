@@ -5,8 +5,8 @@ const { Paragraph } = Typography;
 
 export const HighlightedPhrase = styled.div`
   font-size: 18px;
-  text-align: center;
   font-style: italic;
+
   & span {
     background: #edff00;
     padding: 2px 5px;
