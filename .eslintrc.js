@@ -31,7 +31,6 @@ module.exports = {
     sourceType: 'module',
   },
   settings: {
-    // for unresolved-path
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -45,114 +44,110 @@ module.exports = {
       1,
       { extensions: ['.js', '.jsx', '.tsx'] },
     ],
-    'for-direction': 'error', // prevent infinite for loops
-    'getter-return': 'error', // getter should always return value
-    'no-compare-neg-zero': 'error', // prevent direct comparison with -0
-    'no-cond-assign': 'error', // prevent variable assignment in conditional
+    'for-direction': 'error',
+    'getter-return': 'error',
+    'no-compare-neg-zero': 'error',
+    'no-cond-assign': 'error',
     'no-console': 'error',
     'no-constant-condition': 'error',
     'no-debugger': 'error',
-    'no-dupe-args': 'error', // disallows duplicated parameters
-    'no-empty': 'error', // disallows empty block statements
-    'no-ex-assign': 'error', // disallows reassigning exceptions in catch clauses
-    'no-extra-boolean-cast': 'error', // disallows boolean cast in conditionals
-    'no-func-assign': 'error', // disable function assign
-    'no-import-assign': 'error', // disable assign to import module new value
-    'no-inner-declarations': 'error', // don't declare anything in conditionals,
-    'no-obj-calls': 'error', // disallows calling objects as functions
-    'no-prototype-builtins': 'error', // disallows calling methods directly on object instances
-    'no-setter-return': 'error', // disallows returning values from setters
-    'no-sparse-arrays': 'error', // disable arrays empty slots
+    'no-dupe-args': 'error',
+    'no-empty': 'error',
+    'no-ex-assign': 'error',
+    'no-extra-boolean-cast': 'error',
+    'no-func-assign': 'error',
+    'no-import-assign': 'error',
+    'no-inner-declarations': 'error',
+    'no-obj-calls': 'error',
+    'no-prototype-builtins': 'error',
+    'no-setter-return': 'error',
+    'no-sparse-arrays': 'error',
     'no-template-curly-in-string': 'error',
-    'no-unexpected-multiline': 'error', // disallows confusing multiline expressions where a newline looks like it is ending a statement, but is not
+    'no-unexpected-multiline': 'error',
     'no-unreachable': 'error',
-    'no-unsafe-finally': 'error', // disallows return, throw, break, and continue statements inside finally blocks
-    'no-unsafe-negation': 'error', // safe correctness of conditional
+    'no-unsafe-finally': 'error',
+    'no-unsafe-negation': 'error',
     'use-isnan': 'error',
     'jsx-a11y/label-has-associated-control': 0,
-
-    // best practice
-    'array-callback-return': 'error', // fix error when don't return value from map or another function
+    'array-callback-return': 'error',
     'block-scoped-var': 'error',
-    'class-methods-use-this': 0, // if function don't use this so this method can be static
+    'class-methods-use-this': 0,
     complexity: ['error', 10],
     'consistent-return': 'error',
     curly: 'error',
     'default-case': 'error',
-    'default-param-last': 0, // optional params should be last
-    'dot-location': 'error', // dot on the same line
-    eqeqeq: 'error', // disable ==
-    'guard-for-in': 'error', // check in for in loop that key is property of the object nd not proto
+    'default-param-last': 0,
+    'dot-location': 'error',
+    eqeqeq: 'error',
+    'guard-for-in': 'error',
     'max-classes-per-file': ['error', 2],
     'no-alert': 'error',
-    'no-caller': 'error', // disable arguments.callee
-    'no-case-declarations': 'error', // disable function f() {} in cases
-    'no-constructor-return': 'error', // remove return on constructor
+    'no-caller': 'error',
+    'no-case-declarations': 'error',
+    'no-constructor-return': 'error',
     'no-else-return': 'error',
     'no-empty-function': 0,
-    'no-eq-null': 'error', // disable == null
+    'no-eq-null': 'error',
     'no-eval': 'error',
-    'no-extend-native': 'error', // disable extend builtin object
+    'no-extend-native': 'error',
     'no-extra-bind': 'error',
-    'no-extra-label': 'error', // disable extra loop label
-    'no-floating-decimal': 'error', // disable .5 shorthand
-    'no-global-assign': 'error', // disable window = {}
-    'no-implicit-coercion': 'error', // disable !! and prefer Boolean()
-    'no-implied-eval': 'error', // disable setTimeout("alert('Hi!');", 100);
+    'no-extra-label': 'error',
+    'no-floating-decimal': 'error',
+    'no-global-assign': 'error',
+    'no-implicit-coercion': 'error',
+    'no-implied-eval': 'error',
     'no-invalid-this': 'error',
-    'no-lone-blocks': 'error', // no empty blocks
-    'no-loop-func': 'error', // don't declare functions in loop
+    'no-lone-blocks': 'error',
+    'no-loop-func': 'error',
     'no-magic-numbers': ["error", { "ignore": [1, 0] }],
-    'no-multi-spaces': 'error', // prevent this case (foo   === "bar")
+    'no-multi-spaces': 'error',
     'no-multi-str': 'error',
-    'no-new': 'error', // disallowing constructor calls using the new keyword that do not assign the resulting object
+    'no-new': 'error',
     'no-new-func': 'error',
     'react/jsx-wrap-multilines': 0,
-    'no-new-wrappers': 'error', // prevent new String()
-    'no-octal': 'error', // 071 -> 57 prevent this transform
+    'no-new-wrappers': 'error',
+    'no-octal': 'error',
     'no-octal-escape': 'error',
     'no-param-reassign': 'error',
-    'no-proto': 'error', // prefer getPrototypeOf to __proto__
-    'no-redeclare': 'error', // prevent this one: var a = 3; a = 10;
+    'no-proto': 'error',
+    'no-redeclare': 'error',
     'no-return-assign': 'error',
-    'no-script-url': 'error', // prevent location.href = "javascript:void(0)";
-    'no-self-assign': 'error', // self assignments have no effect
-    'no-self-compare': 'error', // prevent x === x
-    'no-sequences': 'error', // The comma operator includes multiple expressions where only one is expected
-    'no-throw-literal': 'error', // good practice to only throw the Error object
+    'no-script-url': 'error',
+    'no-self-assign': 'error',
+    'no-self-compare': 'error',
+    'no-sequences': 'error',
+    'no-throw-literal': 'error',
     'no-unused-expressions': 'error',
-    'no-useless-call': 'error', // prevent call(undefined)
+    'no-useless-call': 'error',
     'no-useless-catch': 'error',
-    'no-useless-concat': 'error', // prevent this '1' + '0'
-    'no-useless-return': 'error', // prevent empty return
+    'no-useless-concat': 'error',
+    'no-useless-return': 'error',
     'no-warning-comments': 0,
     'no-with': 'error',
-    'prefer-promise-reject-errors': 'error', // promise should be rejected with new Error
-    radix: 'error', // always use parseInt("071", 10)
+    'prefer-promise-reject-errors': 'error',
+    radix: 'error',
     'require-await': 'error',
-    yoda: 'error', // disable yoda conditionals like this "red" === color
+    yoda: 'error',
     'no-delete-var': 'error',
     'array-bracket-spacing': 'error',
     'brace-style': 'error',
     camelcase: 'error',
-    'comma-dangle': 'error', // comma in the object end
+    'comma-dangle': 'error',
     'comma-spacing': 'error',
     'comma-style': 'error',
-    'computed-property-spacing': 'error', // prevent this obj[ 'foo']
-    'func-call-spacing': 'error', // prevent f ()
-    'func-name-matching': 'error', // should be var foo = function foo() {};
+    'computed-property-spacing': 'error',
+    'func-call-spacing': 'error',
+    'func-name-matching': 'error',
     'max-depth': ['error', 4],
     'max-params': ['error', 3],
-    'new-cap': 'error', // prevent new person()
+    'new-cap': 'error',
     'no-mixed-spaces-and-tabs': 'error',
-    'no-multi-assign': 'error', // prevent this var a = b = c = 5;
+    'no-multi-assign': 'error',
     'no-nested-ternary': 'error',
-    'no-new-object': 'error', // prevent new Object()
+    'no-new-object': 'error',
     'no-trailing-spaces': 'error',
-    'no-unneeded-ternary': 'error', // prevent this var a = x === 2 ? true : false;
-    'no-whitespace-before-property': 'error', // prevent this foo [bar]
-
-    // disable
+    'no-unneeded-ternary': 'error',
+    'no-whitespace-before-property': 'error',
     'import/no-extraneous-dependencies': 0,
     'import/extensions': 0,
     'import/prefer-default-export': 0,
@@ -162,8 +157,6 @@ module.exports = {
     'no-useless-constructor': 0,
     'react-hooks/exhaustive-deps': 0,
     'no-return-await': 0,
-
-    // eslint-plugin-fp (done)
     'fp/no-mutation': [
       'error',
       {
@@ -173,10 +166,8 @@ module.exports = {
       },
     ],
     'fp/no-delete': 'error',
-    'fp/no-mutating-assign': 'error', // Forbid the use of Object.assign() with a variable as first argument
-    'fp/no-mutating-methods': 'error', // Forbid pop, push
-
-    // eslint-plugin-sonarjs (done)
+    'fp/no-mutating-assign': 'error',
+    'fp/no-mutating-methods': 'error',
     'sonarjs/no-all-duplicated-branches': 'error',
     'sonarjs/no-element-overwrite': 'error',
     'sonarjs/no-extra-arguments': 'error',
@@ -198,8 +189,6 @@ module.exports = {
     'sonarjs/prefer-immediate-return': 'error',
     'sonarjs/prefer-object-literal': 'error',
     'sonarjs/prefer-single-boolean-return': 'error',
-
-    // eslint-plugin-jsx-a11y
     'jsx-a11y/accessible-emoji': 'error',
     'jsx-a11y/aria-props': 'error',
     'jsx-a11y/aria-proptypes': 'error',
@@ -226,8 +215,6 @@ module.exports = {
     ],
     'jsx-a11y/anchor-is-valid': 0,
     'react/jsx-key': 0,
-
-    // eslint-plugin-import
     'import/no-unresolved': 0,
     'import/named': 'error',
     'import/default': 'error',
