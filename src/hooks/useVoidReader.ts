@@ -26,5 +26,5 @@ export const useVoidReader = (): void => {
           logger.error(voiceReaderStatuses.error);
         });
     }
-  }, [!window.responsiveVoice]);
+  }, []);
 };
