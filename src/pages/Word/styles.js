@@ -142,6 +142,6 @@ export const ArrowLeft = styled(Arrow)`
 `;
 
 export const ArrowRight = styled(Arrow)`
-  right: 1rem;
+  right: 7rem;
   color: ${props => (props.disabled ? '#d6d6d6' : 'grey')};
 `;

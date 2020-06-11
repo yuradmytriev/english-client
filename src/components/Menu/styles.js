@@ -23,5 +23,5 @@ export const MenuLayout = styled.div`
 
 export const Content = styled.div`
   padding: ${spacing.base};
-  width: 100%;
+  width: calc(100% - 100px);
 `;

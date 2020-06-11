@@ -160,7 +160,7 @@ export const Word: FC = () => {
 
   return (
     <>
-      <Carousel>
+      <Carousel dots={false}>
         {word.map(
           ({
             id,
