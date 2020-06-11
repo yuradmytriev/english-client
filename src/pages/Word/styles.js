@@ -6,7 +6,11 @@ const { Paragraph } = Typography;
 export const WordWrapper = styled.div`
   margin: 0 auto;
   margin-bottom: 5rem;
-  max-width: 340px;
+  max-width: 550px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 0 1px 0 rgba(0, 0, 0, 0.12);
 `;
 
 export const Image = styled.div`
@@ -23,8 +27,10 @@ export const Image = styled.div`
 `;
 
 export const WordProperty = styled.div`
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   font-size: 17px;
+  background: #e8e8e8;
+  padding: 2px 5px;
 `;
 
 export const WordLabel = styled.div`
@@ -49,6 +55,7 @@ export const MainWordProperty = styled(WordProperty)`
   font-weight: 500;
   font-size: 25px;
   margin-bottom: 0;
+  background: #fff;
 `;
 
 export const TranslateProperty = styled(WordProperty)`
@@ -57,6 +64,7 @@ export const TranslateProperty = styled(WordProperty)`
   text-transform: capitalize;
   font-size: 20px;
   color: grey;
+  background: #fff;
 `;
 
 export const WordPage = styled.div`
