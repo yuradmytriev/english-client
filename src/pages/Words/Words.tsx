@@ -1,5 +1,5 @@
 import React, { useEffect, FC } from 'react';
-import { Col, Icon } from 'antd';
+import { Col } from 'antd';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
@@ -10,17 +10,8 @@ import { ExportToExelButton } from 'components/ExportToExelButton';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import { useWordInfo } from 'state/wordInfo/useWordInfo';
 import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
+import { ToggleWordsInfo } from './ToggleWordsInfo';
 import * as S from './styles';
-
-const ToggleWordInfo: FC = () => {
-  const { toggleWordInfo } = useWordInfo();
-
-  return (
-    <S.ToggleTranslate onClick={toggleWordInfo}>
-      <Icon theme="twoTone" type="file-unknown" />
-    </S.ToggleTranslate>
-  );
-};
 
 export const Words: FC = () => {
   const { wordInfo } = useWordInfo();
@@ -72,7 +63,7 @@ export const Words: FC = () => {
         {!isEmpty(words) && updatedWords.map(renderWords)}
         <ExportToExelButton />
         <AddWord />
-        <ToggleWordInfo />
+        <ToggleWordsInfo />
       </S.WordWrapper>
     </>
   );
