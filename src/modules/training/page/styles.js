@@ -30,8 +30,15 @@ export const ButtonsWrapper = styled.div`
 
 export const Word = styled.div`
   color: #000;
+  margin-right: 10px;
 `;
 
 export const Description = styled.div`
   color: #909090;
+`;
+
+export const IconWordLayout = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
