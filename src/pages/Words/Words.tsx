@@ -40,6 +40,10 @@ export const Words: FC = () => {
     // TODO: remove JSON.stringify
   }, [JSON.stringify(words)]);
 
+  useEffect(() => {
+    showUnlearnedWords();
+  }, []);
+
   const renderWords = ([_, words]: [string, IWord[]]) => {
     const [mainWord]: IWord[] = words;
     const { id, word } = mainWord;
@@ -59,9 +63,9 @@ export const Words: FC = () => {
   return (
     <>
       <WordsFilter
+        showAllWords={showAllWords}
         showMemoizedWords={showMemoizedWords}
         showUnlearnedWords={showUnlearnedWords}
-        showAllWords={showAllWords}
       />
       <S.WordWrapper gutter={12}>
         {!isEmpty(words) && updatedWords.map(renderWords)}

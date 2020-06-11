@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { IUseWordsFilter } from './useWordsFilter';
@@ -10,11 +10,10 @@ enum WordFilters {
   unlearned = 'unlearned',
 }
 
-export const WordsFilter: FC<Omit<IUseWordsFilter, 'updatedWords'>> = ({
-  showMemoizedWords,
-  showUnlearnedWords,
-  showAllWords,
-}) => {
+export const WordsFilter: FC<Omit<
+  IUseWordsFilter,
+  'updatedWords' | 'setWords'
+>> = ({ showMemoizedWords, showUnlearnedWords, showAllWords }) => {
   const filterWords = (checkedList: RadioChangeEvent) => {
     const value: WordFilters = checkedList?.target?.value;
 
@@ -34,9 +33,9 @@ export const WordsFilter: FC<Omit<IUseWordsFilter, 'updatedWords'>> = ({
   return (
     <S.FilterWordsWrapper>
       <Radio.Group
-        onChange={filterWords}
-        defaultValue="all"
         buttonStyle="solid"
+        onChange={filterWords}
+        defaultValue="unlearned"
       >
         <Radio.Button value="all">All words</Radio.Button>
         <Radio.Button value="memoized">Memoized words</Radio.Button>
