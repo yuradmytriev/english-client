@@ -9,8 +9,9 @@ export const WordWrapper = styled.div`
   max-width: 340px;
 `;
 
-export const Image = styled.img`
+export const Image = styled.div`
   width: 100%;
+  background: url(${props => props.src}) center no-repeat;
   max-width: 300px;
   height: 200px;
   border-radius: 5px;
@@ -18,6 +19,7 @@ export const Image = styled.img`
   margin: 0 auto;
   display: block;
   margin-bottom: 10px;
+  background-size: cover;
 `;
 
 export const WordProperty = styled.div`
