@@ -71,3 +71,12 @@ export const MemorizedWrapper = styled(DeleteWrapper)`
     color: #00009e;
   }
 `;
+
+export const ForgotWrapper = styled(DeleteWrapper)`
+  color: #e8a000;
+  margin-top: 10px;
+
+  &:hover {
+    color: #b57d00;
+  }
+`;

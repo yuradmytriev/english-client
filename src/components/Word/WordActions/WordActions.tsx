@@ -58,6 +58,33 @@ const MemorizeWord: FC<{ id: number }> = ({ id }) => {
   );
 };
 
+const ForgotWord: FC<{ id: number }> = ({ id }) => {
+  const { fetchWordsList } = useFetchWordsList();
+
+  const forgotWord = async (
+    e: MouseEvent<HTMLButtonElement>,
+  ): Promise<void> => {
+    e.stopPropagation();
+    const wordProps: Pick<IWord, 'learned'> = { learned: false };
+    const memoizedWord: IWord = await WordsSDK.updateJSON({
+      wordId: id,
+      wordProps,
+    });
+
+    if (memoizedWord.id) {
+      fetchWordsList();
+      message.success('Word updated');
+    }
+  };
+
+  return (
+    <S.ForgotWrapper onClick={forgotWord}>
+      <Icon type="reload" />
+      <span>Forgot</span>
+    </S.ForgotWrapper>
+  );
+};
+
 export const WordActions: FC<{ firstWord: IWord }> = ({ firstWord }) => {
   const { id }: Pick<IWord, 'id'> = firstWord;
 
@@ -65,6 +92,7 @@ export const WordActions: FC<{ firstWord: IWord }> = ({ firstWord }) => {
     <>
       <DeleteWord id={id} />
       <MemorizeWord id={id} />
+      <ForgotWord id={id} />
     </>
   );
 };
