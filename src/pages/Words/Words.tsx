@@ -13,26 +13,32 @@ import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
 import { ToggleWordsInfo } from './ToggleWordsInfo';
 import * as S from './styles';
 
-export const Words: FC = () => {
-  const { showWordsInfo } = useWordsInfo();
-  const { words, fetchWordsList } = useFetchWordsList();
-
-  useEffect(() => {
-    fetchWordsList();
-  }, []);
-
-  const relatedWordsGroup: any[] = orderBy(
+const createWordsGroup = words =>
+  orderBy(
     Object.entries(groupBy(words, 'word')),
     item => item[1][0]?.updatedDate,
     ['desc'],
   );
+
+export const Words: FC = () => {
+  const { showWordsInfo } = useWordsInfo();
+  const { words, fetchWordsList } = useFetchWordsList();
+
+  const relatedWordsGroup: any[] = createWordsGroup(words);
 
   const {
     updatedWords,
     showMemoizedWords,
     showUnlearnedWords,
     showAllWords,
+    setWords,
   }: IUseWordsFilter = useWordsFilter(relatedWordsGroup);
+
+  useEffect(() => {
+    fetchWordsList();
+    setWords(relatedWordsGroup);
+    // TODO: remove JSON.stringify
+  }, [JSON.stringify(words)]);
 
   const renderWords = ([_, words]: [string, IWord[]]) => {
     const [mainWord]: IWord[] = words;

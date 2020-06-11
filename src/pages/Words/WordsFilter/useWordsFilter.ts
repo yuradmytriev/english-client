@@ -5,6 +5,7 @@ export interface IUseWordsFilter {
   showMemoizedWords: () => void;
   showUnlearnedWords: () => void;
   showAllWords: () => void;
+  setWords: (words: any[]) => void;
 }
 
 export const useWordsFilter = (words: any[]): IUseWordsFilter => {
@@ -30,5 +31,11 @@ export const useWordsFilter = (words: any[]): IUseWordsFilter => {
     setWords(words);
   };
 
-  return { updatedWords, showMemoizedWords, showUnlearnedWords, showAllWords };
+  return {
+    updatedWords,
+    showMemoizedWords,
+    showUnlearnedWords,
+    showAllWords,
+    setWords,
+  };
 };
