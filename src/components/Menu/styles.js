@@ -18,7 +18,7 @@ export const MenuItem = styled.div`
 
 export const MenuLayout = styled.div`
   display: flex;
-  height: 100%;
+  min-height: 100vh;
 `;
 
 export const Content = styled.div`
