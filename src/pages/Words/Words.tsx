@@ -8,19 +8,17 @@ import { Word } from 'components/Word';
 import { AddWord } from 'components/AddWord';
 import { ExportToExelButton } from 'components/ExportToExelButton';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
-import { useWordInfo } from 'state/wordInfo/useWordInfo';
+import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
 import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
 import { ToggleWordsInfo } from './ToggleWordsInfo';
 import * as S from './styles';
 
 export const Words: FC = () => {
-  const { wordInfo } = useWordInfo();
+  const { showWordsInfo } = useWordsInfo();
   const { words, fetchWordsList } = useFetchWordsList();
 
   useEffect(() => {
     fetchWordsList();
-
-    // eslint-disable-next-line
   }, []);
 
   const relatedWordsGroup: any[] = orderBy(
@@ -45,7 +43,7 @@ export const Words: FC = () => {
       word && (
         <Col key={id} xs={24} sm={12} md={8} lg={8} xl={6}>
           <S.WordContainer areSeveralWords={areSeveralWords}>
-            <Word words={words} showInfo={wordInfo} />
+            <Word words={words} showInfo={showWordsInfo} />
           </S.WordContainer>
         </Col>
       )

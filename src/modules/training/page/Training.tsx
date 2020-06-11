@@ -43,31 +43,33 @@ export const Training = () => {
 
   return (
     <>
-      {(trainingWords as IWord[]).map(({ id, word, context }) => (
-        <S.Container key={id}>
-          <S.Wrapper>
-            <S.Word>{word}</S.Word>
-            <S.Description>{context}</S.Description>
+      {(trainingWords as IWord[])
+        .filter((i, index) => index === 0)
+        .map(({ id, word, context }) => (
+          <S.Container key={id}>
+            <S.Wrapper>
+              <S.Word>{word}</S.Word>
+              <S.Description>{context}</S.Description>
 
-            <S.ButtonsWrapper>
-              <Button
-                onClick={() => handleMemoized(id)}
-                size="large"
-                type="primary"
-              >
-                Know
-              </Button>
-              <Button
-                onClick={() => removeTrainingWord(id)}
-                size="large"
-                type="danger"
-              >
-                Missed
-              </Button>
-            </S.ButtonsWrapper>
-          </S.Wrapper>
-        </S.Container>
-      ))}
+              <S.ButtonsWrapper>
+                <Button
+                  onClick={() => handleMemoized(id)}
+                  size="large"
+                  type="primary"
+                >
+                  Know
+                </Button>
+                <Button
+                  onClick={() => removeTrainingWord(id)}
+                  size="large"
+                  type="danger"
+                >
+                  Missed
+                </Button>
+              </S.ButtonsWrapper>
+            </S.Wrapper>
+          </S.Container>
+        ))}
     </>
   );
 };

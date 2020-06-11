@@ -18,8 +18,10 @@ export const MenuItem = styled(Link)`
 
 export const MenuLayout = styled.div`
   display: flex;
+  height: 100%;
 `;
 
 export const Content = styled.div`
   padding: ${spacing.base};
+  width: 100%;
 `;
