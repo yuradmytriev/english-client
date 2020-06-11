@@ -33,10 +33,14 @@ export const WordsFilter: FC<Omit<IUseWordsFilter, 'updatedWords'>> = ({
 
   return (
     <S.FilterWordsWrapper>
-      <Radio.Group onChange={filterWords} defaultValue="all">
-        <Radio value="all">All words</Radio>
-        <Radio value="memoized">Memoized words</Radio>
-        <Radio value="unlearned">Unlearned words</Radio>
+      <Radio.Group
+        onChange={filterWords}
+        defaultValue="all"
+        buttonStyle="solid"
+      >
+        <Radio.Button value="all">All words</Radio.Button>
+        <Radio.Button value="memoized">Memoized words</Radio.Button>
+        <Radio.Button value="unlearned">Unlearned words</Radio.Button>
       </Radio.Group>
     </S.FilterWordsWrapper>
   );
