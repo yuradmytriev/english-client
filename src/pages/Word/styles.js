@@ -28,11 +28,14 @@ export const WordProperty = styled.div`
 export const WordLabel = styled.div`
   position: relative;
   margin-top: 20px;
+    font-style: italic;
+  
   &:before {
     content: '${props => props.title}: ';
     font-size: 12px;
     position: absolute;
-    top: -15px;
+    top: -20px;
+    color: #335fff;
   }
 `;
 
@@ -54,10 +57,6 @@ export const TranslateProperty = styled(WordProperty)`
   color: grey;
 `;
 
-export const WordTitle = styled.span`
-  font-weight: bold;
-`;
-
 export const WordPage = styled.div`
   display: flex;
 `;
@@ -75,8 +74,8 @@ export const FrequencyWrapper = styled.div`
   display: inline-block;
   border-radius: 50%;
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: 5px;
+  right: 5px;
 `;
 
 export const MoreExamplesWrapper = styled.div`

@@ -11,11 +11,13 @@ export const MoreSynonymsButton = styled(Button)`
 export const WordLabel = styled.div`
   position: relative;
   margin-top: 20px;
+  font-style: italic;
   &:before {
     content: '${props => props.title}: ';
     font-size: 13px;
     position: absolute;
     top: -20px;
+    color: #335fff;
   }
 `;
 

@@ -57,7 +57,7 @@ const appendWord = async (
 
 // TODO: create single function
 const fetchSameWords = async (values: IWord): Promise<IWord[]> => {
-  const checkWordURL: string = `${FETCH_WORD_URL}/by-text/${values.word}`;
+  const checkWordURL: string = `${FETCH_WORD_URL}/find/${values.word}`;
   const response = await fetch(checkWordURL);
 
   return response.json();

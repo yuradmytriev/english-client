@@ -10,7 +10,7 @@ export const useFetchWordHook = () => {
   useEffect(() => {
     (async () => {
       if (wordName) {
-        const fetchWordURL: string = `${FETCH_WORD_URL}/by-text/${wordName}`;
+        const fetchWordURL: string = `${FETCH_WORD_URL}/find/${wordName}`;
 
         const response: Response = await fetch(fetchWordURL);
         const word: IWord[] = await response.json();
