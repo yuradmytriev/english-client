@@ -1,4 +1,4 @@
-import React, { useEffect, FC, useState } from 'react';
+import React, { useEffect, FC } from 'react';
 import { Col, Icon } from 'antd';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
@@ -8,15 +8,12 @@ import { Word } from 'components/Word';
 import { AddWord } from 'components/AddWord';
 import { ExportToExelButton } from 'components/ExportToExelButton';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
+import { useWordInfo } from 'state/wordInfo/useWordInfo';
 import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
 import * as S from './styles';
 
-const ToggleWordInfo: FC<{
-  setShowInfo: (prev: (prev: boolean) => boolean) => void;
-}> = ({ setShowInfo }) => {
-  const toggleWordInfo = () => {
-    setShowInfo(prev => !prev);
-  };
+const ToggleWordInfo: FC = () => {
+  const { toggleWordInfo } = useWordInfo();
 
   return (
     <S.ToggleTranslate onClick={toggleWordInfo}>
@@ -26,8 +23,8 @@ const ToggleWordInfo: FC<{
 };
 
 export const Words: FC = () => {
+  const { wordInfo } = useWordInfo();
   const { words, fetchWordsList } = useFetchWordsList();
-  const [showInfo, setShowInfo] = useState(true);
 
   useEffect(() => {
     fetchWordsList();
@@ -57,7 +54,7 @@ export const Words: FC = () => {
       word && (
         <Col key={id} xs={24} sm={12} md={8} lg={8} xl={6}>
           <S.WordContainer areSeveralWords={areSeveralWords}>
-            <Word words={words} showInfo={showInfo} />
+            <Word words={words} showInfo={wordInfo} />
           </S.WordContainer>
         </Col>
       )
@@ -75,7 +72,7 @@ export const Words: FC = () => {
         {!isEmpty(words) && updatedWords.map(renderWords)}
         <ExportToExelButton />
         <AddWord />
-        <ToggleWordInfo setShowInfo={setShowInfo} />
+        <ToggleWordInfo />
       </S.WordWrapper>
     </>
   );

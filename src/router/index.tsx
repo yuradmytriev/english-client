@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import { Word } from 'pages/Word';
-import { Words } from 'pages/Words';
+import { Word, Words } from 'pages';
 import { Training } from 'modules/training/page';
 import { Menu } from 'components/Menu';
 

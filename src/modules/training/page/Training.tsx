@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import { IWord } from 'interfaces/IWord';
