@@ -19,7 +19,7 @@ const useTrainingWords = () => {
   return { trainingWords, setTrainingWords };
 };
 
-export const Training: () => any[] | JSX.Element | null = () => {
+export const Training = () => {
   const { trainingWords, setTrainingWords } = useTrainingWords();
 
   const removeTrainingWord = (id: number) => {
@@ -37,32 +37,37 @@ export const Training: () => any[] | JSX.Element | null = () => {
     removeTrainingWord(id);
   };
 
-  return (
-    trainingWords &&
-    (trainingWords as IWord[]).map(({ id, word, context }) => (
-      <S.Container key={id}>
-        <S.Wrapper>
-          <S.Word>{word}</S.Word>
-          <S.Description>{context}</S.Description>
+  if (!trainingWords) {
+    return null;
+  }
 
-          <S.ButtonsWrapper>
-            <Button
-              onClick={() => handleMemoized(id)}
-              size="large"
-              type="primary"
-            >
-              Know
-            </Button>
-            <Button
-              onClick={() => removeTrainingWord(id)}
-              size="large"
-              type="danger"
-            >
-              Missed
-            </Button>
-          </S.ButtonsWrapper>
-        </S.Wrapper>
-      </S.Container>
-    ))
+  return (
+    <>
+      {(trainingWords as IWord[]).map(({ id, word, context }) => (
+        <S.Container key={id}>
+          <S.Wrapper>
+            <S.Word>{word}</S.Word>
+            <S.Description>{context}</S.Description>
+
+            <S.ButtonsWrapper>
+              <Button
+                onClick={() => handleMemoized(id)}
+                size="large"
+                type="primary"
+              >
+                Know
+              </Button>
+              <Button
+                onClick={() => removeTrainingWord(id)}
+                size="large"
+                type="danger"
+              >
+                Missed
+              </Button>
+            </S.ButtonsWrapper>
+          </S.Wrapper>
+        </S.Container>
+      ))}
+    </>
   );
 };
