@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Icon, Typography } from 'antd';
+import { cardShadow, cardBorderRadius } from 'constants/styles';
 
 const { Paragraph } = Typography;
 
@@ -9,8 +10,8 @@ export const WordWrapper = styled.div`
   max-width: 550px;
   background: #fff;
   padding: 20px;
-  border-radius: 4px;
-  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 0 1px 0 rgba(0, 0, 0, 0.12);
+  border-radius: ${cardBorderRadius};
+  box-shadow: ${cardShadow};
 `;
 
 export const Image = styled.div`

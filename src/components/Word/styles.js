@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Card } from 'antd';
+import { cardShadow } from 'constants/styles';
 
 const { Meta: AntdMeta } = Card;
 
@@ -32,8 +33,7 @@ export const Meta = styled(AntdMeta)`
 `;
 
 export const WordCard = styled(Card)`
-  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05),
-    0 1px 3px 0 rgba(63, 63, 68, 0.15);
+  box-shadow: ${cardShadow};
   border: none !important;
 
   & .ant-card-body {
