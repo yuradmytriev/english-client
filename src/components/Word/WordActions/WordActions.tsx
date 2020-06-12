@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react';
-import { Icon, message } from 'antd';
+import { Icon } from 'antd';
 import { IWord } from 'interfaces/IWord';
 import {
   useFetchWordsList,
@@ -19,7 +19,6 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
 
     if (deletedWord) {
       fetchWordsList();
-      message.success('Deleted successfully');
     }
   };
 
@@ -46,7 +45,6 @@ const MemorizeWord: FC<{ id: number }> = ({ id }) => {
 
     if (memoizedWord.id) {
       fetchWordsList();
-      message.success('Word memoized');
     }
   };
 
@@ -73,7 +71,6 @@ const ForgotWord: FC<{ id: number }> = ({ id }) => {
 
     if (memoizedWord.id) {
       fetchWordsList();
-      message.success('Word updated');
     }
   };
 

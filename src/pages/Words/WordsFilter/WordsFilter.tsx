@@ -35,7 +35,7 @@ export const WordsFilter: FC<Omit<
       <Radio.Group
         buttonStyle="solid"
         onChange={filterWords}
-        defaultValue="unlearned"
+        defaultValue="all"
       >
         <Radio.Button value="all">All words</Radio.Button>
         <Radio.Button value="memoized">Memoized words</Radio.Button>
