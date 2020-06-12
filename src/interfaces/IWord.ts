@@ -10,4 +10,5 @@ export interface IWord {
   imageSrc: string;
   learned?: boolean;
   updatedDate: string;
+  category: any;
 }

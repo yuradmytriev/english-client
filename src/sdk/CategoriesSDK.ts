@@ -18,4 +18,14 @@ export class CategoriesSDK {
       body: JSON.stringify({ id }),
     });
   }
+
+  static unlinkWordFromCategory(id: string, categoryId: string) {
+    fetch(wordCategoryURL(categoryId), {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ id }),
+    });
+  }
 }

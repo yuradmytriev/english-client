@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import { IWord } from 'interfaces/IWord';
+import { DropContainer } from 'components/DnD/DropContainer';
 import { Word } from 'components/Word';
 import { WordContainer } from 'components/Word/WordContainer';
 import { AddWord } from 'components/AddWord';
@@ -14,9 +15,10 @@ import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
 import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
 import { ToggleWordsInfo } from './ToggleWordsInfo';
 import * as S from './styles';
+import { CategoriesSDK } from 'sdk/CategoriesSDK';
 
-const createWordsGroup = words => {
-  const filtered = words.filter(word => !word.category);
+const createWordsGroup = (words: IWord[]) => {
+  const filtered = words.filter((word: IWord) => !word.category);
 
   return orderBy(
     Object.entries(groupBy(filtered, 'word')),
@@ -62,6 +64,12 @@ export const Words: FC = () => {
     );
   };
 
+  const onDropEnd = (id: string, categoryId?: string) => {
+    if (categoryId) {
+      CategoriesSDK.unlinkWordFromCategory(id, categoryId);
+    }
+  };
+
   return (
     <>
       <WordsFilter
@@ -70,12 +78,14 @@ export const Words: FC = () => {
         showUnlearnedWords={showUnlearnedWords}
       />
       <Categories />
-      <S.WordWrapper gutter={12}>
-        {!isEmpty(words) && updatedWords.map(renderWords)}
-        <ExportToExelButton />
-        <AddWord />
-        <ToggleWordsInfo />
-      </S.WordWrapper>
+      <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
+        <S.WordWrapper gutter={12}>
+          {!isEmpty(words) && updatedWords.map(renderWords)}
+          <ExportToExelButton />
+          <AddWord />
+          <ToggleWordsInfo />
+        </S.WordWrapper>
+      </DropContainer>
     </>
   );
 };

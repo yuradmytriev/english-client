@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Col, Collapse } from 'antd';
 import { Word } from 'components/Word';
 import { DropContainer } from 'components/DnD/DropContainer';
@@ -7,20 +7,17 @@ import { IWord } from 'interfaces/IWord';
 import { ICategory } from 'interfaces/ICategory';
 import { CategoriesSDK } from 'sdk/CategoriesSDK';
 import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
+import { useFetchCategories } from '../hooks/useFetchCategories';
 import * as S from './styles';
 
 const { Panel } = Collapse;
 
 export const Categories = () => {
   const { showWordsInfo } = useWordsInfo();
-  const [categories, setCategories] = useState([]);
+  const { categories } = useFetchCategories();
 
-  useEffect(() => {
-    CategoriesSDK.fetch().then(setCategories);
-  }, []);
-
-  const onDropEnd = (id: string, category: string) => {
-    CategoriesSDK.linkWordToCategory(id, category);
+  const onDropEnd = (id: string, categoryId: string) => {
+    CategoriesSDK.linkWordToCategory(id, categoryId);
   };
 
   const renderCategoriesWords = (category: ICategory) =>

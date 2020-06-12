@@ -20,14 +20,14 @@ export const Word: FC<{ firstWord: IWord; showInfo: boolean }> = ({
   firstWord,
   showInfo,
 }) => {
-  const { id, word, translate, imageSrc, learned }: IWord = firstWord;
+  const { id, word, translate, imageSrc, learned, category }: IWord = firstWord;
 
   const wordPageURL = `word/${word}`;
 
   // TODO: resolve issue with frequency requests
   // @ts-ignore
   return (
-    <Draggable key={id} id={String(id)}>
+    <Draggable key={id} id={String(id)} categoryId={category?.id}>
       <Link to={wordPageURL}>
         <S.WordCard>
           <S.CardBody>
