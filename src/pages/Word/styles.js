@@ -20,11 +20,10 @@ export const Image = styled.div`
   max-width: 300px;
   height: 200px;
   border-radius: 5px;
-  border: 2px solid #c7c7c7;
   margin: 0 auto;
   display: block;
   margin-bottom: 10px;
-  background-size: cover;
+  background-size: contain;
 `;
 
 export const WordProperty = styled.div`
@@ -101,7 +100,6 @@ export const Text = styled(Paragraph)`
 export const WordPronunciationWrapper = styled.div`
   position: absolute;
   bottom: 2px;
-  background: white;
   padding: 5px;
   padding-bottom: 2px;
   border-bottom-left-radius: 0;

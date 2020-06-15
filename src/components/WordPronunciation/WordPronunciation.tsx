@@ -9,5 +9,5 @@ export const WordPronunciation: FC<Pick<IWord, 'word'>> = ({
     window.responsiveVoice.speak(word);
   };
 
-  return <S.Icon type="sound" onClick={handleClick} />;
+  return <S.Icon theme="twoTone" type="sound" onClick={handleClick} />;
 };
