@@ -13,10 +13,10 @@ import { CreateCategories } from 'modules/categories/components/CreateCategories
 import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
-import { CategoriesSDK } from 'sdk/CategoriesSDK';
 import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
 import { ToggleWordsInfo } from './ToggleWordsInfo';
 import * as S from './styles';
+import { useFetchCategories } from 'state/categories/useCategories';
 
 const createWordsGroup = (words: IWord[]) => {
   const filtered = words.filter((word: IWord) => !word.category);
@@ -31,6 +31,11 @@ const createWordsGroup = (words: IWord[]) => {
 export const Words: FC = () => {
   const { showWordsInfo } = useWordsInfo();
   const { words, fetchWordsList } = useFetchWordsList();
+  const {
+    categories,
+    unlinkCategories,
+    fetchCategories,
+  } = useFetchCategories();
 
   const relatedWordsGroup: any[] = createWordsGroup(words);
 
@@ -46,7 +51,7 @@ export const Words: FC = () => {
     fetchWordsList();
     setWords(relatedWordsGroup);
     // TODO: remove JSON.stringify
-  }, [JSON.stringify(words)]);
+  }, [JSON.stringify(words), categories.length]);
 
   const renderWords = ([_, words]: [string, IWord[]]) => {
     const [mainWord]: IWord[] = words;
@@ -65,9 +70,10 @@ export const Words: FC = () => {
     );
   };
 
-  const onDropEnd = (id: string, categoryId?: string) => {
+  const onDropEnd = async (id: string, categoryId?: string) => {
     if (categoryId) {
-      CategoriesSDK.unlinkWordFromCategory(id, categoryId);
+      await unlinkCategories(id, categoryId);
+      await fetchCategories();
     }
   };
 

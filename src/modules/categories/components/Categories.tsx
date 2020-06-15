@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Col, Collapse, Icon } from 'antd';
 import { Word } from 'components/Word';
 import { DropContainer } from 'components/DnD/DropContainer';
@@ -7,7 +7,7 @@ import { IWord } from 'interfaces/IWord';
 import { ICategory } from 'interfaces/ICategory';
 import { CategoriesSDK } from 'sdk/CategoriesSDK';
 import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
-import { useFetchCategories } from '../hooks/useFetchCategories';
+import { useFetchCategories } from 'state/categories/useCategories';
 import * as S from './styles';
 
 const { Panel } = Collapse;
@@ -34,7 +34,11 @@ const DeleteCategory: FC<{ id: number }> = ({ id }) => (
 );
 
 export const Categories = () => {
-  const { categories } = useFetchCategories();
+  const { categories, fetchCategories } = useFetchCategories();
+
+  useEffect(() => {
+    fetchCategories();
+  }, [categories.length]);
 
   const linkWordToCategory = ({ wordId, categoryId }: ILinkCategory) => {
     CategoriesSDK.linkWordToCategory(wordId, categoryId);
@@ -50,15 +54,15 @@ export const Categories = () => {
         {categories.map(({ id, name, words }: ICategory) => (
           <Panel key={id} header={name} extra={<DeleteCategory id={id} />}>
             <DropContainer
-              onDropEnd={id =>
+              onDropEnd={wordId =>
                 linkWordToCategory({
-                  wordId: String(id),
+                  wordId: String(wordId),
                   categoryId: String(id),
                 })
               }
             >
               <S.WordsWrapper gutter={12}>
-                {words.length && <CategoriesWords words={words} />}
+                {!!words.length && <CategoriesWords words={words} />}
               </S.WordsWrapper>
             </DropContainer>
           </Panel>

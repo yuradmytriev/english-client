@@ -29,7 +29,7 @@ export const Image = styled.div`
 export const WordProperty = styled.div`
   margin-bottom: 15px;
   font-size: 17px;
-  background: #e8e8e8;
+  background: #f5f5f5;
   padding: 2px 5px;
 `;
 

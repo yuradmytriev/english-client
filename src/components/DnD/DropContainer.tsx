@@ -1,4 +1,5 @@
 import React, { FC, DragEvent, ReactNode } from 'react';
+import * as S from './styles';
 
 interface IDropContainer {
   children: ReactNode;
@@ -20,8 +21,8 @@ export const DropContainer: FC<IDropContainer> = ({ children, onDropEnd }) => {
   };
 
   return (
-    <div onDrop={handleDrop} onDragOver={handleDragOver}>
+    <S.DropContainer onDrop={handleDrop} onDragOver={handleDragOver}>
       {children}
-    </div>
+    </S.DropContainer>
   );
 };

@@ -16,27 +16,27 @@ export class CategoriesSDK {
   }
 
   static create(name: string) {
-    fetch(categoriesURL, {
+    return fetch(categoriesURL, {
       ...postConfig,
       body: JSON.stringify({ name }),
     });
   }
 
   static delete(id: number) {
-    fetch(`${categoriesURL}/${id}`, {
+    return fetch(`${categoriesURL}/${id}`, {
       method: 'delete',
     });
   }
 
   static linkWordToCategory(id: string, categoryId: string) {
-    fetch(wordCategoryURL(categoryId), {
+    return fetch(wordCategoryURL(categoryId), {
       ...postConfig,
       body: JSON.stringify({ id }),
     });
   }
 
   static unlinkWordFromCategory(id: string, categoryId: string) {
-    fetch(wordCategoryURL(categoryId), {
+    return fetch(wordCategoryURL(categoryId), {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',

@@ -1,0 +1,2 @@
+export const FETCH_CATEGORIES: string = 'FETCH_CATEGORIES';
+export const UNLINK_CATEGORIES: string = 'UNLINK_CATEGORIES';
