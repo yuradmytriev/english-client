@@ -3,6 +3,12 @@ import { jsonFetch } from 'utils/jsonFetch';
 const categoriesURL: string = 'http://localhost:3008/categories';
 const wordCategoryURL = (categoryId: string): string =>
   `http://localhost:3008/words/category/${categoryId}`;
+const postConfig: object = {
+  method: 'post',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8',
+  },
+};
 
 export class CategoriesSDK {
   static fetch() {
@@ -11,26 +17,20 @@ export class CategoriesSDK {
 
   static create(name: string) {
     fetch(categoriesURL, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
+      ...postConfig,
       body: JSON.stringify({ name }),
-    }).catch(console.error);
+    });
   }
 
   static delete(id: number) {
     fetch(`${categoriesURL}/${id}`, {
       method: 'delete',
-    }).catch(console.error);
+    });
   }
 
   static linkWordToCategory(id: string, categoryId: string) {
     fetch(wordCategoryURL(categoryId), {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
+      ...postConfig,
       body: JSON.stringify({ id }),
     });
   }
