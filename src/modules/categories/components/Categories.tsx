@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Col, Collapse, Icon } from 'antd';
 import { Word } from 'components/Word';
 import { DropContainer } from 'components/DnD/DropContainer';
@@ -12,49 +12,64 @@ import * as S from './styles';
 
 const { Panel } = Collapse;
 
-export const Categories = () => {
-  const { showWordsInfo } = useWordsInfo();
-  const { categories } = useFetchCategories();
+interface ILinkCategory {
+  wordId: string;
+  categoryId: string;
+}
 
-  const onDropEnd = (id: string, categoryId: string) => {
-    CategoriesSDK.linkWordToCategory(id, categoryId);
+const CategoriesWords: FC<{ words: IWord[] }> = ({ words }): any => {
+  const { showWordsInfo } = useWordsInfo();
+
+  if (!words.length) {
+    return null;
+  }
+
+  return words.map((word: IWord) => (
+    <Col key={word.id} xs={24} sm={12} md={8} lg={8} xl={6}>
+      <WordContainer areSeveralWords={false}>
+        <Word firstWord={word} showInfo={showWordsInfo} />
+      </WordContainer>
+    </Col>
+  ));
+};
+
+const CategoriesList: FC<{ categories: ICategory[] }> = ({
+  categories,
+}): any => {
+  const linkWordToCategory = ({ wordId, categoryId }: ILinkCategory) => {
+    CategoriesSDK.linkWordToCategory(wordId, categoryId);
   };
 
-  const renderCategoriesWords = (category: ICategory) =>
-    category?.words.map((word: IWord) => (
-      <Col key={word.id} xs={24} sm={12} md={8} lg={8} xl={6}>
-        <WordContainer areSeveralWords={false}>
-          <Word firstWord={word} showInfo={showWordsInfo} />
-        </WordContainer>
-      </Col>
-    ));
+  const deleteCategory = (id: number) => {
+    CategoriesSDK.delete(id);
+  };
 
-  const renderCategories = (categories: ICategory[]) => {
-    const deleteCategory = id => {
-      CategoriesSDK.delete(id);
-    };
-
-    return categories.map((category: ICategory) => (
-      <Panel
-        header={category.name}
-        key={category.id}
-        extra={
-          <Icon type="close" onClick={() => deleteCategory(category.id)} />
+  return categories.map(({ id, name, words }: ICategory) => (
+    <Panel
+      key={id}
+      header={name}
+      extra={<Icon type="close" onClick={() => deleteCategory(id)} />}
+    >
+      <DropContainer
+        onDropEnd={id =>
+          linkWordToCategory({ wordId: String(id), categoryId: String(id) })
         }
       >
-        <DropContainer onDropEnd={id => onDropEnd(id, String(category.id))}>
-          <S.WordsWrapper gutter={12}>
-            {renderCategoriesWords(category)}
-          </S.WordsWrapper>
-        </DropContainer>
-      </Panel>
-    ));
-  };
+        <S.WordsWrapper gutter={12}>
+          <CategoriesWords words={words} />
+        </S.WordsWrapper>
+      </DropContainer>
+    </Panel>
+  ));
+};
+
+export const Categories = () => {
+  const { categories } = useFetchCategories();
 
   return (
     <S.CategoriesWrapper>
       <Collapse bordered={false} expandIconPosition="left">
-        {categories.length ? renderCategories(categories) : null}
+        {categories.length && <CategoriesList categories={categories} />}
       </Collapse>
     </S.CategoriesWrapper>
   );
