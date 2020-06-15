@@ -9,20 +9,20 @@ export class CategoriesSDK {
     return jsonFetch(categoriesURL);
   }
 
-  static create(name) {
+  static create(name: string) {
     fetch(categoriesURL, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify({ name }),
-    });
+    }).catch(console.error);
   }
 
-  static delete(id) {
+  static delete(id: number) {
     fetch(`${categoriesURL}/${id}`, {
       method: 'delete',
-    });
+    }).catch(console.error);
   }
 
   static linkWordToCategory(id: string, categoryId: string) {

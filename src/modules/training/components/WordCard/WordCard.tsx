@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react';
+import { Button, Icon } from 'antd';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'sdk/WordsSDK';
-import * as S from '../../page/styles';
-import { Button, Icon } from 'antd';
+import * as S from './styles';
 
 interface IWordCard
   extends Pick<IWord, 'id' | 'word' | 'translate' | 'context'> {
-  removeTrainingWord: (id: number) => void;
+  deleteTrainingWord: (id: number) => void;
 }
 
 export const WordCard: FC<IWordCard> = ({
@@ -14,11 +14,11 @@ export const WordCard: FC<IWordCard> = ({
   word,
   translate,
   context,
-  removeTrainingWord,
+  deleteTrainingWord,
 }) => {
   const [showTranslate, setShowTranslate] = useState(false);
 
-  const handleMemoized = (id: number): void => {
+  const memoizeWord = (): void => {
     const wordProps: Pick<IWord, 'learned'> = { learned: true };
 
     WordsSDK.updateJSON({
@@ -26,10 +26,10 @@ export const WordCard: FC<IWordCard> = ({
       wordProps,
     });
 
-    removeTrainingWord(id);
+    deleteTrainingWord(id);
   };
 
-  const toggleTranslate = () => {
+  const toggleTranslate = (): void => {
     setShowTranslate(prev => !prev);
   };
 
@@ -48,15 +48,11 @@ export const WordCard: FC<IWordCard> = ({
         <S.Description>{context}</S.Description>
 
         <S.ButtonsWrapper>
-          <Button
-            onClick={() => handleMemoized(id)}
-            size="large"
-            type="primary"
-          >
+          <Button onClick={memoizeWord} size="large" type="primary">
             Know
           </Button>
           <Button
-            onClick={() => removeTrainingWord(id)}
+            onClick={() => deleteTrainingWord(id)}
             size="large"
             type="danger"
           >
