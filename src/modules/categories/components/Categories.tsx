@@ -20,10 +20,6 @@ interface ILinkCategory {
 const CategoriesWords: FC<{ words: IWord[] }> = ({ words }): any => {
   const { showWordsInfo } = useWordsInfo();
 
-  if (!words.length) {
-    return null;
-  }
-
   return words.map((word: IWord) => (
     <Col key={word.id} xs={24} sm={12} md={8} lg={8} xl={6}>
       <WordContainer areSeveralWords={false}>
@@ -33,43 +29,40 @@ const CategoriesWords: FC<{ words: IWord[] }> = ({ words }): any => {
   ));
 };
 
-const CategoriesList: FC<{ categories: ICategory[] }> = ({
-  categories,
-}): any => {
-  const linkWordToCategory = ({ wordId, categoryId }: ILinkCategory) => {
-    CategoriesSDK.linkWordToCategory(wordId, categoryId);
-  };
-
-  const deleteCategory = (id: number) => {
-    CategoriesSDK.delete(id);
-  };
-
-  return categories.map(({ id, name, words }: ICategory) => (
-    <Panel
-      key={id}
-      header={name}
-      extra={<Icon type="close" onClick={() => deleteCategory(id)} />}
-    >
-      <DropContainer
-        onDropEnd={id =>
-          linkWordToCategory({ wordId: String(id), categoryId: String(id) })
-        }
-      >
-        <S.WordsWrapper gutter={12}>
-          <CategoriesWords words={words} />
-        </S.WordsWrapper>
-      </DropContainer>
-    </Panel>
-  ));
-};
+const DeleteCategory: FC<{ id: number }> = ({ id }) => (
+  <Icon type="close" onClick={() => CategoriesSDK.delete(id)} />
+);
 
 export const Categories = () => {
   const { categories } = useFetchCategories();
 
+  const linkWordToCategory = ({ wordId, categoryId }: ILinkCategory) => {
+    CategoriesSDK.linkWordToCategory(wordId, categoryId);
+  };
+
+  if (!categories.length) {
+    return null;
+  }
+
   return (
     <S.CategoriesWrapper>
       <Collapse bordered={false} expandIconPosition="left">
-        {categories.length && <CategoriesList categories={categories} />}
+        {categories.map(({ id, name, words }: ICategory) => (
+          <Panel key={id} header={name} extra={<DeleteCategory id={id} />}>
+            <DropContainer
+              onDropEnd={id =>
+                linkWordToCategory({
+                  wordId: String(id),
+                  categoryId: String(id),
+                })
+              }
+            >
+              <S.WordsWrapper gutter={12}>
+                {words.length && <CategoriesWords words={words} />}
+              </S.WordsWrapper>
+            </DropContainer>
+          </Panel>
+        ))}
       </Collapse>
     </S.CategoriesWrapper>
   );
