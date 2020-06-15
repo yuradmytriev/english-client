@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Icon, Input, message, Modal } from 'antd';
-import { useToggle } from 'hooks';
+import { useToggleModal } from 'hooks';
 import { IWord } from 'interfaces/IWord';
 import { jsonFetch } from 'utils/jsonFetch';
 import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
@@ -114,15 +114,15 @@ const fromConfig = (closeAddWordModal: any, fetchWordsList: any): any => ({
 const AddWord: FC = () => {
   const [forms, appendForm] = useForms();
   const { fetchWordsList } = useFetchWordsList();
-  const { visible, openAddWordModal, closeAddWordModal } = useToggle();
+  const { visible, openModal, closeModal } = useToggleModal();
 
   const { handleSubmit, handleChange, setFieldValue } = useFormik(
-    fromConfig(closeAddWordModal, fetchWordsList),
+    fromConfig(closeModal, fetchWordsList),
   );
 
   return (
     <>
-      <S.Container onClick={openAddWordModal}>
+      <S.Container onClick={openModal}>
         <Icon type="plus" />
       </S.Container>
       <S.FormModal
@@ -131,7 +131,7 @@ const AddWord: FC = () => {
         footer={null}
         destroyOnClose
         visible={visible}
-        onCancel={closeAddWordModal}
+        onCancel={closeModal}
       >
         {forms.map((id: number) => (
           <Form key={id} onSubmit={handleSubmit}>

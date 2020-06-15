@@ -5,7 +5,7 @@ import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
 import { WordsSDK } from 'sdk/WordsSDK';
 import { ISuggestion } from './ISuggestion';
 import { useFetchRapidWord } from './useFetchRapidWord';
-import { useToggle } from 'hooks/useToggle';
+import { useToggleModal } from 'hooks';
 import { ifElse } from 'utils/ifElse';
 import * as S from './styles';
 import { IWord } from '../../interfaces/IWord';
@@ -37,7 +37,7 @@ export const Suggestion: FC<ISuggestion> = ({
   originalWord,
   isEditMode,
 }): JSX.Element | null => {
-  const { visible, toggleVisible } = useToggle();
+  const { visible, toggleVisible } = useToggleModal();
   const [synonyms] = useFetchRapidWord({
     type,
     word,

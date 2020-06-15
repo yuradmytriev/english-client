@@ -1,4 +1,4 @@
-import { useToggle } from './useToggle';
+import { useToggleModal } from './useToggleModal';
 import { useVoidReader } from './useVoidReader';
 
-export { useToggle, useVoidReader };
+export { useToggleModal, useVoidReader };

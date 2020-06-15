@@ -5,4 +5,5 @@ export const ToggleTranslate = styled.div`
   bottom: 120px;
   font-size: 34px;
   right: 26px;
+  cursor: pointer;
 `;

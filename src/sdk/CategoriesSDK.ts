@@ -9,6 +9,22 @@ export class CategoriesSDK {
     return jsonFetch(categoriesURL);
   }
 
+  static create(name) {
+    fetch(categoriesURL, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({ name }),
+    });
+  }
+
+  static delete(id) {
+    fetch(`${categoriesURL}/${id}`, {
+      method: 'delete',
+    });
+  }
+
   static linkWordToCategory(id: string, categoryId: string) {
     fetch(wordCategoryURL(categoryId), {
       method: 'post',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col, Collapse } from 'antd';
+import { Col, Collapse, Icon } from 'antd';
 import { Word } from 'components/Word';
 import { DropContainer } from 'components/DnD/DropContainer';
 import { WordContainer } from 'components/Word/WordContainer';
@@ -29,9 +29,19 @@ export const Categories = () => {
       </Col>
     ));
 
-  const renderCategories = (categories: ICategory[]) =>
-    categories.map((category: ICategory) => (
-      <Panel header={category.name} key={category.id}>
+  const renderCategories = (categories: ICategory[]) => {
+    const deleteCategory = id => {
+      CategoriesSDK.delete(id);
+    };
+
+    return categories.map((category: ICategory) => (
+      <Panel
+        header={category.name}
+        key={category.id}
+        extra={
+          <Icon type="close" onClick={() => deleteCategory(category.id)} />
+        }
+      >
         <DropContainer onDropEnd={id => onDropEnd(id, String(category.id))}>
           <S.WordsWrapper gutter={12}>
             {renderCategoriesWords(category)}
@@ -39,10 +49,11 @@ export const Categories = () => {
         </DropContainer>
       </Panel>
     ));
+  };
 
   return (
     <S.CategoriesWrapper>
-      <Collapse bordered={false}>
+      <Collapse bordered={false} expandIconPosition="left">
         {categories.length ? renderCategories(categories) : null}
       </Collapse>
     </S.CategoriesWrapper>

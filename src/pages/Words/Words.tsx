@@ -4,18 +4,19 @@ import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import { IWord } from 'interfaces/IWord';
-import { DropContainer } from 'components/DnD/DropContainer';
 import { Word } from 'components/Word';
-import { WordContainer } from 'components/Word/WordContainer';
 import { AddWord } from 'components/AddWord';
+import { DropContainer } from 'components/DnD/DropContainer';
+import { WordContainer } from 'components/Word/WordContainer';
 import { ExportToExelButton } from 'components/ExportToExelButton';
+import { CreateCategories } from 'modules/categories/components/CreateCategories';
 import { Categories } from 'modules/categories/components';
-import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
+import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
+import { CategoriesSDK } from 'sdk/CategoriesSDK';
 import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
 import { ToggleWordsInfo } from './ToggleWordsInfo';
 import * as S from './styles';
-import { CategoriesSDK } from 'sdk/CategoriesSDK';
 
 const createWordsGroup = (words: IWord[]) => {
   const filtered = words.filter((word: IWord) => !word.category);
@@ -83,6 +84,7 @@ export const Words: FC = () => {
           {!isEmpty(words) && updatedWords.map(renderWords)}
           <ExportToExelButton />
           <AddWord />
+          <CreateCategories />
           <ToggleWordsInfo />
         </S.WordWrapper>
       </DropContainer>
