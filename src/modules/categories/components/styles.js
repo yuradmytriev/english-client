@@ -7,7 +7,17 @@ export const WordsWrapper = styled(Row)`
   flex-wrap: wrap;
 `;
 
-export const CategoriesWrapper = styled.div`
-  margin-bottom: 20px;
-  box-shadow: ${cardShadow};
+export const CategoriesLayout = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  justify-content: space-between;
+`;
+
+export const CategoryWrapper = styled.div`
+  width: 373px;
+
+  & > .ant-collapse {
+    box-shadow: ${cardShadow};
+  }
 `;

@@ -21,7 +21,7 @@ const CategoriesWords: FC<{ words: IWord[] }> = ({ words }): any => {
   const { showWordsInfo } = useWordsInfo();
 
   return words.map((word: IWord) => (
-    <Col key={word.id} xs={24} sm={12} md={8} lg={8} xl={6}>
+    <Col key={word.id} xs={24} sm={24} md={24} lg={24} xl={24}>
       <WordContainer areSeveralWords={false}>
         <Word firstWord={word} showInfo={showWordsInfo} />
       </WordContainer>
@@ -49,25 +49,27 @@ export const Categories = () => {
   }
 
   return (
-    <S.CategoriesWrapper>
-      <Collapse bordered={false} expandIconPosition="left">
-        {categories.map(({ id, name, words }: ICategory) => (
-          <Panel key={id} header={name} extra={<DeleteCategory id={id} />}>
-            <DropContainer
-              onDropEnd={wordId =>
-                linkWordToCategory({
-                  wordId: String(wordId),
-                  categoryId: String(id),
-                })
-              }
-            >
-              <S.WordsWrapper gutter={12}>
-                {!!words.length && <CategoriesWords words={words} />}
-              </S.WordsWrapper>
-            </DropContainer>
-          </Panel>
-        ))}
-      </Collapse>
-    </S.CategoriesWrapper>
+    <S.CategoriesLayout>
+      {categories.map(({ id, name, words }: ICategory) => (
+        <S.CategoryWrapper>
+          <Collapse bordered={false} expandIconPosition="left">
+            <Panel key={id} header={name} extra={<DeleteCategory id={id} />}>
+              <DropContainer
+                onDropEnd={wordId =>
+                  linkWordToCategory({
+                    wordId: String(wordId),
+                    categoryId: String(id),
+                  })
+                }
+              >
+                <S.WordsWrapper gutter={12}>
+                  {!!words.length && <CategoriesWords words={words} />}
+                </S.WordsWrapper>
+              </DropContainer>
+            </Panel>
+          </Collapse>
+        </S.CategoryWrapper>
+      ))}
+    </S.CategoriesLayout>
   );
 };
