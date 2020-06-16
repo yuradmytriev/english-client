@@ -37,10 +37,8 @@ export class CategoriesSDK {
 
   static unlinkWordFromCategory(id: string, categoryId: string) {
     return fetch(wordCategoryURL(categoryId), {
+      ...postConfig,
       method: 'delete',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8',
-      },
       body: JSON.stringify({ id }),
     });
   }

@@ -15,7 +15,8 @@
     "jsx": "react",
     "isolatedModules": true,
     "baseUrl": "./src",
-    "diagnostics": true
+    "diagnostics": true,
+    "noImplicitAny": false,
   },
   "include": ["src"]
 }

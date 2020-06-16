@@ -51,7 +51,7 @@ export const Words: FC = () => {
     fetchWordsList();
     setWords(relatedWordsGroup);
     // TODO: remove JSON.stringify
-  }, [JSON.stringify(words), categories.length]);
+  }, [JSON.stringify(words)]);
 
   const renderWords = ([_, words]: [string, IWord[]]) => {
     const [mainWord]: IWord[] = words;
@@ -73,7 +73,6 @@ export const Words: FC = () => {
   const onDropEnd = async (id: string, categoryId?: string) => {
     if (categoryId) {
       await unlinkCategories(id, categoryId);
-      await fetchCategories();
     }
   };
 

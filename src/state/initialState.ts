@@ -1,13 +1,7 @@
-export interface IInitialState {
-  words: Array<any>;
-  word: string;
-  wordsInfo: boolean;
-  categories: Array<any>;
-}
+import { IState } from 'interfaces/IState';
 
-export const initialState: IInitialState = {
+export const initialState: IState = {
   words: [],
-  word: '',
   wordsInfo: true,
   categories: [],
 };

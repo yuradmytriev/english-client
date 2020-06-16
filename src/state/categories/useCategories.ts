@@ -1,23 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { CategoriesSDK } from 'sdk/CategoriesSDK';
-import { fetchCategoriesAction, unlinkCategoriesAction } from './actions';
+import { IState } from 'interfaces/IState';
+import {
+  unlinkCategoriesAction,
+  requestCategoriesAction,
+  linkCategoriesAction,
+} from './actions';
 
 export const useFetchCategories = () => {
   const dispatch = useDispatch();
 
-  const categories = useSelector((state: any) => state.categories);
+  const categories = useSelector((state: IState) => state.categories);
 
   const fetchCategories = (): void => {
-    CategoriesSDK.fetch().then(data => {
-      dispatch(fetchCategoriesAction(data));
-    });
+    dispatch(requestCategoriesAction());
   };
 
-  const unlinkCategories = (id, categoryId) => {
-    return CategoriesSDK.unlinkWordFromCategory(id, categoryId).then(() => {
-      dispatch(unlinkCategoriesAction());
-    });
+  const unlinkCategories = (id, categoryId): void => {
+    dispatch(unlinkCategoriesAction({ id, categoryId }));
   };
 
-  return { fetchCategories, categories, unlinkCategories };
+  const linkCategories = (id, categoryId): void => {
+    dispatch(linkCategoriesAction({ id, categoryId }));
+  };
+
+  return { categories, fetchCategories, unlinkCategories, linkCategories };
 };

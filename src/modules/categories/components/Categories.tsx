@@ -34,14 +34,14 @@ const DeleteCategory: FC<{ id: number }> = ({ id }) => (
 );
 
 export const Categories = () => {
-  const { categories, fetchCategories } = useFetchCategories();
+  const { categories, fetchCategories, linkCategories } = useFetchCategories();
 
   useEffect(() => {
     fetchCategories();
   }, [categories.length]);
 
   const linkWordToCategory = ({ wordId, categoryId }: ILinkCategory) => {
-    CategoriesSDK.linkWordToCategory(wordId, categoryId);
+    linkCategories(wordId, categoryId);
   };
 
   if (!categories.length) {
