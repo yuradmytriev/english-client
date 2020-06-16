@@ -1,11 +1,10 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Button } from 'antd';
+import { useEditMode } from 'state/editMode/useEditMode';
 import * as S from './styles';
 
-export const Navigation: FC<{
-  enableEditMode: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ enableEditMode }) => {
-  const toggleEditMode = (): void => enableEditMode(prev => !prev);
+export const Navigation = () => {
+  const { toggleEditMode } = useEditMode();
 
   return (
     <S.ButtonWrapper type="button" onClick={toggleEditMode}>

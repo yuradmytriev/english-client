@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Video } from 'components/Video';
 import { Carousel } from 'components/Carousel';
 import { Frequency } from 'components/Frequency';
 import { Navigation } from 'components/Navigation';
 import { WordPronunciation } from 'components/WordPronunciation';
+import { useEditMode } from 'state/editMode/useEditMode';
 import { IWord } from 'interfaces/IWord';
 import { useFetchWordHook } from './useFetchWordHook';
 import { UpdateImage } from './UpdateImage';
@@ -16,8 +17,7 @@ import { Definition } from './Definition';
 import * as S from './styles';
 
 export const Word: FC = () => {
-  const [isEditMode, enableEditMode] = useState<boolean>(false);
-
+  const { isEditMode } = useEditMode();
   const { word }: { word: IWord[] | null } = useFetchWordHook();
 
   if (!word) {
@@ -52,36 +52,12 @@ export const Word: FC = () => {
                     </S.WordPronunciationWrapper>
                   </S.ImageWithFrequency>
 
-                  <WordText id={id} word={word} isEditMode={isEditMode} />
-                  <Translate
-                    id={id}
-                    translate={translate}
-                    isEditMode={isEditMode}
-                  />
-                  <Context
-                    id={id}
-                    word={word}
-                    context={context}
-                    isEditMode={isEditMode}
-                  />
-                  <Definition
-                    id={id}
-                    definition={definition}
-                    word={word}
-                    isEditMode={isEditMode}
-                  />
-                  <Example
-                    id={id}
-                    example={example}
-                    word={word}
-                    isEditMode={isEditMode}
-                  />
-                  <Synonym
-                    id={id}
-                    word={word}
-                    synonym={synonym}
-                    isEditMode={isEditMode}
-                  />
+                  <WordText id={id} word={word} />
+                  <Translate id={id} translate={translate} />
+                  <Context id={id} word={word} context={context} />
+                  <Definition id={id} definition={definition} word={word} />
+                  <Example id={id} example={example} word={word} />
+                  <Synonym id={id} word={word} synonym={synonym} />
 
                   <Video word={word} />
                 </S.WordWrapper>
@@ -90,7 +66,7 @@ export const Word: FC = () => {
           ),
         )}
       </Carousel>
-      <Navigation enableEditMode={enableEditMode} />
+      <Navigation />
     </>
   );
 };

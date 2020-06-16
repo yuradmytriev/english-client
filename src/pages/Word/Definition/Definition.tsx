@@ -3,9 +3,12 @@ import { MoreDefinitions } from 'components/MoreDefinitions';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'sdk/WordsSDK';
 import { ifElse } from 'utils/ifElse';
+import { useEditMode } from 'state/editMode/useEditMode';
 import * as S from '../styles';
 
-export const Definition = ({ id, word, definition, isEditMode }) => {
+export const Definition = ({ id, word, definition }) => {
+  const { isEditMode } = useEditMode();
+
   if (!definition) {
     return null;
   }
