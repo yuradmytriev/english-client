@@ -4,7 +4,7 @@ import { Word } from 'shared/components/Word';
 import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';
 import { IWord } from 'interfaces/IWord';
-import { ICategory } from 'interfaces/ICategory';
+import { ICategory } from 'modules/categories/interfaces/ICategory';
 import { CategoriesSDK } from 'modules/categories/sdk/CategoriesSDK';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useFetchCategories } from 'modules/categories/state/categories/useCategories';
