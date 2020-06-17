@@ -7,13 +7,15 @@ import { WordPronunciation } from 'components/WordPronunciation';
 import { useEditMode } from 'state/editMode/useEditMode';
 import { IWord } from 'interfaces/IWord';
 import { useFetchWord } from './hooks/useFetchWord';
-import { UpdateImage } from './UpdateImage';
-import { Word as WordText } from './Word/Word';
-import { Synonym } from './Synonym';
-import { Context } from './Context';
-import { Example } from './Example';
-import { Translate } from './Translate';
-import { Definition } from './Definition';
+import {
+  Example,
+  Context,
+  Synonym,
+  WordText,
+  Translate,
+  Definition,
+  UpdateImage,
+} from './components';
 import * as S from './styles';
 
 export const Word: FC = () => {

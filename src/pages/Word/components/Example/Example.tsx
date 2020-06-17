@@ -5,7 +5,7 @@ import { ifElse } from 'utils/ifElse';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'sdk/WordsSDK';
 import { useEditMode } from 'state/editMode/useEditMode';
-import * as S from '../styles';
+import * as S from '../../styles';
 
 export const Example = ({ id, word, example }) => {
   const { isEditMode } = useEditMode();
