@@ -1,22 +1,29 @@
-import React, { FC } from 'react';
+import React, { FC, Suspense } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { Menu } from 'shared/components/Menu';
-import { Word } from 'modules/word/page';
-import { Words } from 'modules/words/page';
-import { Training } from 'modules/training/page';
+
+const Word = React.lazy(() => import('modules/word/page'));
+const Words = React.lazy(() => import('modules/words/page'));
+const Training = React.lazy(() => import('modules/training/page'));
 
 export const Router: FC = () => (
   <BrowserRouter>
     <Menu>
       <Switch>
         <Route path="/words">
-          <Words />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Words />
+          </Suspense>
         </Route>
         <Route path="/word/:wordName">
-          <Word />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Word />
+          </Suspense>
         </Route>
         <Route path="/training">
-          <Training />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Training />
+          </Suspense>
         </Route>
         <Route path="/">
           <Redirect to="/words" />
