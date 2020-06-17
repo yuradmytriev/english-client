@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IWord } from 'interfaces/IWord';
-import { FETCH_WORD_URL } from '../../../constants';
+import { FETCH_WORD_URL } from 'constants/url';
 
 export const useFetchWord = () => {
   const { wordName }: { wordName?: string } = useParams();

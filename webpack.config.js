@@ -118,7 +118,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.tsx', '.ts'], // help resolve path for files index.js -> index
-    modules: ['node_modules', 'src'],
+    modules: ['node_modules', 'src', 'constants'],
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
