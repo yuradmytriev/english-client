@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FC } from 'react';
 import { Tooltip } from 'antd';
 import get from 'lodash/get';
-import { fetchWordFromRapid } from '../../utils/wordsApiFetch';
+import { fetchWordFromRapid } from '../../../utils/wordsApiFetch';
 import * as S from './styles';
 
 interface IFrequencyStatus {

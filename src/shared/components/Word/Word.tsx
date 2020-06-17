@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Popover, Icon } from 'antd';
 import { IWord } from 'interfaces/IWord';
-import { Draggable } from 'components/DnD/Draggable';
+import { Draggable } from 'shared/components/DnD/Draggable';
 import { WordActions } from './WordActions';
 import * as S from './styles';
 

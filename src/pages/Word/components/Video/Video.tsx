@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
-import { HighlightedPhrase } from 'components/HighlightedPhrase';
+import { HighlightedPhrase } from 'shared/components/HighlightedPhrase';
 import { jsonFetch } from 'utils/jsonFetch';
 import { IWord } from 'interfaces/IWord';
 import { useArrayCarousel } from 'hooks/useArrayCarousel';

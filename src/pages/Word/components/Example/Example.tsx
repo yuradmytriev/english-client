@@ -1,5 +1,5 @@
 import React from 'react';
-import { HighlightedPhrase } from 'components/HighlightedPhrase';
+import { HighlightedPhrase } from 'shared/components/HighlightedPhrase';
 import { ifElse } from 'utils/ifElse';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'sdk/WordsSDK';

@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react';
 import { Col, Collapse, Icon } from 'antd';
-import { Word } from 'components/Word';
-import { DropContainer } from 'components/DnD/DropContainer';
-import { WordContainer } from 'components/Word/WordContainer';
+import { Word } from 'shared/components/Word';
+import { DropContainer } from 'shared/components/DnD/DropContainer';
+import { WordContainer } from 'shared/components/Word/WordContainer';
 import { IWord } from 'interfaces/IWord';
 import { ICategory } from 'interfaces/ICategory';
 import { CategoriesSDK } from 'sdk/CategoriesSDK';
