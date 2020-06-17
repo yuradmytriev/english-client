@@ -9,9 +9,9 @@ import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';
 import { CreateCategories } from 'modules/categories/components/CreateCategories';
 import { Categories } from 'modules/categories/components';
-import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
+import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useFetchCategories } from 'modules/categories/state/categories/useCategories';
-import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
+import { useFetchWordsList } from 'shared/state/fetchWordsList/useFetchWordsList';
 import {
   WordsFilter,
   useWordsFilter,

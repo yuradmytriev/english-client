@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import pluralize from 'pluralize';
-import { logger } from 'utils/logger';
-import { fetchWordFromRapid } from 'utils/wordsApiFetch';
+import { logger } from 'shared/utils/logger';
+import { fetchWordFromRapid } from 'shared/utils/wordsApiFetch';
 import { ISuggestion } from './ISuggestion';
 
 const ERROR: { FETCH_RAPID_WORD: string } = {

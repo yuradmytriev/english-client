@@ -1,4 +1,4 @@
-import { jsonFetch } from 'utils/jsonFetch';
+import { jsonFetch } from 'shared/utils/jsonFetch';
 
 const categoriesURL: string = 'http://localhost:3008/categories';
 const wordCategoryURL = (categoryId: string): string =>

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import loadjs from 'loadjs';
-import { logger } from 'utils/logger';
+import { logger } from 'shared/utils/logger';
 
 const voiceReaderStatuses: { success: string; error: string } = {
   success: 'Voice reader successfully downloaded!',

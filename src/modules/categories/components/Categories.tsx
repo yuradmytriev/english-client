@@ -6,7 +6,7 @@ import { WordContainer } from 'shared/components/Word/WordContainer';
 import { IWord } from 'interfaces/IWord';
 import { ICategory } from 'interfaces/ICategory';
 import { CategoriesSDK } from 'modules/categories/sdk/CategoriesSDK';
-import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
+import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useFetchCategories } from 'modules/categories/state/categories/useCategories';
 import * as S from './styles';
 

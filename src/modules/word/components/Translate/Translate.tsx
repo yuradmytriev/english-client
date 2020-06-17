@@ -1,5 +1,5 @@
 import React from 'react';
-import { ifElse } from 'utils/ifElse';
+import { ifElse } from 'shared/utils/ifElse';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';

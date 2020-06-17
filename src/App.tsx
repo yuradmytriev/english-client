@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Provider } from 'react-redux';
-import store from 'state/store';
+import store from 'shared/state/store';
 import { useVoidReader } from 'shared/hooks';
 import { Router } from './router';
 

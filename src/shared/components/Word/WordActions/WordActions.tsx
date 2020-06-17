@@ -4,7 +4,7 @@ import { IWord } from 'interfaces/IWord';
 import {
   useFetchWordsList,
   IUseFetchWordsList,
-} from 'state/fetchWordsList/useFetchWordsList';
+} from 'shared/state/fetchWordsList/useFetchWordsList';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
 import * as S from '../styles';
 

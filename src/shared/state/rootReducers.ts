@@ -1,4 +1,4 @@
-import { initialState } from 'state/initialState';
+import { initialState } from 'shared/state/initialState';
 import { fetchCategoriesReducer } from 'modules/categories/state/categories';
 import { wordsInfoReducer } from './wordsInfo';
 import { editModeReducer } from 'modules/word/state/editMode';

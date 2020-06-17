@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState, Children } from 'react';
 import { Popconfirm, Button } from 'antd';
-import { fetchWordFromRapid } from 'utils/wordsApiFetch';
-import { ifElse } from 'utils/ifElse';
+import { fetchWordFromRapid } from 'shared/utils/wordsApiFetch';
+import { ifElse } from 'shared/utils/ifElse';
 import * as S from './styles';
 
 const ExamplesList = ({

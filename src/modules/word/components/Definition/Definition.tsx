@@ -1,7 +1,7 @@
 import React from 'react';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
-import { ifElse } from 'utils/ifElse';
+import { ifElse } from 'shared/utils/ifElse';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import { MoreDefinitions } from './MoreDefinitions';
 import * as S from '../../page/styles';

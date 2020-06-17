@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Icon } from 'antd';
-import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
+import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import * as S from './styles';
 
 export const ToggleWordsInfo: FC = () => {
