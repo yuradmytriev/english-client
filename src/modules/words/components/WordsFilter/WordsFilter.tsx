@@ -1,7 +1,7 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
-import { IUseWordsFilter } from './useWordsFilter';
+import { IUseWordsFilter } from '../../hooks/useWordsFilter';
 import * as S from './styles';
 
 enum WordFilters {
