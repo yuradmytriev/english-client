@@ -7,7 +7,6 @@ import { IWord } from 'interfaces/IWord';
 import { Word } from 'components/Word';
 import { DropContainer } from 'components/DnD/DropContainer';
 import { WordContainer } from 'components/Word/WordContainer';
-import { ExportToExelButton } from 'components/ExportToExelButton';
 import { CreateCategories } from 'modules/categories/components/CreateCategories';
 import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
@@ -20,6 +19,7 @@ import {
 } from './components/WordsFilter';
 import { AddWord } from './components/AddWord';
 import { ToggleWordsInfo } from './components/ToggleWordsInfo';
+import { ExportToExelButton } from './components/ExportToExelButton';
 import * as S from './styles';
 
 const createWordsGroup = (words: IWord[]) => {

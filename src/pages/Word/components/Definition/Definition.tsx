@@ -1,9 +1,9 @@
 import React from 'react';
-import { MoreDefinitions } from 'components/MoreDefinitions';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'sdk/WordsSDK';
 import { ifElse } from 'utils/ifElse';
 import { useEditMode } from 'state/editMode/useEditMode';
+import { MoreDefinitions } from './MoreDefinitions';
 import * as S from '../../styles';
 
 export const Definition = ({ id, word, definition }) => {

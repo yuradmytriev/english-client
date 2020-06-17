@@ -1,6 +1,6 @@
 import React from 'react';
-import { Suggestion } from 'components/Suggestion';
 import { useEditMode } from 'state/editMode/useEditMode';
+import { Suggestion } from './Suggestion';
 import * as S from '../../styles';
 
 export const Synonym = ({ id, word, synonym }) => {
