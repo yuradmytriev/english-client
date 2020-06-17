@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Row } from 'antd';
-import { cardShadow } from 'constants/styles';
+import { cardShadow } from 'shared/constants/styles';
 
 export const WordsWrapper = styled(Row)`
   display: flex;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Icon, Typography } from 'antd';
-import { cardShadow, cardBorderRadius } from 'constants/styles';
+import { cardShadow, cardBorderRadius } from 'shared/constants/styles';
 
 const { Paragraph } = Typography;
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Card } from 'antd';
-import { cardShadow } from 'constants/styles';
+import { cardShadow } from 'shared/constants/styles';
 
 const { Meta: AntdMeta } = Card;
 

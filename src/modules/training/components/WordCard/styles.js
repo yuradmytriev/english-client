@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { cardBorderRadius } from 'constants/styles';
+import { cardBorderRadius } from 'shared/constants/styles';
 
 export const Wrapper = styled.div`
   text-align: center;

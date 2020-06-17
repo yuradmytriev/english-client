@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { spacing } from 'constants/spacing';
+import { spacing } from 'shared/constants/spacing';
 
 export const MenuWrapper = styled.div`
   background: #001529;

@@ -8,7 +8,7 @@ import { jsonFetch } from 'shared/utils/jsonFetch';
 import { firstLetterToUpperCase } from 'shared/utils/firstLetterToUpperCase';
 import { useFetchWordsList } from 'shared/state/fetchWordsList/useFetchWordsList';
 import { useForms } from 'modules/words/hooks/useForms';
-import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from 'constants/url';
+import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from 'shared/constants/url';
 import { FileInput } from './FileInput';
 import { createFormDataBody } from './utils';
 import * as S from './styles';

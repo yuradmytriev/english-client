@@ -1,4 +1,4 @@
-import { SERVER_URL } from 'constants/url';
+import { SERVER_URL } from 'shared/constants/url';
 
 export const fetchWordFromRapid = async (
   type: string,

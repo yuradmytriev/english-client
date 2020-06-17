@@ -1,6 +1,6 @@
 import { message } from 'antd';
 import { IWord } from 'shared/interfaces/IWord';
-import { FETCH_WORDS_LIST_URL } from 'constants/url';
+import { FETCH_WORDS_LIST_URL } from 'shared/constants/url';
 
 const ERROR: { UPLOAD_IMAGE: string } = {
   UPLOAD_IMAGE: `Can't upload image`,
