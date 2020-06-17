@@ -19,6 +19,7 @@ import {
 } from '../components/WordsFilter';
 import { AddWord } from '../components/AddWord';
 import { ToggleWordsInfo } from '../components/ToggleWordsInfo';
+import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import { ExportToExelButton } from '../components/ExportToExelButton';
 import * as S from './styles';
 
@@ -40,11 +41,11 @@ export const Words: FC = () => {
   const relatedWordsGroup: any[] = createWordsGroup(words);
 
   const {
+    setWords,
     updatedWords,
+    showAllWords,
     showMemoizedWords,
     showUnlearnedWords,
-    showAllWords,
-    setWords,
   }: IUseWordsFilter = useWordsFilter(relatedWordsGroup);
 
   useEffect(() => {
@@ -78,11 +79,14 @@ export const Words: FC = () => {
 
   return (
     <>
-      <WordsFilter
-        showAllWords={showAllWords}
-        showMemoizedWords={showMemoizedWords}
-        showUnlearnedWords={showUnlearnedWords}
-      />
+      <S.LearnedWordsLayout>
+        <WordsFilter
+          showAllWords={showAllWords}
+          showMemoizedWords={showMemoizedWords}
+          showUnlearnedWords={showUnlearnedWords}
+        />
+        {!isEmpty(words) && <LearnedWordsCount words={words} />}
+      </S.LearnedWordsLayout>
       <Categories />
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
         <S.WordWrapper gutter={12}>
