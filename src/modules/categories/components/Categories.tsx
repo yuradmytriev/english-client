@@ -1,14 +1,15 @@
 import React, { FC, useEffect } from 'react';
 import { Col, Collapse, Icon } from 'antd';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Word } from 'shared/components/Word';
 import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';
 import { IWord } from 'shared/interfaces/IWord';
 import { ICategory } from 'modules/categories/interfaces/ICategory';
-import { CategoriesSDK } from 'modules/categories/sdk/CategoriesSDK';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
 import * as S from './styles';
+import '../../training/page/animation.css';
 
 const { Panel } = Collapse;
 
@@ -32,7 +33,15 @@ const CategoriesWords: FC<{ words: IWord[] }> = ({ words }): any => {
 const DeleteCategory: FC<{ id: number }> = ({ id }) => {
   const { deleteCategory } = useCategories();
 
-  return <Icon type="close" onClick={() => deleteCategory(id)} />;
+  return (
+    <Icon
+      type="close"
+      onClick={event => {
+        event.stopPropagation();
+        deleteCategory(id);
+      }}
+    />
+  );
 };
 
 export const Categories = () => {
@@ -52,26 +61,34 @@ export const Categories = () => {
 
   return (
     <S.CategoriesLayout>
-      {categories.map(({ id, name, words }: ICategory) => (
-        <S.CategoryWrapper key={id}>
-          <Collapse bordered={false} expandIconPosition="left">
-            <Panel key={id} header={name} extra={<DeleteCategory id={id} />}>
-              <DropContainer
-                onDropEnd={wordId =>
-                  linkWordToCategory({
-                    wordId: String(wordId),
-                    categoryId: String(id),
-                  })
-                }
-              >
-                <S.WordsWrapper gutter={12}>
-                  {!!words.length && <CategoriesWords words={words} />}
-                </S.WordsWrapper>
-              </DropContainer>
-            </Panel>
-          </Collapse>
-        </S.CategoryWrapper>
-      ))}
+      <TransitionGroup>
+        {categories.map(({ id, name, words }: ICategory) => (
+          <CSSTransition key={id} timeout={250} classNames="item">
+            <S.CategoryWrapper key={id}>
+              <Collapse bordered={false} expandIconPosition="left">
+                <Panel
+                  key={id}
+                  header={name}
+                  extra={<DeleteCategory id={id} />}
+                >
+                  <DropContainer
+                    onDropEnd={wordId =>
+                      linkWordToCategory({
+                        wordId: String(wordId),
+                        categoryId: String(id),
+                      })
+                    }
+                  >
+                    <S.WordsWrapper gutter={12}>
+                      {!!words.length && <CategoriesWords words={words} />}
+                    </S.WordsWrapper>
+                  </DropContainer>
+                </Panel>
+              </Collapse>
+            </S.CategoryWrapper>
+          </CSSTransition>
+        ))}
+      </TransitionGroup>
     </S.CategoriesLayout>
   );
 };
