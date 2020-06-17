@@ -8,23 +8,19 @@ import * as S from '../styles';
 export const Word = ({ id, word }) => {
   const { isEditMode } = useEditMode();
 
-  const onUpdate = (type: string, value: string, id: number): void => {
-    const wordProps: Partial<IWord> = { [type]: value };
+  const onChange = (value: string): void => {
+    const wordProps: Partial<IWord> = { word: value };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
 
-  const onChange = (value: string): void => onUpdate('word', value, id);
-
   return (
-    <>
-      <S.MainWordProperty>
-        {ifElse(
-          isEditMode,
-          <S.Text editable={{ onChange }}>{word}</S.Text>,
-          <span>{word}</span>,
-        )}
-      </S.MainWordProperty>
-    </>
+    <S.MainWordProperty>
+      {ifElse(
+        isEditMode,
+        <S.Text editable={{ onChange }}>{word}</S.Text>,
+        <span>{word}</span>,
+      )}
+    </S.MainWordProperty>
   );
 };

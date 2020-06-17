@@ -9,17 +9,11 @@ import * as S from '../styles';
 export const Definition = ({ id, word, definition }) => {
   const { isEditMode } = useEditMode();
 
-  if (!definition) {
-    return null;
-  }
-
-  const onUpdate = (type: string, value: string, id: number): void => {
-    const wordProps: Partial<IWord> = { [type]: value };
+  const onChange = (value: string) => {
+    const wordProps: Partial<IWord> = { word: value };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
-
-  const onChange = (value: string) => onUpdate('definition', value, id);
 
   return (
     <S.WordProperty>

@@ -1,25 +1,19 @@
 import React from 'react';
-import { IWord } from 'interfaces/IWord';
-import { ifElse } from 'utils/ifElse';
 import { HighlightedPhrase } from 'components/HighlightedPhrase';
+import { ifElse } from 'utils/ifElse';
 import { WordsSDK } from 'sdk/WordsSDK';
+import { IWord } from 'interfaces/IWord';
 import { useEditMode } from 'state/editMode/useEditMode';
 import * as S from '../styles';
 
 export const Context = ({ id, context, word }) => {
   const { isEditMode } = useEditMode();
 
-  if (!context) {
-    return null;
-  }
-
-  const onUpdate = (type: string, value: string, id: number): void => {
-    const wordProps: Partial<IWord> = { [type]: value };
+  const onChange = (value: string): void => {
+    const wordProps: Partial<IWord> = { context: value };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
-
-  const onChange = (value: string): void => onUpdate('context', value, id);
 
   return (
     <S.WordProperty>

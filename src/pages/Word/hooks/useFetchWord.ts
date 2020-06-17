@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { IWord } from 'interfaces/IWord';
-import { FETCH_WORD_URL } from '../../constants';
+import { FETCH_WORD_URL } from '../../../constants';
 
-export const useFetchWordHook = () => {
+export const useFetchWord = () => {
   const { wordName }: { wordName?: string } = useParams();
   const [word, setWord] = useState<IWord[] | null>(null);
 

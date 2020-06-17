@@ -8,13 +8,11 @@ import * as S from '../styles';
 export const Translate = ({ id, translate }) => {
   const { isEditMode } = useEditMode();
 
-  const onUpdate = (type: string, value: string, id: number): void => {
-    const wordProps: Partial<IWord> = { [type]: value };
+  const onChange = (value: string): void => {
+    const wordProps: Partial<IWord> = { translate: value };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
-
-  const onChange = (value: string): void => onUpdate('translate', value, id);
 
   return (
     <S.TranslateProperty>

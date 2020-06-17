@@ -6,7 +6,7 @@ import { Navigation } from 'components/Navigation';
 import { WordPronunciation } from 'components/WordPronunciation';
 import { useEditMode } from 'state/editMode/useEditMode';
 import { IWord } from 'interfaces/IWord';
-import { useFetchWordHook } from './useFetchWordHook';
+import { useFetchWord } from './hooks/useFetchWord';
 import { UpdateImage } from './UpdateImage';
 import { Word as WordText } from './Word/Word';
 import { Synonym } from './Synonym';
@@ -18,7 +18,7 @@ import * as S from './styles';
 
 export const Word: FC = () => {
   const { isEditMode } = useEditMode();
-  const { word }: { word: IWord[] | null } = useFetchWordHook();
+  const { word }: { word: IWord[] | null } = useFetchWord();
 
   if (!word) {
     return null;
@@ -44,20 +44,24 @@ export const Word: FC = () => {
                   <S.ImageWithFrequency>
                     <S.Image src={imageSrc} alt={word} />
                     {isEditMode && <UpdateImage id={id} />}
+
                     <S.FrequencyWrapper>
                       <Frequency showTitle word={word} />
                     </S.FrequencyWrapper>
+
                     <S.WordPronunciationWrapper>
                       <WordPronunciation word={word} />
                     </S.WordPronunciationWrapper>
                   </S.ImageWithFrequency>
 
-                  <WordText id={id} word={word} />
-                  <Translate id={id} translate={translate} />
-                  <Context id={id} word={word} context={context} />
-                  <Definition id={id} definition={definition} word={word} />
-                  <Example id={id} example={example} word={word} />
-                  <Synonym id={id} word={word} synonym={synonym} />
+                  {word && <WordText id={id} word={word} />}
+                  {translate && <Translate id={id} translate={translate} />}
+                  {context && <Context id={id} word={word} context={context} />}
+                  {definition && (
+                    <Definition id={id} definition={definition} word={word} />
+                  )}
+                  {example && <Example id={id} example={example} word={word} />}
+                  {synonym && <Synonym id={id} word={word} synonym={synonym} />}
 
                   <Video word={word} />
                 </S.WordWrapper>
