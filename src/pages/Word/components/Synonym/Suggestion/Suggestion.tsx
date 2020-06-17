@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { Tag } from 'antd';
 import isEmpty from 'lodash/isEmpty';
-import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
 import { WordsSDK } from 'sdk/WordsSDK';
+import { IWord } from 'interfaces/IWord';
+import { useToggleModal } from 'shared/hooks';
+import { ifElse } from 'utils/ifElse';
+import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
 import { ISuggestion } from './ISuggestion';
 import { useFetchRapidWord } from './useFetchRapidWord';
-import { useToggleModal } from 'hooks';
-import { ifElse } from 'utils/ifElse';
 import * as S from './styles';
-import { IWord } from '../../interfaces/IWord';
 
 const { CheckableTag } = Tag;
 

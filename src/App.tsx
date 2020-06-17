@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Provider } from 'react-redux';
 import { Router } from 'router';
-import { useVoidReader } from 'hooks';
+import { useVoidReader } from 'shared/hooks';
 import store from 'state/store';
 
 const App: FC = () => {

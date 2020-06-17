@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Icon, Input, message, Modal } from 'antd';
-import { useToggleModal } from 'hooks';
+import { useToggleModal } from 'shared/hooks';
 import { IWord } from 'interfaces/IWord';
 import { jsonFetch } from 'utils/jsonFetch';
 import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
-import { createFormDataBody } from './utils';
 import { useForms } from './useForms';
 import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../../../constants';
 import { IWordInput } from './IWordInput';
 import { FileInput } from './FileInput';
+import { createFormDataBody } from './utils';
 import * as S from './styles';
 
 const inputs: Array<IWordInput> = [

@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Icon, Input, Modal } from 'antd';
 import { CategoriesSDK } from 'sdk/CategoriesSDK';
-import { useToggleModal } from 'hooks';
+import { useToggleModal } from 'shared/hooks';
 import * as S from './styles';
 
 interface ICategoriesForm {
