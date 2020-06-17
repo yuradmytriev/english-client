@@ -1,20 +1,11 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Popover, Icon } from 'antd';
+import { Popover } from 'antd';
 import { IWord } from 'shared/interfaces/IWord';
 import { Draggable } from 'shared/components/DnD/Draggable';
 import { WordActions } from './WordActions';
+import { WordMemoizedMark } from './WordMemoizedMark';
 import * as S from './styles';
-
-const WordMemoizedMark: FC<{ word: string; learned: boolean | undefined }> = ({
-  word,
-  learned,
-}) => (
-  <div>
-    {/* eslint react/jsx-one-expression-per-line:0 */}
-    {word} {learned && <Icon style={{ color: '#18d218' }} type="check" />}
-  </div>
-);
 
 export const Word: FC<{ firstWord: IWord; showInfo: boolean }> = ({
   firstWord,
@@ -24,7 +15,6 @@ export const Word: FC<{ firstWord: IWord; showInfo: boolean }> = ({
 
   const wordPageURL = `word/${word}`;
 
-  // TODO: resolve issue with frequency requests
   // @ts-ignore
   return (
     <Draggable key={id} id={String(id)} categoryId={category?.id}>
@@ -38,9 +28,9 @@ export const Word: FC<{ firstWord: IWord; showInfo: boolean }> = ({
               />
               <S.IconWrapper>
                 <Popover
+                  trigger="click"
                   placement="bottom"
                   content={<WordActions firstWord={firstWord} />}
-                  trigger="click"
                 >
                   <div>. . .</div>
                 </Popover>
