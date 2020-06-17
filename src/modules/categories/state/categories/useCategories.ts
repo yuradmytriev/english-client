@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from 'shared/interfaces/IState';
 import {
+  deleteCategoryAction,
   createCategoryAction,
   linkCategoriesAction,
   unlinkCategoriesAction,
@@ -28,8 +29,13 @@ export const useCategories = () => {
     dispatch(createCategoryAction(name));
   };
 
+  const deleteCategory = (id: number): void => {
+    dispatch(deleteCategoryAction(id));
+  };
+
   return {
     categories,
+    deleteCategory,
     linkCategories,
     createCategory,
     fetchCategories,

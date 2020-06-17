@@ -1,6 +1,7 @@
 import {
   GET_CATEGORIES,
   LINK_CATEGORIES,
+  DELETE_CATEGORY,
   CREATE_CATEGORY,
   UNLINK_CATEGORIES,
   REQUEST_CATEGORIES,
@@ -25,7 +26,12 @@ export const requestCategoriesAction = () => ({
   type: REQUEST_CATEGORIES,
 });
 
-export const createCategoryAction = (name) => ({
+export const createCategoryAction = name => ({
   type: CREATE_CATEGORY,
   name,
+});
+
+export const deleteCategoryAction = id => ({
+  type: DELETE_CATEGORY,
+  id,
 });

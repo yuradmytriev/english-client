@@ -29,16 +29,18 @@ const CategoriesWords: FC<{ words: IWord[] }> = ({ words }): any => {
   ));
 };
 
-const DeleteCategory: FC<{ id: number }> = ({ id }) => (
-  <Icon type="close" onClick={() => CategoriesSDK.delete(id)} />
-);
+const DeleteCategory: FC<{ id: number }> = ({ id }) => {
+  const { deleteCategory } = useCategories();
+
+  return <Icon type="close" onClick={() => deleteCategory(id)} />;
+};
 
 export const Categories = () => {
   const { categories, fetchCategories, linkCategories } = useCategories();
 
   useEffect(() => {
     fetchCategories();
-  }, [categories.length]);
+  }, []);
 
   const linkWordToCategory = ({ wordId, categoryId }: ILinkCategory) => {
     linkCategories(wordId, categoryId);
