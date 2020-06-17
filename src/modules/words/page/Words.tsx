@@ -16,10 +16,10 @@ import {
   WordsFilter,
   useWordsFilter,
   IUseWordsFilter,
-} from './components/WordsFilter';
-import { AddWord } from './components/AddWord';
-import { ToggleWordsInfo } from './components/ToggleWordsInfo';
-import { ExportToExelButton } from './components/ExportToExelButton';
+} from '../components/WordsFilter';
+import { AddWord } from '../components/AddWord';
+import { ToggleWordsInfo } from '../components/ToggleWordsInfo';
+import { ExportToExelButton } from '../components/ExportToExelButton';
 import * as S from './styles';
 
 const createWordsGroup = (words: IWord[]) => {

@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-import { Word, Words } from 'pages';
+import { Word } from 'pages';
 import { Menu } from 'shared/components/Menu';
 import { Training } from 'modules/training/page';
+import { Words } from 'modules/words/page';
 
 export const Router: FC = () => (
   <BrowserRouter>
