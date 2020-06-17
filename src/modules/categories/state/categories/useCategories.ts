@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from 'shared/interfaces/IState';
 import {
+  createCategoryAction,
+  linkCategoriesAction,
   unlinkCategoriesAction,
   requestCategoriesAction,
-  linkCategoriesAction,
 } from './actions';
 
-export const useFetchCategories = () => {
+export const useCategories = () => {
   const dispatch = useDispatch();
 
   const categories = useSelector((state: IState) => state.categories);
@@ -23,5 +24,15 @@ export const useFetchCategories = () => {
     dispatch(linkCategoriesAction({ id, categoryId }));
   };
 
-  return { categories, fetchCategories, unlinkCategories, linkCategories };
+  const createCategory = (name: string): void => {
+    dispatch(createCategoryAction(name));
+  };
+
+  return {
+    categories,
+    linkCategories,
+    createCategory,
+    fetchCategories,
+    unlinkCategories,
+  };
 };

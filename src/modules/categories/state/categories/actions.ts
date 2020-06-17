@@ -1,8 +1,9 @@
 import {
-  REQUEST_CATEGORIES,
   GET_CATEGORIES,
-  UNLINK_CATEGORIES,
   LINK_CATEGORIES,
+  CREATE_CATEGORY,
+  UNLINK_CATEGORIES,
+  REQUEST_CATEGORIES,
 } from './types';
 
 export const getCategoriesAction = (categories: any) => ({
@@ -22,4 +23,9 @@ export const linkCategoriesAction = payload => ({
 
 export const requestCategoriesAction = () => ({
   type: REQUEST_CATEGORIES,
+});
+
+export const createCategoryAction = (name) => ({
+  type: CREATE_CATEGORY,
+  name,
 });

@@ -10,7 +10,7 @@ import { WordContainer } from 'shared/components/Word/WordContainer';
 import { CreateCategories } from 'modules/categories/components/CreateCategories';
 import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
-import { useFetchCategories } from 'modules/categories/state/categories/useCategories';
+import { useCategories } from 'modules/categories/state/categories/useCategories';
 import { useFetchWordsList } from 'shared/state/fetchWordsList/useFetchWordsList';
 import {
   WordsFilter,
@@ -34,7 +34,7 @@ const createWordsGroup = (words: IWord[]) => {
 
 export const Words: FC = () => {
   const { showWordsInfo } = useWordsInfo();
-  const { unlinkCategories } = useFetchCategories();
+  const { unlinkCategories } = useCategories();
   const { words, fetchWordsList } = useFetchWordsList();
 
   const relatedWordsGroup: any[] = createWordsGroup(words);

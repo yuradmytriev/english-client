@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Icon, Input, Modal } from 'antd';
-import { CategoriesSDK } from 'modules/categories/sdk/CategoriesSDK';
+import { useCategories } from 'modules/categories/state/categories/useCategories';
 import { useToggleModal } from 'shared/hooks';
 import * as S from './styles';
 
@@ -9,17 +9,16 @@ interface ICategoriesForm {
   name: string;
 }
 
-const config = {
-  initialValues: {
-    name: '',
-  },
-  onSubmit: (input: ICategoriesForm) => {
-    CategoriesSDK.create(input.name);
-  },
-};
-
 export const CreateCategories = () => {
-  const { handleSubmit, handleChange } = useFormik(config);
+  const { createCategory } = useCategories();
+  const { handleSubmit, handleChange } = useFormik({
+    initialValues: {
+      name: '',
+    },
+    onSubmit: (input: ICategoriesForm) => {
+      createCategory(input.name);
+    },
+  });
   const { visible, openModal, closeModal } = useToggleModal();
 
   return (

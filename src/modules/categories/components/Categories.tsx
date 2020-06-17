@@ -7,7 +7,7 @@ import { IWord } from 'shared/interfaces/IWord';
 import { ICategory } from 'modules/categories/interfaces/ICategory';
 import { CategoriesSDK } from 'modules/categories/sdk/CategoriesSDK';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
-import { useFetchCategories } from 'modules/categories/state/categories/useCategories';
+import { useCategories } from 'modules/categories/state/categories/useCategories';
 import * as S from './styles';
 
 const { Panel } = Collapse;
@@ -34,7 +34,7 @@ const DeleteCategory: FC<{ id: number }> = ({ id }) => (
 );
 
 export const Categories = () => {
-  const { categories, fetchCategories, linkCategories } = useFetchCategories();
+  const { categories, fetchCategories, linkCategories } = useCategories();
 
   useEffect(() => {
     fetchCategories();
