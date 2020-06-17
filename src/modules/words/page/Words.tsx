@@ -20,6 +20,7 @@ import {
 } from '../components/WordsFilter';
 import { AddWord } from '../components/AddWord';
 import { ToggleWordsInfo } from '../components/ToggleWordsInfo';
+import { WordsCount } from '../components/WordsCount';
 import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import { ExportToExelButton } from '../components/ExportToExelButton';
 import 'shared/styles/animation.css';
@@ -89,7 +90,10 @@ export const Words: FC = () => {
           showMemoizedWords={showMemoizedWords}
           showUnlearnedWords={showUnlearnedWords}
         />
-        {!isEmpty(words) && <LearnedWordsCount words={words} />}
+        <div>
+          {!isEmpty(words) && <WordsCount words={words} />}
+          {!isEmpty(words) && <LearnedWordsCount words={words} />}
+        </div>
       </S.LearnedWordsLayout>
       <Categories />
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
