@@ -38,7 +38,7 @@ module.exports = {
     main: [
       'react-hot-loader/patch',
       'babel-polyfill',
-      path.resolve(__dirname, 'src/index.tsx'),
+      path.resolve(__dirname, 'src/entry/index.tsx'),
     ], // added polyfill for understand async await
   },
   output: {

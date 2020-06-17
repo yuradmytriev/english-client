@@ -16,7 +16,7 @@
     "isolatedModules": true,
     "baseUrl": "./src",
     "diagnostics": true,
-    "noImplicitAny": false,
+    "noImplicitAny": false
   },
   "include": ["src"]
 }
