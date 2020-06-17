@@ -1,4 +1,4 @@
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { FETCH_WORDS_LIST, FIRE_FETCH_WORDS_LIST } from './types';
 
 interface IFireFetchWordsList {

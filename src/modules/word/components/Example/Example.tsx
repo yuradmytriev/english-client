@@ -1,7 +1,7 @@
 import React from 'react';
 import { HighlightedPhrase } from 'shared/components/HighlightedPhrase';
 import { ifElse } from 'shared/utils/ifElse';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import { MoreExamples } from './MoreExamples';

@@ -3,7 +3,7 @@ import { Col, Collapse, Icon } from 'antd';
 import { Word } from 'shared/components/Word';
 import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { ICategory } from 'modules/categories/interfaces/ICategory';
 import { CategoriesSDK } from 'modules/categories/sdk/CategoriesSDK';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';

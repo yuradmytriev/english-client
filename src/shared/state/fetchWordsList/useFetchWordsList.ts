@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { IWord } from 'interfaces/IWord';
-import { IState } from 'interfaces/IState';
+import { IWord } from 'shared/interfaces/IWord';
+import { IState } from 'shared/interfaces/IState';
 import { fireFetchWordsListAction } from './actions';
 
 export interface IUseFetchWordsList {

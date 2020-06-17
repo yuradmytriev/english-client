@@ -1,7 +1,7 @@
 import React, { FC, ChangeEvent } from 'react';
 import { message } from 'antd';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import * as S from '../page/styles';
 
 const ERROR: { UPLOAD_FILE: string } = {

@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { FETCH_WORDS_LIST_URL } from 'constants/url';
 
 const ERROR: { UPLOAD_IMAGE: string } = {

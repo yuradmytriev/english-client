@@ -1,6 +1,6 @@
 import React, { FC, MouseEvent } from 'react';
 import { Icon } from 'antd';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import {
   useFetchWordsList,
   IUseFetchWordsList,

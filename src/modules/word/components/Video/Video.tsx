@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import isEmpty from 'lodash/isEmpty';
 import { jsonFetch } from 'shared/utils/jsonFetch';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { useArrayCarousel } from 'shared/hooks/useArrayCarousel';
 import { HighlightedPhrase } from 'shared/components/HighlightedPhrase';
 import * as S from './styles';

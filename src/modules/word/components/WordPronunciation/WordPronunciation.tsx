@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import * as S from './styles';
 
 export const WordPronunciation: FC<Pick<IWord, 'word'>> = ({

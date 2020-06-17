@@ -2,7 +2,7 @@ import React from 'react';
 import { HighlightedPhrase } from 'shared/components/HighlightedPhrase';
 import { ifElse } from 'shared/utils/ifElse';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import * as S from '../../page/styles';
 

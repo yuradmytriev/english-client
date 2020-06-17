@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Tag } from 'antd';
 import isEmpty from 'lodash/isEmpty';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { useToggleModal } from 'shared/hooks';
 import { ifElse } from 'shared/utils/ifElse';
 import { firstLetterToUpperCase } from 'shared/utils/firstLetterToUpperCase';

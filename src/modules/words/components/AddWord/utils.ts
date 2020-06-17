@@ -1,4 +1,4 @@
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 
 export const createFormDataBody = (values: IWord): FormData => {
   const formData: FormData = new FormData();

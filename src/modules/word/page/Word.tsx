@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Carousel } from 'shared/components/Carousel';
 import { Frequency } from 'shared/components/Frequency';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { useFetchWord } from '../hooks/useFetchWord';
 import {
   Video,

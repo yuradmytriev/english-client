@@ -3,7 +3,7 @@ import { Col } from 'antd';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { Word } from 'shared/components/Word';
 import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';

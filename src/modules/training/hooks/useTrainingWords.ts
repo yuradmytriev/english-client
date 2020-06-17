@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFetchWordsList } from 'shared/state/fetchWordsList/useFetchWordsList';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 
 export const useTrainingWords = () => {
   const { words, fetchWordsList } = useFetchWordsList();

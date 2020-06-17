@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { IState } from 'interfaces/IState';
+import { IState } from 'shared/interfaces/IState';
 import { toggleEditModeAction } from './actions';
 
 export const useEditMode = () => {

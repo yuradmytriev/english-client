@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Button, Icon } from 'antd';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
 import * as S from './styles';
 

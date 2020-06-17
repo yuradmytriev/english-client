@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useFormik } from 'formik';
 import { Button, Form, Icon, Input, message, Modal } from 'antd';
 import { useToggleModal } from 'shared/hooks';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { IWordInput } from 'modules/words/interfaces/IWordInput';
 import { jsonFetch } from 'shared/utils/jsonFetch';
 import { firstLetterToUpperCase } from 'shared/utils/firstLetterToUpperCase';

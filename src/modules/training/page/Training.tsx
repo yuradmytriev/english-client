@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 import { useTrainingWords } from '../hooks/useTrainingWords';
 import { WordCard } from '../components/WordCard';
 import './animation.css';

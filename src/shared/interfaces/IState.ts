@@ -1,4 +1,4 @@
-import { IWord } from 'interfaces/IWord';
+import { IWord } from 'shared/interfaces/IWord';
 
 export interface IState {
   words: Array<IWord>;
