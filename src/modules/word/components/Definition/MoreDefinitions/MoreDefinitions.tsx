@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState, Children } from 'react';
 import { Popconfirm, Button, Alert } from 'antd';
-import { IDefinition } from 'interfaces/IDefinition';
+import { IDefinition } from 'modules/word/interfaces/IDefinition';
 import { fetchWordFromRapid } from 'shared/utils/wordsApiFetch';
 import { ifElse } from 'shared/utils/ifElse';
 
