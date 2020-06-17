@@ -3,7 +3,7 @@ import { Carousel } from 'shared/components/Carousel';
 import { Frequency } from 'shared/components/Frequency';
 import { useEditMode } from 'state/editMode/useEditMode';
 import { IWord } from 'interfaces/IWord';
-import { useFetchWord } from './hooks/useFetchWord';
+import { useFetchWord } from '../hooks/useFetchWord';
 import {
   Video,
   Example,
@@ -15,7 +15,7 @@ import {
   Definition,
   UpdateImage,
   WordPronunciation,
-} from './components';
+} from '../components';
 import * as S from './styles';
 
 export const Word: FC = () => {

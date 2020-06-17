@@ -1,31 +1,32 @@
 import React from 'react';
+import { HighlightedPhrase } from 'shared/components/HighlightedPhrase';
+import { ifElse } from 'utils/ifElse';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
-import { ifElse } from 'utils/ifElse';
 import { useEditMode } from 'state/editMode/useEditMode';
-import { MoreDefinitions } from './MoreDefinitions';
-import * as S from '../../styles';
+import { MoreExamples } from './MoreExamples';
+import * as S from '../../page/styles';
 
-export const Definition = ({ id, word, definition }) => {
+export const Example = ({ id, word, example }) => {
   const { isEditMode } = useEditMode();
 
   const onChange = (value: string) => {
-    const wordProps: Partial<IWord> = { word: value };
+    const wordProps: Partial<IWord> = { example: value };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
 
   return (
     <S.WordProperty>
-      <S.WordLabel title="Definition">
+      <S.WordLabel title="Example">
         {ifElse(
           isEditMode,
-          <S.Text editable={{ onChange }}>{definition}</S.Text>,
-          <span>{definition}</span>,
+          <S.Text editable={{ onChange }}>{example}</S.Text>,
+          <HighlightedPhrase phrase={example} word={word} />,
         )}
       </S.WordLabel>
       <S.MoreExamplesWrapper>
-        <MoreDefinitions word={word} />
+        <MoreExamples word={word} />
       </S.MoreExamplesWrapper>
     </S.WordProperty>
   );

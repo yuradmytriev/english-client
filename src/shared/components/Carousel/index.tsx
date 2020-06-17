@@ -1,7 +1,7 @@
 import { Carousel as AntdCarousel } from 'antd';
 import React, { FC, MutableRefObject, ReactNode, useRef } from 'react';
 import { useArrayCarousel } from 'shared/hooks/useArrayCarousel';
-import * as S from 'pages/Word/styles';
+import * as S from './styles';
 
 interface ICarousel {
   children?: ReactNode;
