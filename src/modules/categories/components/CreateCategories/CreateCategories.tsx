@@ -39,7 +39,7 @@ export const CreateCategories = () => {
           <S.InputLayout>
             <Input name="name" onChange={handleChange} />
           </S.InputLayout>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" onClick={closeModal}>
             Add category
           </Button>
         </Form>
