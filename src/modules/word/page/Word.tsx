@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Carousel } from 'shared/components/Carousel';
 import { Frequency } from 'shared/components/Frequency';
-import { useEditMode } from 'state/editMode/useEditMode';
+import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import { IWord } from 'interfaces/IWord';
 import { useFetchWord } from '../hooks/useFetchWord';
 import {

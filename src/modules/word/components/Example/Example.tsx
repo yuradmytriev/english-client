@@ -3,7 +3,7 @@ import { HighlightedPhrase } from 'shared/components/HighlightedPhrase';
 import { ifElse } from 'utils/ifElse';
 import { IWord } from 'interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
-import { useEditMode } from 'state/editMode/useEditMode';
+import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import { MoreExamples } from './MoreExamples';
 import * as S from '../../page/styles';
 

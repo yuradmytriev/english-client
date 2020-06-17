@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEditMode } from 'state/editMode/useEditMode';
+import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import { Suggestion } from './Suggestion';
 import * as S from '../../page/styles';
 

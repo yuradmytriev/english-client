@@ -1,7 +1,7 @@
 import { initialState } from 'state/initialState';
 import { fetchCategoriesReducer } from 'modules/categories/state/categories';
 import { wordsInfoReducer } from './wordsInfo';
-import { editModeReducer } from './editMode';
+import { editModeReducer } from 'modules/word/state/editMode';
 import { fetchWordsListReducer } from './fetchWordsList';
 
 export const rootReducer = (state = initialState, action: any) => ({
