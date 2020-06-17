@@ -10,7 +10,7 @@ import { WordContainer } from 'shared/components/Word/WordContainer';
 import { CreateCategories } from 'modules/categories/components/CreateCategories';
 import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
-import { useFetchCategories } from 'state/categories/useCategories';
+import { useFetchCategories } from 'modules/categories/state/categories/useCategories';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import {
   WordsFilter,

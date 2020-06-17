@@ -1,6 +1,6 @@
 import { initialState } from 'state/initialState';
+import { fetchCategoriesReducer } from 'modules/categories/state/categories';
 import { wordsInfoReducer } from './wordsInfo';
-import { fetchCategoriesReducer } from './categories';
 import { editModeReducer } from './editMode';
 import { fetchWordsListReducer } from './fetchWordsList';
 
