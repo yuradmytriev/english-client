@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { IWord } from 'interfaces/IWord';
+import { IState } from 'interfaces/IState';
 import { fireFetchWordsListAction } from './actions';
 
 export interface IUseFetchWordsList {
@@ -10,7 +11,7 @@ export interface IUseFetchWordsList {
 export const useFetchWordsList = (): IUseFetchWordsList => {
   const dispatch = useDispatch();
 
-  const words: Array<IWord> = useSelector((state: any) => state.words);
+  const words: Array<IWord> = useSelector((state: IState) => state.words);
 
   const fetchWordsList = (): void => {
     dispatch(fireFetchWordsListAction());
