@@ -1,6 +1,6 @@
 import React, { FC, ChangeEvent } from 'react';
 import { message } from 'antd';
-import { WordsSDK } from 'sdk/WordsSDK';
+import { WordsSDK } from 'shared/sdk/WordsSDK';
 import { IWord } from 'interfaces/IWord';
 import * as S from '../styles';
 

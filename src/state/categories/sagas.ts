@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { CategoriesSDK } from 'sdk/CategoriesSDK';
+import { CategoriesSDK } from 'modules/categories/sdk/CategoriesSDK';
 import {
   REQUEST_CATEGORIES,
   UNLINK_CATEGORIES,

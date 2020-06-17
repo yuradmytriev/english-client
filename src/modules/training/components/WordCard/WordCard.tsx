@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Button, Icon } from 'antd';
 import { IWord } from 'interfaces/IWord';
-import { WordsSDK } from 'sdk/WordsSDK';
+import { WordsSDK } from 'shared/sdk/WordsSDK';
 import * as S from './styles';
 
 interface IWordCard

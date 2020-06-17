@@ -5,7 +5,7 @@ import {
   useFetchWordsList,
   IUseFetchWordsList,
 } from 'state/fetchWordsList/useFetchWordsList';
-import { WordsSDK } from 'sdk/WordsSDK';
+import { WordsSDK } from 'shared/sdk/WordsSDK';
 import * as S from '../styles';
 
 const DeleteWord: FC<{ id: number }> = ({ id }) => {

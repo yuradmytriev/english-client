@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ICategory } from 'interfaces/ICategory';
-import { CategoriesSDK } from 'sdk/CategoriesSDK';
+import { CategoriesSDK } from 'modules/categories/sdk/CategoriesSDK';
 
 export const useFetchCategories = (): { categories: ICategory[] } => {
   const [categories, setCategories] = useState([]);

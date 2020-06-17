@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Tag } from 'antd';
 import isEmpty from 'lodash/isEmpty';
-import { WordsSDK } from 'sdk/WordsSDK';
+import { WordsSDK } from 'shared/sdk/WordsSDK';
 import { IWord } from 'interfaces/IWord';
 import { useToggleModal } from 'shared/hooks';
 import { ifElse } from 'utils/ifElse';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IWord } from 'interfaces/IWord';
-import { WordsSDK } from 'sdk/WordsSDK';
+import { WordsSDK } from 'shared/sdk/WordsSDK';
 import { ifElse } from 'utils/ifElse';
 import { useEditMode } from 'state/editMode/useEditMode';
 import { MoreDefinitions } from './MoreDefinitions';
