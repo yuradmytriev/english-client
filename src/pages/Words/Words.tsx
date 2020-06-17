@@ -5,18 +5,22 @@ import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
 import { IWord } from 'interfaces/IWord';
 import { Word } from 'components/Word';
-import { AddWord } from 'components/AddWord';
 import { DropContainer } from 'components/DnD/DropContainer';
 import { WordContainer } from 'components/Word/WordContainer';
 import { ExportToExelButton } from 'components/ExportToExelButton';
 import { CreateCategories } from 'modules/categories/components/CreateCategories';
 import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'state/wordsInfo/useWordsInfo';
-import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
-import { WordsFilter, useWordsFilter, IUseWordsFilter } from './WordsFilter';
-import { ToggleWordsInfo } from './ToggleWordsInfo';
-import * as S from './styles';
 import { useFetchCategories } from 'state/categories/useCategories';
+import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
+import {
+  WordsFilter,
+  useWordsFilter,
+  IUseWordsFilter,
+} from './components/WordsFilter';
+import { AddWord } from './components/AddWord';
+import { ToggleWordsInfo } from './components/ToggleWordsInfo';
+import * as S from './styles';
 
 const createWordsGroup = (words: IWord[]) => {
   const filtered = words.filter((word: IWord) => !word.category);
@@ -30,12 +34,8 @@ const createWordsGroup = (words: IWord[]) => {
 
 export const Words: FC = () => {
   const { showWordsInfo } = useWordsInfo();
+  const { unlinkCategories } = useFetchCategories();
   const { words, fetchWordsList } = useFetchWordsList();
-  const {
-    categories,
-    unlinkCategories,
-    fetchCategories,
-  } = useFetchCategories();
 
   const relatedWordsGroup: any[] = createWordsGroup(words);
 

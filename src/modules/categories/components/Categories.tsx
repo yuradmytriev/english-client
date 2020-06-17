@@ -51,7 +51,7 @@ export const Categories = () => {
   return (
     <S.CategoriesLayout>
       {categories.map(({ id, name, words }: ICategory) => (
-        <S.CategoryWrapper>
+        <S.CategoryWrapper key={id}>
           <Collapse bordered={false} expandIconPosition="left">
             <Panel key={id} header={name} extra={<DeleteCategory id={id} />}>
               <DropContainer

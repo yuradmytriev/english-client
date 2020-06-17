@@ -1,20 +1,20 @@
 import React, { FC } from 'react';
-import { Video } from 'components/Video';
 import { Carousel } from 'components/Carousel';
 import { Frequency } from 'components/Frequency';
-import { Navigation } from 'components/Navigation';
-import { WordPronunciation } from 'components/WordPronunciation';
 import { useEditMode } from 'state/editMode/useEditMode';
 import { IWord } from 'interfaces/IWord';
 import { useFetchWord } from './hooks/useFetchWord';
 import {
+  Video,
   Example,
   Context,
   Synonym,
   WordText,
   Translate,
+  Navigation,
   Definition,
   UpdateImage,
+  WordPronunciation,
 } from './components';
 import * as S from './styles';
 

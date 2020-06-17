@@ -8,7 +8,7 @@ import { firstLetterToUpperCase } from 'utils/firstLetterToUpperCase';
 import { useFetchWordsList } from 'state/fetchWordsList/useFetchWordsList';
 import { createFormDataBody } from './utils';
 import { useForms } from './useForms';
-import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../constants';
+import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from '../../../../constants';
 import { IWordInput } from './IWordInput';
 import { FileInput } from './FileInput';
 import * as S from './styles';
