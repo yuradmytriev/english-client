@@ -1,5 +1,6 @@
 import React, { useEffect, FC } from 'react';
 import { Col } from 'antd';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
 import orderBy from 'lodash/orderBy';
@@ -21,6 +22,7 @@ import { AddWord } from '../components/AddWord';
 import { ToggleWordsInfo } from '../components/ToggleWordsInfo';
 import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import { ExportToExelButton } from '../components/ExportToExelButton';
+import 'shared/styles/animation.css';
 import * as S from './styles';
 
 const createWordsGroup = (words: IWord[]) => {
@@ -62,11 +64,13 @@ export const Words: FC = () => {
 
     return (
       word && (
-        <Col key={id} xs={24} sm={12} md={8} lg={8} xl={6}>
-          <WordContainer areSeveralWords={areSeveralWords}>
-            <Word firstWord={firstWord} showInfo={showWordsInfo} />
-          </WordContainer>
-        </Col>
+        <CSSTransition key={id} timeout={500} classNames="item">
+          <Col key={id} xs={24} sm={12} md={8} lg={8} xl={6}>
+            <WordContainer areSeveralWords={areSeveralWords}>
+              <Word firstWord={firstWord} showInfo={showWordsInfo} />
+            </WordContainer>
+          </Col>
+        </CSSTransition>
       )
     );
   };
@@ -90,7 +94,9 @@ export const Words: FC = () => {
       <Categories />
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
         <S.WordWrapper gutter={12}>
-          {!isEmpty(words) && updatedWords.map(renderWords)}
+          <TransitionGroup>
+            {!isEmpty(words) && updatedWords.map(renderWords)}
+          </TransitionGroup>
           <ExportToExelButton />
           <AddWord />
           <CreateCategories />

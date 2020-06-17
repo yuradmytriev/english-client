@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { IWord } from 'shared/interfaces/IWord';
 import { useTrainingWords } from '../hooks/useTrainingWords';
 import { WordCard } from '../components/WordCard';
-import './animation.css';
+import 'shared/styles/animation.css';
 
 const showFirst = (_: unknown, index: number): boolean => index === 0;
 

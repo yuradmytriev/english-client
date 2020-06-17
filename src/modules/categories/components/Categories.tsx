@@ -9,7 +9,7 @@ import { ICategory } from 'modules/categories/interfaces/ICategory';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
 import * as S from './styles';
-import '../../training/page/animation.css';
+import 'shared/styles/animation.css';
 
 const { Panel } = Collapse;
 
