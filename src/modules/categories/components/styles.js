@@ -10,12 +10,12 @@ export const WordsWrapper = styled(Row)`
 export const CategoriesLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
-  justify-content: space-between;
+  margin: 5px;
 `;
 
 export const CategoryWrapper = styled.div`
-  width: 373px;
+  width: 367px;
+  margin: 8px;
 
   & > .ant-collapse {
     box-shadow: ${cardShadow};
