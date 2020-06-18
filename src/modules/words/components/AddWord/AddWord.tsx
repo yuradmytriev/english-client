@@ -6,7 +6,7 @@ import { IWord } from 'shared/interfaces/IWord';
 import { IWordInput } from 'modules/words/interfaces/IWordInput';
 import { jsonFetch } from 'shared/utils/jsonFetch';
 import { firstLetterToUpperCase } from 'shared/utils/firstLetterToUpperCase';
-import { useFetchWordsList } from 'shared/state/fetchWordsList/useFetchWordsList';
+import { useFetchWords } from 'shared/state/fetchWords/useFetchWords';
 import { useForms } from 'modules/words/hooks/useForms';
 import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from 'shared/constants/url';
 import { FileInput } from './FileInput';
@@ -38,7 +38,7 @@ const FormItem = ({ type, ...props }: any) => {
 
 const appendWord = async (
   values: IWord,
-  fetchWordsList: Function,
+  fetchWords: Function,
 ): Promise<void> => {
   const formDataBody: FormData = createFormDataBody(values);
 
@@ -49,7 +49,7 @@ const appendWord = async (
 
   if (ok) {
     message.success(statusText);
-    fetchWordsList();
+    fetchWords();
   } else {
     message.error(statusText);
   }
@@ -69,7 +69,7 @@ const fetchSimilarWords = (values: IWord): Promise<IWord[]> => {
   return jsonFetch(checkSimilarWordURL);
 };
 
-const fromConfig = (closeAddWordModal: any, fetchWordsList: any): any => ({
+const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
   initialValues: {
     id: '',
     word: '',
@@ -92,7 +92,7 @@ const fromConfig = (closeAddWordModal: any, fetchWordsList: any): any => ({
         title: `This word is already exists - ${sameWord.word}`,
         content: 'Are you sure that you want to add it?',
         onOk() {
-          appendWord(values, fetchWordsList);
+          appendWord(values, fetchWords);
         },
       });
     } else if (similarWords.length) {
@@ -102,22 +102,22 @@ const fromConfig = (closeAddWordModal: any, fetchWordsList: any): any => ({
         title: `You have similar word - ${similarWord.word}`,
         content: 'Are you sure that you want to add it?',
         onOk() {
-          appendWord(values, fetchWordsList);
+          appendWord(values, fetchWords);
         },
       });
     } else {
-      await appendWord(values, fetchWordsList);
+      await appendWord(values, fetchWords);
     }
   },
 });
 
 const AddWord: FC = () => {
   const [forms, appendForm] = useForms();
-  const { fetchWordsList } = useFetchWordsList();
+  const { fetchWords } = useFetchWords();
   const { visible, openModal, closeModal } = useToggleModal();
 
   const { handleSubmit, handleChange, setFieldValue } = useFormik(
-    fromConfig(closeModal, fetchWordsList),
+    fromConfig(closeModal, fetchWords),
   );
 
   return (

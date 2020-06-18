@@ -12,7 +12,7 @@ import { CreateCategories } from 'modules/categories/components/CreateCategories
 import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
-import { useFetchWordsList } from 'shared/state/fetchWordsList/useFetchWordsList';
+import { useFetchWords } from 'shared/state/fetchWords/useFetchWords';
 import {
   WordsFilter,
   useWordsFilter,
@@ -25,6 +25,7 @@ import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import { ExportToExelButton } from '../components/ExportToExelButton';
 import 'shared/styles/animation.css';
 import * as S from './styles';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const createWordsGroup = (words: IWord[]) => {
   const filtered = words.filter((word: IWord) => !word.category);
@@ -39,7 +40,7 @@ const createWordsGroup = (words: IWord[]) => {
 export const Words: FC = () => {
   const { showWordsInfo } = useWordsInfo();
   const { unlinkCategories } = useCategories();
-  const { words, fetchWordsList } = useFetchWordsList();
+  const { words, fetchWords } = useFetchWords();
 
   const relatedWordsGroup: any[] = createWordsGroup(words);
 
@@ -52,7 +53,7 @@ export const Words: FC = () => {
   }: IUseWordsFilter = useWordsFilter(relatedWordsGroup);
 
   useEffect(() => {
-    fetchWordsList();
+    fetchWords();
     setWords(relatedWordsGroup);
     // TODO: remove JSON.stringify
   }, [JSON.stringify(words)]);
@@ -82,6 +83,10 @@ export const Words: FC = () => {
     }
   };
 
+  const fetchData = async () => {
+    fetchWords();
+  };
+
   return (
     <>
       <S.LearnedWordsLayout>
@@ -99,7 +104,14 @@ export const Words: FC = () => {
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
         <S.WordWrapper gutter={12}>
           <TransitionGroup>
+            {/*<InfiniteScroll*/}
+            {/*  dataLength={121} //This is important field to render the next data*/}
+            {/*  next={fetchData}*/}
+            {/*  hasMore={true}*/}
+            {/*  loader={<h4>Loading...</h4>}*/}
+            {/*>*/}
             {!isEmpty(words) && updatedWords.map(renderWords)}
+            {/*</InfiniteScroll>*/}
           </TransitionGroup>
           <ExportToExelButton />
           <AddWord />
