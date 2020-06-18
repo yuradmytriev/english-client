@@ -1,11 +1,14 @@
 import { GET_CATEGORIES } from './types';
 
-export const fetchCategoriesReducer = (state: any, action: any) => {
+export const fetchCategoriesReducer = (
+  stateCategories: Array<any>,
+  { type, categories },
+) => {
   // eslint-disable-next-line sonarjs/no-small-switch
-  switch (action.type) {
+  switch (type) {
     case GET_CATEGORIES:
-      return action.categories;
+      return categories;
     default:
-      return state;
+      return stateCategories;
   }
 };

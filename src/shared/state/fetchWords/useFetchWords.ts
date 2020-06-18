@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { IWord } from 'shared/interfaces/IWord';
 import { IState } from 'shared/interfaces/IState';
-import { fireFetchWordsAction } from './actions';
+import { fireFetchWordsAction, fetchWordsOffsetRequestAction } from './actions';
 
 export interface IUseFetchWords {
-  fetchWords: () => void;
   words: Array<IWord>;
+  fetchWords: () => void;
+  fetchWordsOffset: (offset: number) => void;
 }
 
 export const useFetchWords = (): IUseFetchWords => {
@@ -17,5 +18,9 @@ export const useFetchWords = (): IUseFetchWords => {
     dispatch(fireFetchWordsAction());
   };
 
-  return { fetchWords, words };
+  const fetchWordsOffset = (offset: number): void => {
+    dispatch(fetchWordsOffsetRequestAction(offset));
+  };
+
+  return { fetchWordsOffset, fetchWords, words };
 };

@@ -40,7 +40,7 @@ const createWordsGroup = (words: IWord[]) => {
 export const Words: FC = () => {
   const { showWordsInfo } = useWordsInfo();
   const { unlinkCategories } = useCategories();
-  const { words, fetchWords } = useFetchWords();
+  const { words, fetchWordsOffset } = useFetchWords();
 
   const relatedWordsGroup: any[] = createWordsGroup(words);
 
@@ -53,10 +53,10 @@ export const Words: FC = () => {
   }: IUseWordsFilter = useWordsFilter(relatedWordsGroup);
 
   useEffect(() => {
-    fetchWords();
+    fetchWordsOffset(0);
     setWords(relatedWordsGroup);
     // TODO: remove JSON.stringify
-  }, [JSON.stringify(words)]);
+  }, []);
 
   const renderWords = ([_, words]: [string, IWord[]]) => {
     const [mainWord]: IWord[] = words;
@@ -83,8 +83,9 @@ export const Words: FC = () => {
     }
   };
 
-  const fetchData = async () => {
-    fetchWords();
+  const fetchWords = () => {
+    const offset: number = 10;
+    fetchWordsOffset(words.length / offset);
   };
 
   return (
@@ -104,14 +105,14 @@ export const Words: FC = () => {
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
         <S.WordWrapper gutter={12}>
           <TransitionGroup>
-            {/*<InfiniteScroll*/}
-            {/*  dataLength={121} //This is important field to render the next data*/}
-            {/*  next={fetchData}*/}
-            {/*  hasMore={true}*/}
-            {/*  loader={<h4>Loading...</h4>}*/}
-            {/*>*/}
-            {!isEmpty(words) && updatedWords.map(renderWords)}
-            {/*</InfiniteScroll>*/}
+            <InfiniteScroll
+              dataLength={words.length}
+              next={fetchWords}
+              hasMore={words.length !== 121}
+              loader={<h4>Loading...</h4>}
+            >
+              {!isEmpty(words) && updatedWords.map(renderWords)}
+            </InfiniteScroll>
           </TransitionGroup>
           <ExportToExelButton />
           <AddWord />

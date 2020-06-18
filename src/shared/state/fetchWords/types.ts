@@ -1,2 +1,5 @@
 export const FETCH_WORDS: string = 'FETCH_WORDS';
 export const FETCH_WORDS_REQUEST: string = 'FETCH_WORDS_REQUEST';
+
+export const FETCH_WORDS_OFFSET: string = 'FETCH_WORDS_OFFSET';
+export const FETCH_WORDS_OFFSET_REQUEST: string = 'FETCH_WORDS_OFFSET_REQUEST';

@@ -1,17 +1,19 @@
+import { IWord } from 'shared/interfaces/IWord';
 import { IFetchWords } from './actions';
-import { FETCH_WORDS } from './types';
+import { FETCH_WORDS, FETCH_WORDS_OFFSET } from './types';
 
 const INITIAL_STATE: string[] = [];
 
 export const fetchWordsReducer = (
-  state: string[],
+  stateWords: Array<IWord>,
   { type, words }: IFetchWords,
 ) => {
-  // eslint-disable-next-line sonarjs/no-small-switch
   switch (type) {
     case FETCH_WORDS:
       return [...INITIAL_STATE, ...words];
+    case FETCH_WORDS_OFFSET:
+      return [...stateWords, ...words];
     default:
-      return state;
+      return stateWords;
   }
 };
