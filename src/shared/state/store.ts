@@ -4,6 +4,8 @@ import { rootReducer } from './rootReducers';
 import { initialState } from './initialState';
 import { rootSaga } from './rootSaga';
 
+const ImmutableState = require('redux-immutable-state-invariant').default();
+
 const sagaMiddleware = createSagaMiddleware();
 
 declare global {
@@ -13,12 +15,17 @@ declare global {
   }
 }
 
+const middleware =
+  process.env.NODE_ENV !== 'production'
+    ? [ImmutableState, sagaMiddleware]
+    : [sagaMiddleware];
+
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   rootReducer,
   initialState,
-  composeEnhancer(applyMiddleware(sagaMiddleware)),
+  composeEnhancer(applyMiddleware(...middleware)),
 );
 
 sagaMiddleware.run(rootSaga);
