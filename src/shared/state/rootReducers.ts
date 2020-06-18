@@ -5,11 +5,11 @@ import { wordsInfoReducer } from './wordsInfo';
 import { fetchWordsReducer } from './fetchWords';
 
 export const rootReducer = (
-  { words, editMode, categories, wordsInfo } = initialState,
+  { words, editMode, categories, showWordsInfo } = initialState,
   action: any,
 ) => ({
   words: fetchWordsReducer(words, action),
   editMode: editModeReducer(editMode, action),
-  wordsInfo: wordsInfoReducer(wordsInfo, action),
+  showWordsInfo: wordsInfoReducer(showWordsInfo, action),
   categories: fetchCategoriesReducer(categories, action),
 });

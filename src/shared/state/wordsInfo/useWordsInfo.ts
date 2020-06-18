@@ -5,7 +5,7 @@ import { toggleWordsInfoAction } from './actions';
 export const useWordsInfo = () => {
   const dispatch = useDispatch();
 
-  const showWordsInfo = useSelector((state: IState) => state.wordsInfo);
+  const showWordsInfo = useSelector((state: IState) => state.showWordsInfo);
 
   const toggleWordsInfo = (): void => {
     dispatch(toggleWordsInfoAction());

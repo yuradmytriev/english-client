@@ -2,7 +2,7 @@ import { IState } from 'shared/interfaces/IState';
 
 export const initialState: IState = {
   words: [],
-  wordsInfo: true,
+  showWordsInfo: true,
   editMode: false,
   categories: [],
 };

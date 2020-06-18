@@ -3,6 +3,6 @@ import { IWord } from 'shared/interfaces/IWord';
 export interface IState {
   words: IWord[];
   editMode: boolean;
-  wordsInfo: boolean;
+  showWordsInfo: boolean;
   categories: Array<any>;
 }
