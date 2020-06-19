@@ -22,7 +22,6 @@ import { AddWord } from '../components/AddWord';
 import { ToggleWordsInfo } from '../components/ToggleWordsInfo';
 import { WordsCount } from '../components/WordsCount';
 import { LearnedWordsCount } from '../components/LearnedWordsCount';
-import { ExportToExelButton } from '../components/ExportToExelButton';
 import 'shared/styles/animation.css';
 import * as S from './styles';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -114,7 +113,6 @@ export const Words: FC = () => {
               {!isEmpty(words) && updatedWords.map(renderWords)}
             </InfiniteScroll>
           </TransitionGroup>
-          <ExportToExelButton />
           <AddWord />
           <CreateCategories />
           <ToggleWordsInfo />
