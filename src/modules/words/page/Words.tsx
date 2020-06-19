@@ -96,8 +96,8 @@ export const Words: FC = () => {
           showUnlearnedWords={showUnlearnedWords}
         />
         <div>
-          {!isEmpty(words) && <WordsCount words={words} />}
-          {!isEmpty(words) && <LearnedWordsCount words={words} />}
+          {!isEmpty(words) && <WordsCount />}
+          {!isEmpty(words) && <LearnedWordsCount />}
         </div>
       </S.LearnedWordsLayout>
       <Categories />
