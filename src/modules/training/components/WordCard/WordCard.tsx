@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { Button, Icon } from 'antd';
 import { IWord } from 'shared/interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
+import { useEventListener } from '../../hooks/useEventListener';
 import * as S from './styles';
 
 interface IWordCard
@@ -28,6 +29,18 @@ export const WordCard: FC<IWordCard> = ({
 
     deleteTrainingWord(id);
   };
+
+  const trainingNavigationByKeyboard = ({ key }) => {
+    if (key === 'ArrowRight') {
+      deleteTrainingWord(id);
+    }
+
+    if (key === 'ArrowLeft') {
+      memoizeWord();
+    }
+  };
+
+  useEventListener('keydown', trainingNavigationByKeyboard);
 
   const toggleTranslate = (): void => {
     setShowTranslate(prev => !prev);
