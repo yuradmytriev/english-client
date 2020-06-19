@@ -52,9 +52,9 @@ export const Words: FC = () => {
   }: IUseWordsFilter = useWordsFilter(relatedWordsGroup);
 
   useEffect(() => {
-    fetchWordsOffset(0);
+    const firstWords: number = 0;
+    fetchWordsOffset(firstWords);
     setWords(relatedWordsGroup);
-    // TODO: remove JSON.stringify
   }, []);
 
   const renderWords = ([_, words]: [string, IWord[]]) => {
@@ -83,8 +83,8 @@ export const Words: FC = () => {
   };
 
   const fetchWords = () => {
-    const offset: number = 10;
-    fetchWordsOffset(words.length / offset);
+    const offset: number = 20;
+    fetchWordsOffset(Math.ceil(words.length / offset));
   };
 
   return (
@@ -107,7 +107,7 @@ export const Words: FC = () => {
             <InfiniteScroll
               dataLength={words.length}
               next={fetchWords}
-              hasMore={words.length !== 121}
+              hasMore={words.length !== updatedWords.length}
               loader={<h4>Loading...</h4>}
             >
               {!isEmpty(words) && updatedWords.map(renderWords)}
