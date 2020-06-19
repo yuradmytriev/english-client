@@ -1,1 +1,3 @@
-export const TOGGLE_EDIT_MODE: string = 'TOGGLE_EDIT_MODE';
+const WORD_NAMESPACE = 'WORD:';
+
+export const TOGGLE_EDIT_MODE: string = `${WORD_NAMESPACE}TOGGLE_EDIT_MODE`;
