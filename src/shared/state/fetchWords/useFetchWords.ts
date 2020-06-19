@@ -9,10 +9,10 @@ export interface IUseFetchWords {
   fetchWordsOffset: (offset: number) => void;
 }
 
-export const useFetchWords = (): IUseFetchWords => {
+export const useFetchWords = () => {
   const dispatch = useDispatch();
 
-  const words: Array<IWord> = useSelector((state: IState) => state.words);
+  const offsetWords: Array<IWord> = useSelector(state => state.offsetWords);
 
   const fetchWords = (): void => {
     dispatch(fireFetchWordsAction());
@@ -22,5 +22,5 @@ export const useFetchWords = (): IUseFetchWords => {
     dispatch(fetchWordsOffsetRequestAction(offset));
   };
 
-  return { fetchWordsOffset, fetchWords, words };
+  return { fetchWordsOffset, fetchWords, offsetWords };
 };

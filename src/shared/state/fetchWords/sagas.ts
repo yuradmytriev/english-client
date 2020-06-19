@@ -15,9 +15,9 @@ export function* fetchWordsOffset({ offset }: { offset: number }) {
   const response = yield call(() =>
     fetch(`${FETCH_WORDS_LIST_URL}/offset/${offset}`),
   );
-  const words: Array<IWord> = yield response.json();
+  const offsetWords: Array<IWord> = yield response.json();
 
-  yield put(fetchWordsOffsetAction(words.data));
+  yield put(fetchWordsOffsetAction(offsetWords));
 }
 
 export function* watchWords() {

@@ -39,9 +39,12 @@ const createWordsGroup = (words: IWord[]) => {
 export const Words: FC = () => {
   const { showWordsInfo } = useWordsInfo();
   const { unlinkCategories } = useCategories();
-  const { words, fetchWordsOffset } = useFetchWords();
+  const { offsetWords, fetchWordsOffset } = useFetchWords();
 
-  const relatedWordsGroup: any[] = createWordsGroup(words);
+  const allWords = offsetWords.words;
+  console.log(allWords);
+
+  const relatedWordsGroup: any[] = createWordsGroup(allWords);
 
   const {
     setWords,
@@ -84,7 +87,7 @@ export const Words: FC = () => {
 
   const fetchWords = () => {
     const offset: number = 20;
-    fetchWordsOffset(Math.ceil(words.length / offset));
+    fetchWordsOffset(Math.ceil(allWords.length / offset));
   };
 
   return (
@@ -96,8 +99,8 @@ export const Words: FC = () => {
           showUnlearnedWords={showUnlearnedWords}
         />
         <div>
-          {!isEmpty(words) && <WordsCount />}
-          {!isEmpty(words) && <LearnedWordsCount />}
+          {!isEmpty(allWords) && <WordsCount />}
+          {!isEmpty(allWords) && <LearnedWordsCount />}
         </div>
       </S.LearnedWordsLayout>
       <Categories />
@@ -105,12 +108,12 @@ export const Words: FC = () => {
         <S.WordWrapper gutter={12}>
           <TransitionGroup>
             <InfiniteScroll
-              dataLength={words.length}
+              dataLength={allWords.length}
               next={fetchWords}
-              hasMore={words.length !== updatedWords.length}
+              hasMore={allWords.length !== offsetWords.total}
               loader={<h4>Loading...</h4>}
             >
-              {!isEmpty(words) && updatedWords.map(renderWords)}
+              {!isEmpty(allWords) && updatedWords.map(renderWords)}
             </InfiniteScroll>
           </TransitionGroup>
           <AddWord />
