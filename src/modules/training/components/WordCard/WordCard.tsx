@@ -1,8 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button, Icon } from 'antd';
 import { IWord } from 'shared/interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
 import { useEventListener } from '../../hooks/useEventListener';
+import { WordPronunciation } from 'modules/word/components/WordPronunciation';
 import * as S from './styles';
 
 interface IWordCard
@@ -18,6 +19,10 @@ export const WordCard: FC<IWordCard> = ({
   deleteTrainingWord,
 }) => {
   const [showTranslate, setShowTranslate] = useState(false);
+
+  useEffect(() => {
+    window.responsiveVoice.speak(word);
+  }, []);
 
   const memoizeWord = (): void => {
     const wordProps: Pick<IWord, 'learned'> = { learned: true };
@@ -51,6 +56,7 @@ export const WordCard: FC<IWordCard> = ({
       <S.Wrapper>
         <S.IconWordLayout>
           <S.Word>{word}</S.Word>
+          <WordPronunciation word={word} />
           <Icon
             theme="twoTone"
             type="question-circle"
