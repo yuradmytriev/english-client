@@ -1,8 +1,8 @@
 import { IState } from 'shared/interfaces/IState';
 
 export const initialState: IState = {
-  offsetWords: {
-    words: [],
+  words: {
+    list: [],
     total: 0,
   },
   showWordsInfo: true,

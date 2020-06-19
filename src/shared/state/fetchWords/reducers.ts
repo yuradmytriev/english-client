@@ -1,24 +1,28 @@
-import { IWord } from 'shared/interfaces/IWord';
+import produce from 'immer';
+import { IState, IOffsetWords } from 'shared/interfaces/IState';
 import { IFetchWords } from './actions';
 import { FETCH_WORDS, FETCH_WORDS_OFFSET } from './types';
-import produce from 'immer';
 
 const INITIAL_STATE: string[] = [];
 
-export const fetchWordsReducer = (stateWords, { type, offsetWords }) => {
+const getWords = produce((state, words) => {
+  if (words.data.length) {
+    words.data.forEach(list => {
+      // eslint-disable-next-line fp/no-mutating-methods
+      state.list.push(list);
+      // eslint-disable-next-line fp/no-mutating-methods,fp/no-mutation,no-param-reassign
+      state.total = words.total;
+    });
+  }
+});
+
+export const fetchWordsReducer = (state, { type, words }) => {
   switch (type) {
     case FETCH_WORDS:
-      return [...INITIAL_STATE, ...offsetWords.data];
+      return [...INITIAL_STATE, ...words];
     case FETCH_WORDS_OFFSET:
-      return produce((state, offsetWords) => {
-        if (offsetWords.data?.length) {
-          offsetWords.data.forEach(word => {
-            state.words.push(word);
-            state.total = offsetWords.total;
-          });
-        }
-      })(stateWords, offsetWords);
+      return getWords(state, words);
     default:
-      return stateWords;
+      return state;
   }
 };

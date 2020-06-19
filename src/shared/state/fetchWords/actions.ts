@@ -24,9 +24,9 @@ export const fireFetchWordsAction = (): IFireFetchWords => ({
   type: FETCH_WORDS_REQUEST,
 });
 
-export const fetchWordsOffsetAction = (offsetWords): IFetchWords => ({
+export const fetchWordsOffsetAction = (words): IFetchWords => ({
   type: FETCH_WORDS_OFFSET,
-  offsetWords,
+  words,
 });
 
 export const fetchWordsOffsetRequestAction = (offset: number) => ({
