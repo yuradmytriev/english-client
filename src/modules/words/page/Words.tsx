@@ -103,7 +103,7 @@ export const Words: FC = () => {
       <Categories />
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
         <S.WordWrapper gutter={12}>
-          <TransitionGroup>
+          <TransitionGroup style={{ width: '100%' }}>
             <InfiniteScroll
               dataLength={wordsOffset.length}
               next={fetchWords}
