@@ -3,10 +3,7 @@ import { IState } from 'shared/interfaces/IState';
 export const initialState: IState = {
   words: [],
   categories: [],
-  wordsOffset: {
-    list: [],
-    total: 0,
-  },
+  wordsOffset: [],
   editMode: false,
   showWordsInfo: true,
 };

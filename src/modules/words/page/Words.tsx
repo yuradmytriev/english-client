@@ -1,9 +1,10 @@
-import React, { useEffect, FC } from 'react';
+import React, { FC } from 'react';
 import { Col } from 'antd';
+import useDeepCompareEffect from 'use-deep-compare-effect';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import isEmpty from 'lodash/isEmpty';
 import groupBy from 'lodash/groupBy';
-import orderBy from 'lodash/orderBy';
 import { IWord } from 'shared/interfaces/IWord';
 import { Word } from 'shared/components/Word';
 import { DropContainer } from 'shared/components/DnD/DropContainer';
@@ -13,6 +14,8 @@ import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
 import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWordsOffset';
+import { useFetchToState } from 'shared/hooks/useFetchToState';
+import { SERVER_URL } from 'shared/constants/url';
 import {
   WordsFilter,
   useWordsFilter,
@@ -24,24 +27,20 @@ import { WordsCount } from '../components/WordsCount';
 import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import 'shared/styles/animation.css';
 import * as S from './styles';
-import InfiniteScroll from 'react-infinite-scroll-component';
 
 const createWordsGroup = (words: IWord[]) => {
   const filtered = words.filter((word: IWord) => !word.category);
 
-  return orderBy(
-    Object.entries(groupBy(filtered, 'word')),
-    item => item[1][0]?.updatedDate,
-    ['desc'],
-  );
+  return Object.entries(groupBy(filtered, 'word'));
 };
 
 export const Words: FC = () => {
+  const [words] = useFetchToState(`${SERVER_URL}/words/count`);
   const { showWordsInfo } = useWordsInfo();
   const { unlinkCategories } = useCategories();
   const { wordsOffset, fetchWordsOffset } = useFetchWordsOffset();
 
-  const relatedWordsGroup: any[] = createWordsGroup(wordsOffset.list);
+  const relatedWordsGroup: any[] = createWordsGroup(wordsOffset);
 
   const {
     setWords,
@@ -51,11 +50,11 @@ export const Words: FC = () => {
     showUnlearnedWords,
   }: IUseWordsFilter = useWordsFilter(relatedWordsGroup);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     const firstWords: number = 0;
     fetchWordsOffset(firstWords);
     setWords(relatedWordsGroup);
-  }, []);
+  }, [wordsOffset]);
 
   const renderWords = ([_, words]: [string, IWord[]]) => {
     const [mainWord]: IWord[] = words;
@@ -84,7 +83,8 @@ export const Words: FC = () => {
 
   const fetchWords = () => {
     const offset: number = 20;
-    fetchWordsOffset(Math.ceil(wordsOffset.list.length / offset));
+
+    fetchWordsOffset(Math.ceil(wordsOffset.length / offset));
   };
 
   return (
@@ -96,8 +96,8 @@ export const Words: FC = () => {
           showUnlearnedWords={showUnlearnedWords}
         />
         <div>
-          {!isEmpty(wordsOffset.list) && <WordsCount />}
-          {!isEmpty(wordsOffset.list) && <LearnedWordsCount />}
+          {!isEmpty(wordsOffset) && <WordsCount />}
+          {!isEmpty(wordsOffset) && <LearnedWordsCount />}
         </div>
       </S.LearnedWordsLayout>
       <Categories />
@@ -105,12 +105,12 @@ export const Words: FC = () => {
         <S.WordWrapper gutter={12}>
           <TransitionGroup>
             <InfiniteScroll
-              dataLength={wordsOffset.list.length}
+              dataLength={wordsOffset.length}
               next={fetchWords}
-              hasMore={wordsOffset.list.length !== wordsOffset.total}
+              hasMore={wordsOffset.length !== words}
               loader={<h4>Loading...</h4>}
             >
-              {!isEmpty(wordsOffset.list) && updatedWords.map(renderWords)}
+              {!isEmpty(wordsOffset) && updatedWords.map(renderWords)}
             </InfiniteScroll>
           </TransitionGroup>
           <AddWord />

@@ -1,15 +1,12 @@
 import React, { FC, MouseEvent } from 'react';
 import { Icon } from 'antd';
 import { IWord } from 'shared/interfaces/IWord';
-import {
-  useFetchWords,
-  IUseFetchWords,
-} from 'shared/state/fetchWords/useFetchWords';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
+import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWordsOffset';
 import * as S from '../styles';
 
 const DeleteWord: FC<{ id: number }> = ({ id }) => {
-  const { fetchWords }: IUseFetchWords = useFetchWords();
+  const { fetchWordsOffset } = useFetchWordsOffset();
 
   const deleteWord = async (
     e: MouseEvent<HTMLButtonElement>,
@@ -18,7 +15,7 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
     const deletedWord: boolean = await WordsSDK.delete(id);
 
     if (deletedWord) {
-      fetchWords();
+      fetchWordsOffset(0);
     }
   };
 
@@ -31,7 +28,7 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
 };
 
 const MemorizeWord: FC<{ id: number }> = ({ id }) => {
-  const { fetchWords } = useFetchWords();
+  const { fetchWordsOffset } = useFetchWordsOffset();
 
   const memorizeWord = async (
     e: MouseEvent<HTMLButtonElement>,
@@ -44,7 +41,7 @@ const MemorizeWord: FC<{ id: number }> = ({ id }) => {
     });
 
     if (memoizedWord.id) {
-      fetchWords();
+      fetchWordsOffset(0);
     }
   };
 
@@ -57,7 +54,7 @@ const MemorizeWord: FC<{ id: number }> = ({ id }) => {
 };
 
 const ForgotWord: FC<{ id: number }> = ({ id }) => {
-  const { fetchWords } = useFetchWords();
+  const { fetchWordsOffset } = useFetchWordsOffset();
 
   const forgotWord = async (
     e: MouseEvent<HTMLButtonElement>,
@@ -70,7 +67,7 @@ const ForgotWord: FC<{ id: number }> = ({ id }) => {
     });
 
     if (memoizedWord.id) {
-      fetchWords();
+      fetchWordsOffset(0);
     }
   };
 
