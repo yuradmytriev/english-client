@@ -9,7 +9,7 @@ export const Translate = ({ id, translate }) => {
   const { isEditMode } = useEditMode();
 
   const onChange = (value: string): void => {
-    const wordProps: Partial<IWord> = { translate: value };
+    const wordProps: Partial<IWord> = { translate: value.target.textContent };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
@@ -18,7 +18,9 @@ export const Translate = ({ id, translate }) => {
     <S.TranslateProperty>
       {ifElse(
         isEditMode,
-        <S.Text editable={{ onChange }}>{translate}</S.Text>,
+        <S.Text contentEditable onInput={onChange}>
+          {translate}
+        </S.Text>,
         <span>{translate}</span>,
       )}
     </S.TranslateProperty>

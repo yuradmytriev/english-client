@@ -20,7 +20,7 @@ import {
   WordsFilter,
   useWordsFilter,
   IUseWordsFilter,
-} from '../components/WordsFilter';
+} from 'modules/wordsFilter';
 import { AddWord } from '../components/AddWord';
 import { ToggleWordsInfo } from '../components/ToggleWordsInfo';
 import { WordsCount } from '../components/WordsCount';
@@ -44,7 +44,7 @@ export const Words: FC = () => {
 
   const {
     setWords,
-    updatedWords,
+    filteredWords,
     showAllWords,
     showMemoizedWords,
     showUnlearnedWords,
@@ -53,6 +53,7 @@ export const Words: FC = () => {
   useDeepCompareEffect(() => {
     const firstWords: number = 0;
     fetchWordsOffset(firstWords);
+
     setWords(relatedWordsGroup);
   }, [wordsOffset]);
 
@@ -91,9 +92,9 @@ export const Words: FC = () => {
     <>
       <S.LearnedWordsLayout>
         <WordsFilter
-          showAllWords={showAllWords}
-          showMemoizedWords={showMemoizedWords}
-          showUnlearnedWords={showUnlearnedWords}
+          showAllWords={() => showAllWords(relatedWordsGroup)}
+          showMemoizedWords={() => showMemoizedWords(relatedWordsGroup)}
+          showUnlearnedWords={() => showUnlearnedWords(relatedWordsGroup)}
         />
         <div>
           {!isEmpty(wordsOffset) && <WordsCount />}
@@ -110,7 +111,7 @@ export const Words: FC = () => {
               hasMore={wordsOffset.length !== words}
               loader={<h4>Loading...</h4>}
             >
-              {!isEmpty(wordsOffset) && updatedWords.map(renderWords)}
+              {!isEmpty(wordsOffset) && filteredWords.map(renderWords)}
             </InfiniteScroll>
           </TransitionGroup>
           <AddWord />

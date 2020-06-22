@@ -48,8 +48,8 @@ export const Suggestion: FC<ISuggestion> = ({
     return null;
   }
 
-  const onUpdate = (value: string): void => {
-    const wordProps: Partial<IWord> = { [type]: value };
+  const onChange = (value: string): void => {
+    const wordProps: Partial<IWord> = { synonym: value.target.textContent };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
@@ -63,7 +63,9 @@ export const Suggestion: FC<ISuggestion> = ({
       <S.WordLabel title={firstLetterToUpperCase(type)}>
         {ifElse(
           isEditMode,
-          <S.Text editable={{ onChange: onUpdate }}>{word}</S.Text>,
+          <S.Text contentEditable onInput={onChange}>
+            {word}
+          </S.Text>,
           <span>{word}</span>,
         )}
       </S.WordLabel>

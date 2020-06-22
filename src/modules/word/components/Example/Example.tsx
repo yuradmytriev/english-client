@@ -11,7 +11,7 @@ export const Example = ({ id, word, example }) => {
   const { isEditMode } = useEditMode();
 
   const onChange = (value: string) => {
-    const wordProps: Partial<IWord> = { example: value };
+    const wordProps: Partial<IWord> = { example: value.target.textContent };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
@@ -21,7 +21,9 @@ export const Example = ({ id, word, example }) => {
       <S.WordLabel title="Example">
         {ifElse(
           isEditMode,
-          <S.Text editable={{ onChange }}>{example}</S.Text>,
+          <S.Text contentEditable onInput={onChange}>
+            {example}
+          </S.Text>,
           <HighlightedPhrase phrase={example} word={word} />,
         )}
       </S.WordLabel>

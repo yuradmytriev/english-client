@@ -92,7 +92,7 @@ export const MoreExamplesWrapper = styled.div`
   margin-top: 5px;
 `;
 
-export const Text = styled(Paragraph)`
+export const Text = styled.div`
   margin-bottom: 0 !important;
   display: inline-block;
 `;

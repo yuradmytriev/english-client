@@ -10,7 +10,7 @@ export const Definition = ({ id, word, definition }) => {
   const { isEditMode } = useEditMode();
 
   const onChange = (value: string) => {
-    const wordProps: Partial<IWord> = { word: value };
+    const wordProps: Partial<IWord> = { definition: value.target.textContent };
 
     WordsSDK.updateJSON({ wordId: id, wordProps });
   };
@@ -20,7 +20,9 @@ export const Definition = ({ id, word, definition }) => {
       <S.WordLabel title="Definition">
         {ifElse(
           isEditMode,
-          <S.Text editable={{ onChange }}>{definition}</S.Text>,
+          <S.Text contentEditable onInput={onChange}>
+            {definition}
+          </S.Text>,
           <span>{definition}</span>,
         )}
       </S.WordLabel>
