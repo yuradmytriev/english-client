@@ -6,8 +6,9 @@ export interface IOffsetWords {
 }
 
 export interface IState {
-  words: IOffsetWords;
+  words: IWord[];
   editMode: boolean;
   showWordsInfo: boolean;
   categories: Array<any>;
+  wordsOffset: IOffsetWords;
 }

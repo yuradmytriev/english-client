@@ -12,7 +12,7 @@ import { CreateCategories } from 'modules/categories/components/CreateCategories
 import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
-import { useFetchWords } from 'shared/state/fetchWords/useFetchWords';
+import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWordsOffset';
 import {
   WordsFilter,
   useWordsFilter,
@@ -39,9 +39,9 @@ const createWordsGroup = (words: IWord[]) => {
 export const Words: FC = () => {
   const { showWordsInfo } = useWordsInfo();
   const { unlinkCategories } = useCategories();
-  const { words, fetchWordsOffset } = useFetchWords();
+  const { wordsOffset, fetchWordsOffset } = useFetchWordsOffset();
 
-  const relatedWordsGroup: any[] = createWordsGroup(words.list);
+  const relatedWordsGroup: any[] = createWordsGroup(wordsOffset.list);
 
   const {
     setWords,
@@ -84,7 +84,7 @@ export const Words: FC = () => {
 
   const fetchWords = () => {
     const offset: number = 20;
-    fetchWordsOffset(Math.ceil(words.list.length / offset));
+    fetchWordsOffset(Math.ceil(wordsOffset.list.length / offset));
   };
 
   return (
@@ -96,8 +96,8 @@ export const Words: FC = () => {
           showUnlearnedWords={showUnlearnedWords}
         />
         <div>
-          {!isEmpty(words.list) && <WordsCount />}
-          {!isEmpty(words.list) && <LearnedWordsCount />}
+          {!isEmpty(wordsOffset.list) && <WordsCount />}
+          {!isEmpty(wordsOffset.list) && <LearnedWordsCount />}
         </div>
       </S.LearnedWordsLayout>
       <Categories />
@@ -105,12 +105,12 @@ export const Words: FC = () => {
         <S.WordWrapper gutter={12}>
           <TransitionGroup>
             <InfiniteScroll
-              dataLength={words.list.length}
+              dataLength={wordsOffset.list.length}
               next={fetchWords}
-              hasMore={words.list.length !== words.total}
+              hasMore={wordsOffset.list.length !== wordsOffset.total}
               loader={<h4>Loading...</h4>}
             >
-              {!isEmpty(words.list) && updatedWords.map(renderWords)}
+              {!isEmpty(wordsOffset.list) && updatedWords.map(renderWords)}
             </InfiniteScroll>
           </TransitionGroup>
           <AddWord />
