@@ -66,7 +66,7 @@ export const Words: FC = () => {
     return (
       word && (
         <CSSTransition key={id} timeout={500} classNames="item">
-          <Col key={id} xs={24} sm={12} md={8} lg={8} xl={6}>
+          <Col key={id} xs={24} sm={24} md={8} lg={8} xl={6}>
             <WordContainer areSeveralWords={areSeveralWords}>
               <Word firstWord={firstWord} showInfo={showWordsInfo} />
             </WordContainer>
@@ -96,10 +96,10 @@ export const Words: FC = () => {
           showMemoizedWords={() => showMemoizedWords(relatedWordsGroup)}
           showUnlearnedWords={() => showUnlearnedWords(relatedWordsGroup)}
         />
-        <div>
+        <S.WordsCountContainer>
           {!isEmpty(wordsOffset) && <WordsCount />}
           {!isEmpty(wordsOffset) && <LearnedWordsCount />}
-        </div>
+        </S.WordsCountContainer>
       </S.LearnedWordsLayout>
       <Categories />
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
@@ -114,9 +114,6 @@ export const Words: FC = () => {
               {!isEmpty(wordsOffset) && filteredWords.map(renderWords)}
             </InfiniteScroll>
           </TransitionGroup>
-          <AddWord />
-          <CreateCategories />
-          <ToggleWordsInfo />
         </S.WordWrapper>
       </DropContainer>
     </>

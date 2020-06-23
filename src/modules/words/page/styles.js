@@ -10,3 +10,9 @@ export const LearnedWordsLayout = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const WordsCountContainer = styled.div`
+  @media (max-width: 480px) {
+    display: none;
+  }
+`;
