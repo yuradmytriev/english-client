@@ -1,5 +1,5 @@
 import React, { FC, MouseEvent } from 'react';
-import { Icon } from 'antd';
+import Icon from 'antd/lib/icon';
 import { IWord } from 'shared/interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
 import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWordsOffset';

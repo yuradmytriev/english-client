@@ -1,4 +1,4 @@
-import { Icon } from 'antd';
+import Icon from 'antd/lib/icon';
 import styled from 'styled-components';
 
 export const VideoContainer = styled.div`

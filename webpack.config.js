@@ -1,10 +1,16 @@
 const path = require('path');
-
+const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+const glob = require('glob');
+
+const PATHS = {
+  src: path.join(__dirname, 'src'),
+};
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -98,9 +104,17 @@ module.exports = {
       },
     ],
   },
-  plugins: [htmlPlugin, cleanWebpackPlugin, definePlugin()],
+  plugins: [
+    htmlPlugin,
+    cleanWebpackPlugin,
+    definePlugin(),
+    new MomentLocalesPlugin(),
+    new PurgecssPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+    }),
+  ],
   mode: process.env.NODE_ENV,
-  devtool: 'inline-source-map',
+  devtool: 'source-map',
   devServer: {
     host: '0.0.0.0',
     port: process.env.PORT || 3000,
