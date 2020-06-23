@@ -8,7 +8,7 @@ import { jsonFetch } from 'shared/utils/jsonFetch';
 import { firstLetterToUpperCase } from 'shared/utils/firstLetterToUpperCase';
 import { useFetchWords } from 'shared/state/fetchWords/useFetchWords';
 import { useForms } from 'modules/words/hooks/useForms';
-import { FETCH_WORD_URL, FETCH_WORDS_LIST_URL } from 'shared/constants/url';
+import { SERVER_URL } from 'shared/constants/url';
 import { FileInput } from './FileInput';
 import { createFormDataBody } from './utils';
 import * as S from './styles';
@@ -42,7 +42,7 @@ const appendWord = async (
 ): Promise<void> => {
   const formDataBody: FormData = createFormDataBody(values);
 
-  const { ok, statusText } = await fetch(FETCH_WORDS_LIST_URL, {
+  const { ok, statusText } = await fetch(`${SERVER_URL}/words`, {
     method: 'POST',
     body: formDataBody,
   });
@@ -57,14 +57,14 @@ const appendWord = async (
 
 // TODO: create single function
 const fetchSameWords = async (values: IWord): Promise<IWord[]> => {
-  const checkWordURL: string = `${FETCH_WORD_URL}/find/${values.word}`;
+  const checkWordURL: string = `${SERVER_URL}/word/find/${values.word}`;
   const response = await fetch(checkWordURL);
 
   return response.json();
 };
 
 const fetchSimilarWords = (values: IWord): Promise<IWord[]> => {
-  const checkSimilarWordURL: string = `${FETCH_WORD_URL}/similar/${values.word}`;
+  const checkSimilarWordURL: string = `${SERVER_URL}/word/similar/${values.word}`;
 
   return jsonFetch(checkSimilarWordURL);
 };

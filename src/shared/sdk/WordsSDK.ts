@@ -1,12 +1,12 @@
 import { message } from 'antd';
 import { IWord } from 'shared/interfaces/IWord';
-import { FETCH_WORDS_LIST_URL } from 'shared/constants/url';
+import { SERVER_URL } from 'shared/constants/url';
 
 const ERROR: { UPLOAD_IMAGE: string } = {
   UPLOAD_IMAGE: `Can't upload image`,
 };
 
-const createWordsURL = (id: number) => `${FETCH_WORDS_LIST_URL}/${id}`;
+const createWordsURL = (id: number) => `${SERVER_URL}/words/${id}`;
 
 export class WordsSDK {
   static update({ wordId, body }: { wordId: number; body: FormData }): void {
