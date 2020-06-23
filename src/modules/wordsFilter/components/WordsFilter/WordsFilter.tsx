@@ -37,9 +37,9 @@ export const WordsFilter: FC<Omit<
         onChange={filterWordsActions}
         defaultValue={defaultFilter}
       >
-        <Radio.Button value={ALL}>All words</Radio.Button>
-        <Radio.Button value={LEARNED}>Memoized words</Radio.Button>
-        <Radio.Button value={UNLEARNED}>Unlearned words</Radio.Button>
+        <Radio.Button value={ALL}>All</Radio.Button>
+        <Radio.Button value={LEARNED}>Memoized</Radio.Button>
+        <Radio.Button value={UNLEARNED}>Unlearned</Radio.Button>
       </Radio.Group>
     </S.FilterWordsWrapper>
   );
