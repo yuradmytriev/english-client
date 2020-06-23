@@ -7,6 +7,9 @@
     "english",
     "vocablurary"
   ],
+  "engines": {
+    "node": "12.x"
+  },
   "author": "Yurii Dmytriev",
   "email": "yuramijs@gmai.com",
   "scripts": {
