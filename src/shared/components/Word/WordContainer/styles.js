@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const WordContainer = styled.div`
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   box-shadow: ${props =>
     props.areSeveralWords
       ? '0 1px 1px rgba(0, 0, 0, 0.15), 0 10px 0px -5px #fff,' +

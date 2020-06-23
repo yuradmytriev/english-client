@@ -8,6 +8,7 @@ export const WordWrapper = styled.div`
   margin: 0 auto;
   margin-bottom: 5rem;
   max-width: 550px;
+  width: 100%;
   background: #fff;
   padding: 20px;
   border-radius: ${cardBorderRadius};

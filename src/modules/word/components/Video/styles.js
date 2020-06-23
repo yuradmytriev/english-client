@@ -30,4 +30,8 @@ export const Video = styled.video`
   height: auto !important;
   margin-bottom: 10px;
   min-width: 430px;
+
+  @media (max-width: 480px) {
+    min-width: 100%;
+  }
 `;

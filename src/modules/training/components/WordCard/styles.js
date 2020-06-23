@@ -4,7 +4,7 @@ import { cardBorderRadius } from 'shared/constants/styles';
 export const Wrapper = styled.div`
   text-align: center;
   background: #fff;
-  padding: 33px;
+  padding: 33px 15px;
   border-radius: ${cardBorderRadius};
   box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05),
     0 1px 3px 0 rgba(63, 63, 68, 0.15);
@@ -12,6 +12,11 @@ export const Wrapper = styled.div`
   margin: 0 auto;
   font-size: 21px;
   width: 500px;
+
+  @media (max-width: 480px) {
+    max-width: 500px;
+    margin: 15px;
+  }
 `;
 
 export const Container = styled.div`

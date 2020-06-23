@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { spacing } from 'shared/constants/spacing';
 
 export const MenuWrapper = styled.div`
   background: #001529;
@@ -11,11 +10,17 @@ export const MenuWrapper = styled.div`
     width: 100%;
     bottom: 0;
     position: fixed;
+    display: flex;
+    justify-content: space-between;
   }
 `;
 
 export const MenuItem = styled.div`
   width: 100%;
+
+  @media (max-width: 480px) {
+    width: auto;
+  }
 
   & a {
     color: #ffffff;
@@ -31,7 +36,6 @@ export const MenuLayout = styled.div`
 `;
 
 export const Content = styled.div`
-  padding: ${spacing.base};
   width: calc(100% - 100px);
 
   @media (max-width: 480px) {
@@ -39,7 +43,11 @@ export const Content = styled.div`
   }
 `;
 
-export const Links = styled.div``;
+export const Links = styled.div`
+  @media (max-width: 480px) {
+    display: flex;
+  }
+`;
 
 export const Actions = styled.div`
   position: fixed;
@@ -49,8 +57,18 @@ export const Actions = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 480px) {
+    position: static;
+    flex-direction: row;
+    height: 1px;
+  }
 `;
 
 export const AddWordLayout = styled.div`
   margin: 10px 0 20px 0;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;

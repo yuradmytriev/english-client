@@ -12,6 +12,9 @@ export const LearnedWordsLayout = styled.div`
 `;
 
 export const WordsCountContainer = styled.div`
+  margin-top: 5px;
+  margin-right: 10px;
+
   @media (max-width: 480px) {
     display: none;
   }

@@ -4,4 +4,8 @@ export const ButtonWrapper = styled.div`
   position: fixed;
   right: 15px;
   bottom: 20px;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
