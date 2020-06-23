@@ -10,6 +10,7 @@
   "author": "Yurii Dmytriev",
   "email": "yuramijs@gmai.com",
   "scripts": {
+    "heroku-prebuild": "npm install --dev",
     "build": "SKIP_PREFLIGHT_CHECK=true cross-env webpack",
     "start": "webpack-dev-server",
     "dev": "cross-env NODE_ENV=development webpack-dev-server",
