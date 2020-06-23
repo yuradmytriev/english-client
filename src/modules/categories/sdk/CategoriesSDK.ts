@@ -1,8 +1,9 @@
 import { jsonFetch } from 'shared/utils/jsonFetch';
+import { SERVER_URL } from 'shared/constants/url';
 
-const categoriesURL: string = 'http://localhost:3008/categories';
+const categoriesURL: string = `${SERVER_URL}/categories`;
 const wordCategoryURL = (categoryId: string): string =>
-  `http://localhost:3008/words/category/${categoryId}`;
+  `${SERVER_URL}/words/category/${categoryId}`;
 const postConfig: object = {
   method: 'post',
   headers: {

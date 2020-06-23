@@ -1,13 +1,14 @@
 import React, { FC } from 'react';
+import { SERVER_URL } from 'shared/constants/url';
 import * as S from './styles';
 
 export const ExportToExelButton: FC = () => {
   const handleClick = () => {
-    fetch('http://localhost:3008/words/to-exel')
+    fetch(`${SERVER_URL}/words/to-exel`)
       .then(res => res.json())
       .then(res => {
         if (res.status === 'OK') {
-          return fetch('http://localhost:3008/words.xlsx');
+          return fetch(`${SERVER_URL}/words.xlsx`);
         }
 
         return res;
