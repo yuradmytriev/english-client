@@ -12,7 +12,7 @@
   "scripts": {
     "heroku-prebuild": "npm install --dev",
     "build": "SKIP_PREFLIGHT_CHECK=true cross-env webpack",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --optimize_for_size --max_old_space_size=920",
     "dev": "cross-env NODE_ENV=development webpack-dev-server",
     "lint": "eslint ./src --ext 'ts, tsx' --fix",
     "lint:css": "stylelint ./src"
