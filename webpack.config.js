@@ -6,6 +6,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const glob = require('glob');
 
 const PATHS = {
@@ -53,6 +55,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   optimization: {
+    minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+      }),
+    ],
     splitChunks: {
       chunks: 'all', // move common code to separate js file
     },
@@ -108,6 +117,7 @@ module.exports = {
     htmlPlugin,
     cleanWebpackPlugin,
     definePlugin(),
+    new OptimizeCssAssetsPlugin(),
     new MomentLocalesPlugin(),
     new PurgecssPlugin({
       paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),

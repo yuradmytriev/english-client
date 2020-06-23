@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { hot } from 'react-hot-loader/root';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css';
 import './reset-antd.css';
 import App from './App';
 
