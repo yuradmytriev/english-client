@@ -15,8 +15,8 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
     const deletedWord: boolean = await WordsSDK.delete(id);
 
     if (deletedWord) {
-      fetchWordsOffset(0);
       deleteWordsOffset(id);
+      fetchWordsOffset(0);
     }
   };
 
