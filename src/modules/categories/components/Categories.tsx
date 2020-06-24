@@ -6,7 +6,6 @@ import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';
 import { IWord } from 'shared/interfaces/IWord';
 import { ICategory } from 'modules/categories/interfaces/ICategory';
-import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
 import * as S from './styles';
 import 'shared/styles/animation.css';
@@ -18,17 +17,14 @@ interface ILinkCategory {
   categoryId: string;
 }
 
-const CategoriesWords: FC<{ words: IWord[] }> = ({ words }): any => {
-  const { showWordsInfo } = useWordsInfo();
-
-  return words.map((word: IWord) => (
+const CategoriesWords: FC<{ words: IWord[] }> = ({ words }): any =>
+  words.map((word: IWord) => (
     <Col key={word.id} xs={24} sm={24} md={24} lg={24} xl={24}>
       <WordContainer areSeveralWords={false}>
-        <Word firstWord={word} showInfo={showWordsInfo} />
+        <Word wordInfo={word} />
       </WordContainer>
     </Col>
   ));
-};
 
 const DeleteCategory: FC<{ id: number }> = ({ id }) => {
   const { deleteCategory } = useCategories();

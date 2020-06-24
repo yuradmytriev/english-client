@@ -25,12 +25,6 @@ import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import 'shared/styles/animation.css';
 import * as S from './styles';
 
-// const createWordsGroup = (words: IWord[]) => {
-//   const filtered = words.filter((word: IWord) => !word.category);
-//
-//   return Object.entries(groupBy(filtered, 'word'));
-// };
-
 const useHook = filteredWords => {
   const [state, set] = useState(0);
   const { fetchWordsOffset } = useFetchWordsOffset();
@@ -38,16 +32,19 @@ const useHook = filteredWords => {
   useEffect(() => {
     if (filteredWords.length < 10) {
       fetchWordsOffset(state);
-      setTimeout(() => set(state + 1), 1000);
+      setTimeout(() => set(state + 1), 100);
     }
   }, [state]);
 };
 
 export const Words: FC = memo(() => {
+  const { categories, unlinkCategories } = useCategories();
   const [words] = useFetchToState(`${SERVER_URL}/words/count`);
-  const { showWordsInfo } = useWordsInfo();
-  const { unlinkCategories } = useCategories();
   const { wordsOffset, fetchWordsOffset } = useFetchWordsOffset();
+
+  const relatedWordsGroup: any[] = wordsOffset.filter(
+    (word: IWord) => !word.category,
+  );
 
   const {
     setWords,
@@ -62,22 +59,18 @@ export const Words: FC = memo(() => {
     const firstWords: number = 0;
     fetchWordsOffset(firstWords);
 
-    setWords(wordsOffset);
-  }, [wordsOffset]);
+    setWords(relatedWordsGroup);
+  }, [wordsOffset, categories]);
 
-  const renderWords = (word: [string, IWord[]]) => {
-    return (
-      word && (
-        <CSSTransition key={word.id} timeout={500} classNames="item">
-          <Col key={word.id} xs={24} sm={24} md={8} lg={8} xl={6}>
-            <WordContainer areSeveralWords={false}>
-              <Word firstWord={word} showInfo={showWordsInfo} />
-            </WordContainer>
-          </Col>
-        </CSSTransition>
-      )
-    );
-  };
+  const renderWords = word => (
+    <CSSTransition key={word.id} timeout={500} classNames="item">
+      <Col key={word.id} xs={24} sm={24} md={8} lg={8} xl={6}>
+        <WordContainer areSeveralWords={false}>
+          <Word wordInfo={word} />
+        </WordContainer>
+      </Col>
+    </CSSTransition>
+  );
 
   const onDropEnd = async (id: string, categoryId?: string) => {
     if (categoryId) {
@@ -95,9 +88,9 @@ export const Words: FC = memo(() => {
     <>
       <S.LearnedWordsLayout>
         <WordsFilter
-          showAllWords={() => showAllWords(wordsOffset)}
-          showMemoizedWords={() => showMemoizedWords(wordsOffset)}
-          showUnlearnedWords={() => showUnlearnedWords(wordsOffset)}
+          showAllWords={() => showAllWords(relatedWordsGroup)}
+          showMemoizedWords={() => showMemoizedWords(relatedWordsGroup)}
+          showUnlearnedWords={() => showUnlearnedWords(relatedWordsGroup)}
         />
         <S.WordsCountContainer>
           {!isEmpty(wordsOffset) && <WordsCount words={words} />}

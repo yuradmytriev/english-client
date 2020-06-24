@@ -79,8 +79,8 @@ const ForgotWord: FC<{ id: number }> = ({ id }) => {
   );
 };
 
-export const WordActions: FC<{ firstWord: IWord }> = ({ firstWord }) => {
-  const { id }: Pick<IWord, 'id'> = firstWord;
+export const WordActions: FC<{ wordInfo: IWord }> = ({ wordInfo }) => {
+  const { id }: Pick<IWord, 'id'> = wordInfo;
 
   return (
     <>
