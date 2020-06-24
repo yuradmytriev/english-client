@@ -68,6 +68,7 @@ module.exports = {
     'no-unsafe-finally': 'error',
     'no-unsafe-negation': 'error',
     'use-isnan': 'error',
+    'react/display-name': 0,
     'react/jsx-curly-newline': 0,
     'jsx-a11y/label-has-associated-control': 0,
     'array-callback-return': 'error',

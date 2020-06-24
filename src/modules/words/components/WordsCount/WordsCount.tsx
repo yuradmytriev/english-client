@@ -1,10 +1,6 @@
-import React from 'react';
-import { SERVER_URL } from 'shared/constants/url';
-import { useFetchToState } from 'shared/hooks/useFetchToState';
+import React, { memo, FC } from 'react';
 import * as S from './styles';
 
-export const WordsCount = () => {
-  const [words] = useFetchToState(`${SERVER_URL}/words/count`);
-
+export const WordsCount: FC<{ words: any }> = memo(({ words }) => {
   return <S.LearnedWords>{`Words: ${words}`}</S.LearnedWords>;
-};
+});

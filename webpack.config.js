@@ -55,13 +55,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   optimization: {
-    minimize: true,
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-      }),
-    ],
+    // minimize: true,
+    // minimizer: [
+    //   new UglifyJsPlugin({
+    //     cache: true,
+    //     parallel: true,
+    //   }),
+    // ],
     splitChunks: {
       chunks: 'all', // move common code to separate js file
     },
@@ -124,7 +124,7 @@ module.exports = {
     }),
   ],
   mode: process.env.NODE_ENV,
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   devServer: {
     host: '0.0.0.0',
     port: process.env.PORT || 3000,

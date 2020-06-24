@@ -10,9 +10,9 @@ const filters = (state, action) => {
     case ALL:
       return action.data;
     case LEARNED:
-      return action.data.filter(word => word[1][0].learned);
+      return action.data.filter(word => word.learned);
     case UNLEARNED:
-      return action.data.filter(word => !word[1][0].learned);
+      return action.data.filter(word => !word.learned);
     default:
       throw state;
   }

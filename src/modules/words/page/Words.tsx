@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo, useState, useEffect } from 'react';
 import { Col } from 'antd';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -9,7 +9,6 @@ import { IWord } from 'shared/interfaces/IWord';
 import { Word } from 'shared/components/Word';
 import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';
-import { CreateCategories } from 'modules/categories/components/CreateCategories';
 import { Categories } from 'modules/categories/components';
 import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
@@ -21,26 +20,34 @@ import {
   useWordsFilter,
   IUseWordsFilter,
 } from 'modules/wordsFilter';
-import { AddWord } from '../components/AddWord';
-import { ToggleWordsInfo } from '../components/ToggleWordsInfo';
 import { WordsCount } from '../components/WordsCount';
 import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import 'shared/styles/animation.css';
 import * as S from './styles';
 
-const createWordsGroup = (words: IWord[]) => {
-  const filtered = words.filter((word: IWord) => !word.category);
+// const createWordsGroup = (words: IWord[]) => {
+//   const filtered = words.filter((word: IWord) => !word.category);
+//
+//   return Object.entries(groupBy(filtered, 'word'));
+// };
 
-  return Object.entries(groupBy(filtered, 'word'));
+const useHook = filteredWords => {
+  const [state, set] = useState(0);
+  const { fetchWordsOffset } = useFetchWordsOffset();
+
+  useEffect(() => {
+    if (filteredWords.length < 10) {
+      fetchWordsOffset(state);
+      setTimeout(() => set(state + 1), 1000);
+    }
+  }, [state]);
 };
 
-export const Words: FC = () => {
+export const Words: FC = memo(() => {
   const [words] = useFetchToState(`${SERVER_URL}/words/count`);
   const { showWordsInfo } = useWordsInfo();
   const { unlinkCategories } = useCategories();
   const { wordsOffset, fetchWordsOffset } = useFetchWordsOffset();
-
-  const relatedWordsGroup: any[] = createWordsGroup(wordsOffset);
 
   const {
     setWords,
@@ -48,27 +55,23 @@ export const Words: FC = () => {
     showAllWords,
     showMemoizedWords,
     showUnlearnedWords,
-  }: IUseWordsFilter = useWordsFilter(relatedWordsGroup);
+  }: IUseWordsFilter = useWordsFilter(wordsOffset);
+  useHook(filteredWords);
 
   useDeepCompareEffect(() => {
     const firstWords: number = 0;
     fetchWordsOffset(firstWords);
 
-    setWords(relatedWordsGroup);
+    setWords(wordsOffset);
   }, [wordsOffset]);
 
-  const renderWords = ([_, words]: [string, IWord[]]) => {
-    const [mainWord]: IWord[] = words;
-    const { id, word } = mainWord;
-    const areSeveralWords: boolean = words.length > 1;
-    const [firstWord]: IWord[] = words;
-
+  const renderWords = (word: [string, IWord[]]) => {
     return (
       word && (
-        <CSSTransition key={id} timeout={500} classNames="item">
-          <Col key={id} xs={24} sm={24} md={8} lg={8} xl={6}>
-            <WordContainer areSeveralWords={areSeveralWords}>
-              <Word firstWord={firstWord} showInfo={showWordsInfo} />
+        <CSSTransition key={word.id} timeout={500} classNames="item">
+          <Col key={word.id} xs={24} sm={24} md={8} lg={8} xl={6}>
+            <WordContainer areSeveralWords={false}>
+              <Word firstWord={word} showInfo={showWordsInfo} />
             </WordContainer>
           </Col>
         </CSSTransition>
@@ -92,12 +95,12 @@ export const Words: FC = () => {
     <>
       <S.LearnedWordsLayout>
         <WordsFilter
-          showAllWords={() => showAllWords(relatedWordsGroup)}
-          showMemoizedWords={() => showMemoizedWords(relatedWordsGroup)}
-          showUnlearnedWords={() => showUnlearnedWords(relatedWordsGroup)}
+          showAllWords={() => showAllWords(wordsOffset)}
+          showMemoizedWords={() => showMemoizedWords(wordsOffset)}
+          showUnlearnedWords={() => showUnlearnedWords(wordsOffset)}
         />
         <S.WordsCountContainer>
-          {!isEmpty(wordsOffset) && <WordsCount />}
+          {!isEmpty(wordsOffset) && <WordsCount words={words} />}
           {!isEmpty(wordsOffset) && <LearnedWordsCount />}
         </S.WordsCountContainer>
       </S.LearnedWordsLayout>
@@ -118,4 +121,4 @@ export const Words: FC = () => {
       </DropContainer>
     </>
   );
-};
+});

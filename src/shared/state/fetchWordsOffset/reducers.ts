@@ -5,7 +5,7 @@ export const fetchWordsOffsetReducer = (state, { type, words }) => {
   // eslint-disable-next-line sonarjs/no-small-switch
   switch (type) {
     case FETCH_WORDS_OFFSET:
-      return uniqBy([...words, ...state], ({ id }) => id);
+      return uniqBy([...state, ...words], ({ id }) => id);
     default:
       return state;
   }
