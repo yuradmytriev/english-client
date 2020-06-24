@@ -6,7 +6,7 @@ import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWords
 import * as S from '../styles';
 
 const DeleteWord: FC<{ id: number }> = ({ id }) => {
-  const { fetchWordsOffset } = useFetchWordsOffset();
+  const { fetchWordsOffset, deleteWordsOffset } = useFetchWordsOffset();
 
   const deleteWord = async (
     e: MouseEvent<HTMLButtonElement>,
@@ -16,6 +16,7 @@ const DeleteWord: FC<{ id: number }> = ({ id }) => {
 
     if (deletedWord) {
       fetchWordsOffset(0);
+      deleteWordsOffset(id);
     }
   };
 

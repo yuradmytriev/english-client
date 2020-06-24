@@ -25,16 +25,16 @@ import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import 'shared/styles/animation.css';
 import * as S from './styles';
 
-const useHook = filteredWords => {
-  const [state, set] = useState(0);
+const useLoadMore = filteredWords => {
+  const [offset, setOffset] = useState(0);
   const { fetchWordsOffset } = useFetchWordsOffset();
 
   useEffect(() => {
     if (filteredWords.length < 10) {
-      fetchWordsOffset(state);
-      setTimeout(() => set(state + 1), 100);
+      fetchWordsOffset(offset);
+      setTimeout(() => setOffset(offset + 1), 100);
     }
-  }, [state]);
+  }, [offset]);
 };
 
 export const Words: FC = memo(() => {
@@ -53,7 +53,7 @@ export const Words: FC = memo(() => {
     showMemoizedWords,
     showUnlearnedWords,
   }: IUseWordsFilter = useWordsFilter(wordsOffset);
-  useHook(filteredWords);
+  useLoadMore(filteredWords);
 
   useDeepCompareEffect(() => {
     const firstWords: number = 0;
