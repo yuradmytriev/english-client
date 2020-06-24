@@ -24,6 +24,8 @@ const useInitWords = (dispatch, words) => {
 
     if (filter) {
       dispatch({ type: filter, data: words });
+    } else {
+      dispatch({ type: ALL, data: words });
     }
   }, [words.length]);
 };

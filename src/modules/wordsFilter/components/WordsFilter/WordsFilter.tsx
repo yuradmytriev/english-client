@@ -28,7 +28,7 @@ export const WordsFilter: FC<Omit<
     filterActions[value]();
   };
 
-  const defaultFilter = wordsFilterStorage.getFilter();
+  const defaultFilter = wordsFilterStorage.getFilter() || ALL;
 
   return (
     <S.FilterWordsWrapper>

@@ -6,12 +6,12 @@ export const MenuWrapper = styled.div`
   align-items: center;
 
   @media (max-width: 480px) {
-    right: 0;
     width: 100%;
     bottom: 0;
     position: fixed;
     display: flex;
     justify-content: space-between;
+    height: 60px;
   }
 `;
 
@@ -20,6 +20,7 @@ export const MenuItem = styled.div`
 
   @media (max-width: 480px) {
     width: auto;
+    height: 100%;
   }
 
   & a {
@@ -27,6 +28,14 @@ export const MenuItem = styled.div`
     display: block;
     padding: 10px;
     text-align: center;
+
+    @media (max-width: 480px) {
+      padding: 10px 20px;
+      text-align: center;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
   }
 `;
 
@@ -40,12 +49,14 @@ export const Content = styled.div`
 
   @media (max-width: 480px) {
     width: 100%;
+    padding-bottom: 50px;
   }
 `;
 
 export const Links = styled.div`
   @media (max-width: 480px) {
     display: flex;
+    height: 100%;
   }
 `;
 
