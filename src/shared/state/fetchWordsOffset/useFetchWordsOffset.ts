@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from 'shared/interfaces/IState';
-import { fetchWordsOffsetRequestAction, deleteWordsOffsetRequestAction } from './actions';
+import {
+  deleteWordsOffsetAction,
+  fetchWordsOffsetRequestAction,
+} from './actions';
 
 export const useFetchWordsOffset = () => {
   const dispatch = useDispatch();
@@ -12,8 +15,8 @@ export const useFetchWordsOffset = () => {
   };
 
   const deleteWordsOffset = (id: number): void => {
-    dispatch(deleteWordsOffsetRequestAction(id));
+    dispatch(deleteWordsOffsetAction(id));
   };
 
-  return { fetchWordsOffset, wordsOffset, deleteWordsOffset };
+  return { wordsOffset, fetchWordsOffset, deleteWordsOffset };
 };
