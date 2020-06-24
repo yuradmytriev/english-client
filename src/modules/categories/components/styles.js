@@ -14,7 +14,7 @@ export const CategoriesLayout = styled.div`
 `;
 
 export const CategoryWrapper = styled.div`
-  width: 367px;
+  max-width: 367px;
   margin: 8px;
 
   & > .ant-collapse {

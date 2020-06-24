@@ -7,8 +7,8 @@ import { WordContainer } from 'shared/components/Word/WordContainer';
 import { IWord } from 'shared/interfaces/IWord';
 import { ICategory } from 'modules/categories/interfaces/ICategory';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
-import * as S from './styles';
 import 'shared/styles/animation.css';
+import * as S from './styles';
 
 const { Panel } = Collapse;
 
@@ -57,7 +57,7 @@ export const Categories = () => {
 
   return (
     <S.CategoriesLayout>
-      <TransitionGroup>
+      <TransitionGroup style={{ width: '100%' }}>
         {categories.map(({ id, name, words }: ICategory) => (
           <CSSTransition key={id} timeout={250} classNames="item">
             <S.CategoryWrapper key={id}>
