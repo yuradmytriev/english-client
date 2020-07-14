@@ -6,23 +6,29 @@ import { FILTERS } from '../../constants/filters';
 import { wordsFilterStorage } from '../../storage/wordsFilterStorage';
 import * as S from './styles';
 
-const { ALL, LEARNED, UNLEARNED } = FILTERS;
+const { ALL, LEARNED, UNLEARNED, DRAFT } = FILTERS;
 
 export const WordsFilter: FC<Omit<
   IUseWordsFilter,
   'filteredWords' | 'setWords'
->> = ({ showMemoizedWords, showUnlearnedWords, showAllWords }) => {
+>> = ({
+  showMemoizedWords,
+  showUnlearnedWords,
+  showAllWords,
+  showDraftWords,
+}) => {
   const filterWordsActions = (checkedList: RadioChangeEvent) => {
     const value: WordFilters = checkedList?.target?.value;
-
     const filterActions: {
       ALL: (words: any) => void;
+      DRAFT: (words: any) => void;
       LEARNED: (words: any) => void;
       UNLEARNED: (words: any) => void;
     } = {
       ALL: showAllWords,
       LEARNED: showMemoizedWords,
       UNLEARNED: showUnlearnedWords,
+      DRAFT: showDraftWords,
     };
 
     filterActions[value]();
@@ -40,6 +46,7 @@ export const WordsFilter: FC<Omit<
         <Radio.Button value={ALL}>All</Radio.Button>
         <Radio.Button value={LEARNED}>Memoized</Radio.Button>
         <Radio.Button value={UNLEARNED}>Unlearned</Radio.Button>
+        <Radio.Button value={DRAFT}>Draft</Radio.Button>
       </Radio.Group>
     </S.FilterWordsWrapper>
   );

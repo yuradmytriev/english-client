@@ -3,16 +3,18 @@ import { IUseWordsFilter } from '..';
 import { wordsFilterStorage } from '../storage/wordsFilterStorage';
 import { FILTERS } from '../constants/filters';
 
-const { ALL, LEARNED, UNLEARNED } = FILTERS;
+const { ALL, LEARNED, UNLEARNED, DRAFT } = FILTERS;
 
 const filters = (state, action) => {
   switch (action.type) {
     case ALL:
       return action.data;
     case LEARNED:
-      return action.data.filter(word => word.learned);
+      return action.data.filter(word => word.learned && !word.draft);
     case UNLEARNED:
-      return action.data.filter(word => !word.learned);
+      return action.data.filter(word => !word.learned && !word.draft);
+    case DRAFT:
+      return action.data.filter(word => word.draft);
     default:
       throw state;
   }
@@ -41,6 +43,12 @@ export const useWordsFilter = (words: any[]): IUseWordsFilter => {
     dispatch({ type: LEARNED, data });
   };
 
+  const showDraftWords = (data): void => {
+    wordsFilterStorage.setFilter(DRAFT);
+
+    dispatch({ type: DRAFT, data });
+  };
+
   const showUnlearnedWords = (data): void => {
     wordsFilterStorage.setFilter(UNLEARNED);
 
@@ -55,6 +63,7 @@ export const useWordsFilter = (words: any[]): IUseWordsFilter => {
 
   return {
     filteredWords,
+    showDraftWords,
     showMemoizedWords,
     showUnlearnedWords,
     showAllWords,

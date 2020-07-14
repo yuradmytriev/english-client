@@ -28,16 +28,16 @@ export const Image = styled.div`
 `;
 
 export const WordProperty = styled.div`
-  margin-bottom: 15px;
+  margin-bottom: 35px;
   font-size: 17px;
   background: #f5f5f5;
-  padding: 2px 5px;
 `;
 
 export const WordLabel = styled.div`
   position: relative;
   margin-top: 20px;
-    font-style: italic;
+  font-style: italic;
+  padding: 10px;
   
   &:before {
     content: '${props => props.title}: ';

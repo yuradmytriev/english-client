@@ -1,14 +1,11 @@
 import React from 'react';
 import { IWord } from 'shared/interfaces/IWord';
 import { WordsSDK } from 'shared/sdk/WordsSDK';
-import { ifElse } from 'shared/utils/ifElse';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import { MoreDefinitions } from './MoreDefinitions';
 import * as S from '../../page/styles';
 
-export const Definition = ({ id, word, definition }) => {
-  const { isEditMode } = useEditMode();
-
+const EditMode = ({ id, definition }) => {
   const onChange = (value: string) => {
     const wordProps: Partial<IWord> = { definition: value.target.textContent };
 
@@ -16,16 +13,31 @@ export const Definition = ({ id, word, definition }) => {
   };
 
   return (
+    <S.WordLabel title="Definition">
+      <S.Text contentEditable onInput={onChange}>
+        {definition}
+      </S.Text>
+    </S.WordLabel>
+  );
+};
+
+const ViewMode = ({ definition }) =>
+  definition ? (
+    <S.WordLabel title="Definition">
+      <span>{definition}</span>
+    </S.WordLabel>
+  ) : null;
+
+export const Definition = ({ id, word, definition }) => {
+  const { isEditMode } = useEditMode();
+
+  return (
     <S.WordProperty>
-      <S.WordLabel title="Definition">
-        {ifElse(
-          isEditMode,
-          <S.Text contentEditable onInput={onChange}>
-            {definition}
-          </S.Text>,
-          <span>{definition}</span>,
-        )}
-      </S.WordLabel>
+      {isEditMode ? (
+        <EditMode id={id} definition={definition} />
+      ) : (
+        <ViewMode definition={definition} />
+      )}
       <S.MoreExamplesWrapper>
         <MoreDefinitions word={word} />
       </S.MoreExamplesWrapper>

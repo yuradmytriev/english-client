@@ -30,6 +30,29 @@ const SuggestionsList: FC<{ words: ReadonlyArray<string> }> = ({
   );
 };
 
+const EditMode = ({ id, word, type }) => {
+  const onChange = (value: string): void => {
+    const wordProps: Partial<IWord> = { synonym: value.target.textContent };
+
+    WordsSDK.updateJSON({ wordId: id, wordProps });
+  };
+
+  return (
+    <S.WordLabel title={firstLetterToUpperCase(type)}>
+      <S.Text contentEditable onInput={onChange}>
+        {word}
+      </S.Text>
+    </S.WordLabel>
+  );
+};
+
+const ViewMode = ({ word, type }) =>
+  word ? (
+    <S.WordLabel title={firstLetterToUpperCase(type)}>
+      <span>{word}</span>
+    </S.WordLabel>
+  ) : null;
+
 export const Suggestion: FC<ISuggestion> = ({
   id,
   type,
@@ -44,31 +67,17 @@ export const Suggestion: FC<ISuggestion> = ({
     originalWord,
   });
 
-  if (!word) {
-    return null;
-  }
-
-  const onChange = (value: string): void => {
-    const wordProps: Partial<IWord> = { synonym: value.target.textContent };
-
-    WordsSDK.updateJSON({ wordId: id, wordProps });
-  };
-
   const toggleSuggestions = (): void => toggleVisible(prev => !prev);
 
   const areSynonymsExist: boolean = Boolean(synonyms?.length);
 
   return (
     <div>
-      <S.WordLabel title={firstLetterToUpperCase(type)}>
-        {ifElse(
-          isEditMode,
-          <S.Text contentEditable onInput={onChange}>
-            {word}
-          </S.Text>,
-          <span>{word}</span>,
-        )}
-      </S.WordLabel>
+      {isEditMode ? (
+        <EditMode id={id} word={word} type={type} />
+      ) : (
+        <ViewMode word={word} type={type} />
+      )}
       {areSynonymsExist && (
         <S.MoreSynonymsButton type="primary" onClick={toggleSuggestions}>
           See more

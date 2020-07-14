@@ -17,6 +17,15 @@ import {
   WordPronunciation,
 } from '../components';
 import * as S from './styles';
+import {WordsSDK} from "../../../shared/sdk/WordsSDK";
+
+const Undraft = ({ id }) => {
+  const onClick = (): void => {
+    WordsSDK.undraft(id);
+  };
+
+  return (<div onClick={onClick}>Undraft</div>)
+}
 
 export const Word: FC = () => {
   const { isEditMode } = useEditMode();
@@ -56,16 +65,16 @@ export const Word: FC = () => {
                     </S.WordPronunciationWrapper>
                   </S.ImageWithFrequency>
 
-                  {word && <WordText id={id} word={word} />}
-                  {translate && <Translate id={id} translate={translate} />}
-                  {context && <Context id={id} word={word} context={context} />}
-                  {definition && (
-                    <Definition id={id} definition={definition} word={word} />
-                  )}
-                  {example && <Example id={id} example={example} word={word} />}
-                  {synonym && <Synonym id={id} word={word} synonym={synonym} />}
+                  <WordText id={id} word={word} />
+                  <Translate id={id} translate={translate} />
+                  <Context id={id} word={word} context={context} />
+                  <Definition id={id} definition={definition} word={word} />
+                  <Example id={id} example={example} word={word} />
+                  <Synonym id={id} word={word} synonym={synonym} />
 
                   <Video word={word} />
+
+                  {isEditMode && <Undraft id={id} />}
                 </S.WordWrapper>
               </S.WordPage>
             </div>

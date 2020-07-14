@@ -4,13 +4,11 @@ import useDeepCompareEffect from 'use-deep-compare-effect';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import isEmpty from 'lodash/isEmpty';
-import groupBy from 'lodash/groupBy';
 import { IWord } from 'shared/interfaces/IWord';
 import { Word } from 'shared/components/Word';
 import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';
 import { Categories } from 'modules/categories/components';
-import { useWordsInfo } from 'shared/state/wordsInfo/useWordsInfo';
 import { useCategories } from 'modules/categories/state/categories/useCategories';
 import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWordsOffset';
 import { useFetchToState } from 'shared/hooks/useFetchToState';
@@ -25,12 +23,13 @@ import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import 'shared/styles/animation.css';
 import * as S from './styles';
 
-const useLoadMore = filteredWords => {
+const useLoadMore = (filteredWords, words) => {
   const [offset, setOffset] = useState(0);
   const { fetchWordsOffset } = useFetchWordsOffset();
+  const total = words / 10;
 
   useEffect(() => {
-    if (filteredWords.length < 10) {
+    if (!filteredWords.length && offset < total) {
       fetchWordsOffset(offset);
       setTimeout(() => setOffset(offset + 1), 100);
     }
@@ -51,9 +50,10 @@ export const Words: FC = memo(() => {
     filteredWords,
     showAllWords,
     showMemoizedWords,
+    showDraftWords,
     showUnlearnedWords,
   }: IUseWordsFilter = useWordsFilter(wordsOffset);
-  useLoadMore(filteredWords);
+  useLoadMore(filteredWords, words);
 
   useDeepCompareEffect(() => {
     const firstWords: number = 0;
@@ -91,6 +91,7 @@ export const Words: FC = memo(() => {
           showAllWords={() => showAllWords(relatedWordsGroup)}
           showMemoizedWords={() => showMemoizedWords(relatedWordsGroup)}
           showUnlearnedWords={() => showUnlearnedWords(relatedWordsGroup)}
+          showDraftWords={() => showDraftWords(relatedWordsGroup)}
         />
         <S.WordsCountContainer>
           {!isEmpty(wordsOffset) && <WordsCount words={words} />}

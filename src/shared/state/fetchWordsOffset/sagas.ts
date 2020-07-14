@@ -13,7 +13,7 @@ export function* fetchWordsOffset({ offset }: IWordsOffsetAction) {
   const offsetWordsURL = `${SERVER_URL}/words/offset/${offset}`;
 
   const response = yield call(() => fetch(offsetWordsURL));
-  const { data }: IWordsOffset = yield response.json();
+  const { data, total }: IWordsOffset = yield response.json();
 
   yield put(fetchWordsOffsetAction(data));
 }

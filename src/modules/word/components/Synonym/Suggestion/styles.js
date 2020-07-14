@@ -12,6 +12,7 @@ export const WordLabel = styled.div`
   position: relative;
   margin-top: 20px;
   font-style: italic;
+  padding: 10px;
   &:before {
     content: '${props => props.title}: ';
     font-size: 13px;

@@ -27,6 +27,23 @@ export class WordsSDK {
       });
   }
 
+  static undraft(id): void {
+    fetch(`${SERVER_URL}/words/undraft/${id}`, {
+      method: 'GET',
+    })
+      .then(data => data.json())
+      .then(res => {
+        if (res.id) {
+          message.success('undraft');
+        }
+
+        return res;
+      })
+      .catch(() => {
+        message.error(ERROR.UPLOAD_IMAGE);
+      });
+  }
+
   static updateJSON({
     wordId,
     wordProps,
