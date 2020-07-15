@@ -34,13 +34,13 @@ export class WordsSDK {
       .then(data => data.json())
       .then(res => {
         if (res.id) {
-          message.success('undraft');
+          message.success('Moved to the words list');
         }
 
         return res;
       })
       .catch(() => {
-        message.error(ERROR.UPLOAD_IMAGE);
+        message.error('Cannot move to the words list');
       });
   }
 

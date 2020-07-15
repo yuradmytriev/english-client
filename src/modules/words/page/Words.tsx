@@ -26,10 +26,10 @@ import * as S from './styles';
 const useLoadMore = (filteredWords, words) => {
   const [offset, setOffset] = useState(0);
   const { fetchWordsOffset } = useFetchWordsOffset();
-  const total = words / 10;
+  // const total = words / 10;
 
   useEffect(() => {
-    if (!filteredWords.length && offset < total) {
+    if (!filteredWords.length) {
       fetchWordsOffset(offset);
       setTimeout(() => setOffset(offset + 1), 100);
     }
@@ -53,6 +53,7 @@ export const Words: FC = memo(() => {
     showDraftWords,
     showUnlearnedWords,
   }: IUseWordsFilter = useWordsFilter(wordsOffset);
+
   useLoadMore(filteredWords, words);
 
   useDeepCompareEffect(() => {

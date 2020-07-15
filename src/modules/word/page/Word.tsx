@@ -1,9 +1,11 @@
 import React, { FC } from 'react';
+import { Button } from 'antd';
 import { Carousel } from 'shared/components/Carousel';
 import { Frequency } from 'shared/components/Frequency';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import { IWord } from 'shared/interfaces/IWord';
 import { useFetchWord } from '../hooks/useFetchWord';
+import { WordsSDK } from '../../../shared/sdk/WordsSDK';
 import {
   Video,
   Example,
@@ -17,15 +19,18 @@ import {
   WordPronunciation,
 } from '../components';
 import * as S from './styles';
-import {WordsSDK} from "../../../shared/sdk/WordsSDK";
 
-const Undraft = ({ id }) => {
+const UndraftButton = ({ id }) => {
   const onClick = (): void => {
     WordsSDK.undraft(id);
   };
 
-  return (<div onClick={onClick}>Undraft</div>)
-}
+  return (
+    <Button type="primary" onClick={onClick}>
+      Undraft
+    </Button>
+  );
+};
 
 export const Word: FC = () => {
   const { isEditMode } = useEditMode();
@@ -67,14 +72,15 @@ export const Word: FC = () => {
 
                   <WordText id={id} word={word} />
                   <Translate id={id} translate={translate} />
-                  <Context id={id} word={word} context={context} />
                   <Definition id={id} definition={definition} word={word} />
+                  <Context id={id} word={word} context={context} />
                   <Example id={id} example={example} word={word} />
                   <Synonym id={id} word={word} synonym={synonym} />
 
                   <Video word={word} />
 
-                  {isEditMode && <Undraft id={id} />}
+                  <br/>
+                  {isEditMode && <UndraftButton id={id} />}
                 </S.WordWrapper>
               </S.WordPage>
             </div>
