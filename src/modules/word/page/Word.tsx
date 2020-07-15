@@ -34,7 +34,7 @@ const UndraftButton = ({ id }) => {
 
 export const Word: FC = () => {
   const { isEditMode } = useEditMode();
-  const { word }: { word: IWord[] | null } = useFetchWord();
+  const { word, updateWord }: { word: IWord[] | null } = useFetchWord();
 
   if (!word) {
     return null;
@@ -79,7 +79,7 @@ export const Word: FC = () => {
 
                   <Video word={word} />
 
-                  <br/>
+                  <br />
                   {isEditMode && <UndraftButton id={id} />}
                 </S.WordWrapper>
               </S.WordPage>
@@ -87,7 +87,7 @@ export const Word: FC = () => {
           ),
         )}
       </Carousel>
-      <Navigation />
+      <Navigation updateWord={updateWord} />
     </>
   );
 };

@@ -20,5 +20,14 @@ export const useFetchWord = () => {
     })();
   }, [wordName]);
 
-  return { word };
+  const updateWord = async () => {
+    const fetchWordURL: string = `${SERVER_URL}/word/find/${wordName}`;
+
+    const response: Response = await fetch(fetchWordURL);
+    const word: IWord[] = await response.json();
+
+    setWord(word);
+  };
+
+  return { word, updateWord };
 };
