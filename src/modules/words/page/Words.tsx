@@ -13,6 +13,7 @@ import { useCategories } from 'modules/categories/state/categories/useCategories
 import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWordsOffset';
 import { useFetchToState } from 'shared/hooks/useFetchToState';
 import { SERVER_URL } from 'shared/constants/url';
+import { CheckWord } from 'modules/words/components/CheckWord';
 import {
   WordsFilter,
   useWordsFilter,
@@ -99,6 +100,7 @@ export const Words: FC = memo(() => {
           {!isEmpty(wordsOffset) && <LearnedWordsCount />}
         </S.WordsCountContainer>
       </S.LearnedWordsLayout>
+      <CheckWord />
       <Categories />
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
         <S.WordWrapper gutter={12}>
