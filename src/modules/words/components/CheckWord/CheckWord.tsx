@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { IWord } from 'shared/interfaces/IWord';
 import { SERVER_URL } from 'shared/constants/url';
 import { jsonFetch } from 'shared/utils/jsonFetch';
+import { useHistory } from 'react-router-dom';
 import * as S from './styles';
 
 const fetchSimilarWords = (value): Promise<IWord[]> => {
@@ -22,6 +23,8 @@ const fetchSameWords = async (value): Promise<IWord[]> => {
 const { confirm } = Modal;
 
 export const CheckWord = () => {
+  const history = useHistory();
+
   const fromConfig = (): any => ({
     initialValues: {
       checkWord: '',
@@ -35,12 +38,18 @@ export const CheckWord = () => {
 
         confirm({
           title: `This word is already exists - ${sameWord.word}`,
+          onOk() {
+            history.push(`word/${sameWord.word}`);
+          },
         });
       } else if (similarWords.length) {
         const [similarWord] = similarWords;
 
         confirm({
           title: `You have similar word - ${similarWord.word}`,
+          onOk() {
+            history.push(`word/${similarWord.word}`);
+          },
         });
       } else {
         confirm({
