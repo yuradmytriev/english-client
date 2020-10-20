@@ -27,11 +27,11 @@ export const UpdateImage: FC<Pick<IWord, 'id'>> = ({ id }) => {
     <>
       <S.Input
         type="file"
-        id="imageSrc"
+        id={`imageSrc ${id}`}
         name="imageSrc"
         onChange={updateWordImage}
       />
-      <S.ImageUpdate htmlFor="imageSrc">
+      <S.ImageUpdate htmlFor={`imageSrc ${id}`}>
         <span>Update image</span>
       </S.ImageUpdate>
     </>

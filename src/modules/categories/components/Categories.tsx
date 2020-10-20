@@ -57,7 +57,7 @@ export const Categories = () => {
 
   return (
     <S.CategoriesLayout>
-      <TransitionGroup style={{ width: '100%' }}>
+      <TransitionGroup style={{ width: '100%', display: 'flex' }}>
         {categories.map(({ id, name, words }: ICategory) => (
           <CSSTransition key={id} timeout={250} classNames="item">
             <S.CategoryWrapper key={id}>
