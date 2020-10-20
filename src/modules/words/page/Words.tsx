@@ -24,15 +24,14 @@ import { LearnedWordsCount } from '../components/LearnedWordsCount';
 import 'shared/styles/animation.css';
 import * as S from './styles';
 
-const useLoadMore = (filteredWords, words) => {
+const useLoadMore = (filteredWords) => {
   const [offset, setOffset] = useState(0);
   const { fetchWordsOffset } = useFetchWordsOffset();
-  // const total = words / 10;
 
   useEffect(() => {
-    if (!filteredWords.length) {
+    if (!filteredWords.length || filteredWords.length < 20) {
       fetchWordsOffset(offset);
-      setTimeout(() => setOffset(offset + 1), 100);
+      setTimeout(() => setOffset(offset + 1), 10);
     }
   }, [offset]);
 };
