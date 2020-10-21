@@ -1,17 +1,11 @@
 import React from 'react';
-import { Button, Form, Modal, Input } from 'antd';
+import { useHistory } from 'react-router-dom';
+import { Form, Modal, Input } from 'antd';
 import { useFormik } from 'formik';
 import { IWord } from 'shared/interfaces/IWord';
 import { SERVER_URL } from 'shared/constants/url';
-import { jsonFetch } from 'shared/utils/jsonFetch';
-import { useHistory } from 'react-router-dom';
+import { fetchSimilarWords, showSimilarWordsModal } from 'modules/similarWords';
 import * as S from './styles';
-
-const fetchSimilarWords = (value): Promise<IWord[]> => {
-  const checkSimilarWordURL: string = `${SERVER_URL}/word/similar/${value}`;
-
-  return jsonFetch(checkSimilarWordURL);
-};
 
 const fetchSameWords = async (value): Promise<IWord[]> => {
   const checkWordURL: string = `${SERVER_URL}/word/find/${value}`;
@@ -33,6 +27,11 @@ export const CheckWord = () => {
       const sameWords: IWord[] = await fetchSameWords(value.checkWord);
       const similarWords: IWord[] = await fetchSimilarWords(value.checkWord);
 
+      if (similarWords.length) {
+        showSimilarWordsModal(similarWords, history);
+        return;
+      }
+
       if (sameWords.length) {
         const [sameWord] = sameWords;
 
@@ -42,20 +41,11 @@ export const CheckWord = () => {
             history.push(`word/${sameWord.word}`);
           },
         });
-      } else if (similarWords.length) {
-        const [similarWord] = similarWords;
-
-        confirm({
-          title: `You have similar word - ${similarWord.word}`,
-          onOk() {
-            history.push(`word/${similarWord.word}`);
-          },
-        });
-      } else {
-        confirm({
-          title: `This is a new word`,
-        });
       }
+
+      confirm({
+        title: `This is a new word`,
+      });
     },
   });
 

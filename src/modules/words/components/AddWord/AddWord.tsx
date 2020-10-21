@@ -4,10 +4,10 @@ import { Button, Form, Icon, Input, message, Modal } from 'antd';
 import { useToggleModal } from 'shared/hooks';
 import { IWord } from 'shared/interfaces/IWord';
 import { IWordInput } from 'modules/words/interfaces/IWordInput';
-import { jsonFetch } from 'shared/utils/jsonFetch';
 import { firstLetterToUpperCase } from 'shared/utils/firstLetterToUpperCase';
 import { useFetchWords } from 'shared/state/fetchWords/useFetchWords';
 import { useForms } from 'modules/words/hooks/useForms';
+import { fetchSimilarWords } from 'modules/similarWords';
 import { SERVER_URL } from 'shared/constants/url';
 import { FileInput } from './FileInput';
 import { createFormDataBody } from './utils';
@@ -20,7 +20,6 @@ const inputs: Array<IWordInput> = [
   { name: 'context', type: 'textarea' },
   { name: 'example', type: 'textarea' },
   { name: 'synonym', type: 'input' },
-  { name: 'antonym', type: 'input' },
 ];
 
 const { confirm } = Modal;
@@ -63,12 +62,6 @@ const fetchSameWords = async (values: IWord): Promise<IWord[]> => {
   return response.json();
 };
 
-const fetchSimilarWords = (values: IWord): Promise<IWord[]> => {
-  const checkSimilarWordURL: string = `${SERVER_URL}/word/similar/${values.word}`;
-
-  return jsonFetch(checkSimilarWordURL);
-};
-
 const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
   initialValues: {
     id: '',
@@ -78,7 +71,6 @@ const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
     context: '',
     example: '',
     synonym: '',
-    antonym: '',
     imageSrc: '',
   },
   onSubmit: async (values: IWord) => {
