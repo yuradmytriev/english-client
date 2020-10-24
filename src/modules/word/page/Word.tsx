@@ -19,6 +19,7 @@ import {
   WordPronunciation,
 } from '../components';
 import * as S from './styles';
+import { useCheckVoiceReader } from 'modules/voiceReader/state/voiceReader/useCheckVoiceReader';
 
 const UndraftButton = ({ id }) => {
   const onClick = (): void => {
@@ -35,6 +36,7 @@ const UndraftButton = ({ id }) => {
 export const Word: FC = () => {
   const { isEditMode } = useEditMode();
   const { word, updateWord }: { word: IWord[] | null } = useFetchWord();
+  const { isVoiceReaderAvailable } = useCheckVoiceReader();
 
   if (!word) {
     return null;
@@ -66,7 +68,9 @@ export const Word: FC = () => {
                     </S.FrequencyWrapper>
 
                     <S.WordPronunciationWrapper>
-                      <WordPronunciation word={word} />
+                      {isVoiceReaderAvailable && (
+                        <WordPronunciation word={word} />
+                      )}
                     </S.WordPronunciationWrapper>
                   </S.ImageWithFrequency>
 

@@ -75,7 +75,7 @@ const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
   },
   onSubmit: async (values: IWord) => {
     const sameWords: IWord[] = await fetchSameWords(values);
-    const similarWords: IWord[] = await fetchSimilarWords(values);
+    const similarWords: IWord[] = await fetchSimilarWords(values.word);
 
     if (sameWords.length) {
       const [sameWord] = sameWords;

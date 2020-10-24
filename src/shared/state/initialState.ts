@@ -6,4 +6,5 @@ export const initialState: IState = {
   wordsOffset: [],
   editMode: false,
   showWordsInfo: true,
+  isVoiceReaderAvailable: false,
 };

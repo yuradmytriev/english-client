@@ -5,7 +5,7 @@ export const fetchWordFromRapid = async (
   word: string,
 ): Promise<any> => {
   try {
-    const response = await fetch(`${SERVER_URL}/word/${type}/${word}`);
+    const response = await fetch(`${SERVER_URL}/words-proxy/${type}/${word}`);
 
     return response.json();
   } catch (e) {
