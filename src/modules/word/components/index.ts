@@ -5,8 +5,9 @@ import { Example } from './Example';
 import { Translate } from './Translate';
 import { Navigation } from './Navigation';
 import { Definition } from './Definition';
-import { UpdateImage } from './UpdateImage';
 import { Word as WordText } from './Word';
+import { UpdateImage } from './UpdateImage';
+import { UndraftButton } from './UndraftButton';
 import { WordPronunciation } from './WordPronunciation';
 
 export {
@@ -19,5 +20,6 @@ export {
   Navigation,
   Definition,
   UpdateImage,
+  UndraftButton,
   WordPronunciation,
 };

@@ -1,11 +1,11 @@
-import React, { FC, useEffect } from 'react';
-import { Button } from 'antd';
+import React, { FC } from 'react';
+import { IWord } from 'shared/interfaces/IWord';
 import { Carousel } from 'shared/components/Carousel';
 import { Frequency } from 'shared/components/Frequency';
+import { useFetchWord } from 'modules/word/hooks/useFetchWord';
+import { useDisableEditMode } from 'modules/word/hooks/useDisableEditMode';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
-import { IWord } from 'shared/interfaces/IWord';
-import { useFetchWord } from '../hooks/useFetchWord';
-import { WordsSDK } from '../../../shared/sdk/WordsSDK';
+import { useCheckVoiceReader } from 'modules/voiceReader/state/voiceReader/useCheckVoiceReader';
 import {
   Video,
   Example,
@@ -16,34 +16,18 @@ import {
   Navigation,
   Definition,
   UpdateImage,
+  UndraftButton,
   WordPronunciation,
-} from '../components';
+} from 'modules/word/components';
 import * as S from './styles';
-import { useCheckVoiceReader } from 'modules/voiceReader/state/voiceReader/useCheckVoiceReader';
-
-const UndraftButton = ({ id }) => {
-  const onClick = (): void => {
-    WordsSDK.undraft(id);
-  };
-
-  return (
-    <Button type="primary" onClick={onClick}>
-      Undraft
-    </Button>
-  );
-};
 
 export const Word: FC = () => {
-  const { isEditMode, toggleEditMode } = useEditMode();
-  const { word, updateWord }: { word: IWord[] | null } = useFetchWord();
+  useDisableEditMode();
+  const { isEditMode } = useEditMode();
   const { isVoiceReaderAvailable } = useCheckVoiceReader();
 
-  useEffect(
-    () => () => {
-      toggleEditMode();
-    },
-    [],
-  );
+  // TODO: should be 'words'
+  const { word, updateWord }: { word: IWord[] | null } = useFetchWord();
 
   if (!word) {
     return null;
