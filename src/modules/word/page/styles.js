@@ -28,9 +28,12 @@ export const Image = styled.div`
 `;
 
 export const WordProperty = styled.div`
-  margin-bottom: 35px;
   font-size: 17px;
   background: #f5f5f5;
+`;
+
+export const WordPropertySpacer = styled.div`
+  margin-bottom: 35px;
 `;
 
 export const WordLabel = styled.div`

@@ -1,7 +1,7 @@
 import React, { FC, Suspense } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { Menu } from 'shared/components/Menu';
-import { useVoidReader } from '../shared/hooks';
+import { useVoidReader } from 'shared/hooks';
 
 const Word = React.lazy(() => import('modules/word/page'));
 const Words = React.lazy(() => import('modules/words/page'));

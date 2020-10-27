@@ -10,8 +10,8 @@ export const useFetchWordsOffset = () => {
 
   const wordsOffset = useSelector((state: IState) => state.wordsOffset);
 
-  const fetchWordsOffset = (offset: number): void => {
-    dispatch(fetchWordsOffsetRequestAction(offset));
+  const fetchWordsOffset = (offset: number, order: string): void => {
+    dispatch(fetchWordsOffsetRequestAction({ offset, order }));
   };
 
   const deleteWordsOffset = (id: number): void => {

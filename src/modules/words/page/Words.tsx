@@ -1,5 +1,5 @@
 import React, { FC, memo, useState, useEffect } from 'react';
-import { Col } from 'antd';
+import { Col, Button } from 'antd';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -14,6 +14,7 @@ import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWords
 import { useFetchToState } from 'shared/hooks/useFetchToState';
 import { SERVER_URL } from 'shared/constants/url';
 import { CheckWord } from 'modules/words/components/CheckWord';
+import { toggleWordsOrder } from 'shared/storage/wordsOrder';
 import {
   WordsFilter,
   useWordsFilter,
@@ -21,16 +22,18 @@ import {
 } from 'modules/wordsFilter';
 import { WordsCount } from '../components/WordsCount';
 import { LearnedWordsCount } from '../components/LearnedWordsCount';
+import { ChangeWordsOrder } from 'modules/wordsOrder';
 import 'shared/styles/animation.css';
 import * as S from './styles';
+import { useWordsOrder } from '../../wordsOrder/useWordsOrder';
 
-const useLoadMore = (filteredWords) => {
+const useLoadMore = (filteredWords, words, wordsOrder) => {
   const [offset, setOffset] = useState(0);
   const { fetchWordsOffset } = useFetchWordsOffset();
 
   useEffect(() => {
     if (!filteredWords.length || filteredWords.length < 20) {
-      fetchWordsOffset(offset);
+      fetchWordsOffset(offset, wordsOrder);
       setTimeout(() => setOffset(offset + 1), 10);
     }
   }, [offset]);
@@ -40,6 +43,7 @@ export const Words: FC = memo(() => {
   const { categories, unlinkCategories } = useCategories();
   const [words] = useFetchToState(`${SERVER_URL}/words/count`);
   const { wordsOffset, fetchWordsOffset } = useFetchWordsOffset();
+  const [wordsOrder] = useWordsOrder();
 
   const relatedWordsGroup: any[] = wordsOffset.filter(
     (word: IWord) => !word.category,
@@ -54,11 +58,11 @@ export const Words: FC = memo(() => {
     showUnlearnedWords,
   }: IUseWordsFilter = useWordsFilter(wordsOffset);
 
-  useLoadMore(filteredWords, words);
+  useLoadMore(filteredWords, words, wordsOrder);
 
   useDeepCompareEffect(() => {
     const firstWords: number = 0;
-    fetchWordsOffset(firstWords);
+    fetchWordsOffset(firstWords, wordsOrder);
 
     setWords(relatedWordsGroup);
   }, [wordsOffset, categories]);
@@ -82,7 +86,7 @@ export const Words: FC = memo(() => {
   const fetchWords = () => {
     const offset: number = 20;
 
-    fetchWordsOffset(Math.ceil(wordsOffset.length / offset));
+    fetchWordsOffset(Math.ceil(wordsOffset.length / offset), wordsOrder);
   };
 
   return (
@@ -101,6 +105,9 @@ export const Words: FC = memo(() => {
       </S.LearnedWordsLayout>
       <CheckWord />
       <Categories />
+      <S.ChangeWordsOrderLayout>
+        <ChangeWordsOrder />
+      </S.ChangeWordsOrderLayout>
       <DropContainer onDropEnd={(id, word) => onDropEnd(id, word)}>
         <S.WordWrapper gutter={12}>
           <TransitionGroup style={{ width: '100%' }}>

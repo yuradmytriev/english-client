@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Button } from 'antd';
 import { Carousel } from 'shared/components/Carousel';
 import { Frequency } from 'shared/components/Frequency';
@@ -34,9 +34,16 @@ const UndraftButton = ({ id }) => {
 };
 
 export const Word: FC = () => {
-  const { isEditMode } = useEditMode();
+  const { isEditMode, toggleEditMode } = useEditMode();
   const { word, updateWord }: { word: IWord[] | null } = useFetchWord();
   const { isVoiceReaderAvailable } = useCheckVoiceReader();
+
+  useEffect(
+    () => () => {
+      toggleEditMode();
+    },
+    [],
+  );
 
   if (!word) {
     return null;

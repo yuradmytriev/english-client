@@ -8,6 +8,7 @@ import {
 export interface IWordsOffsetAction {
   type: string;
   offset: number;
+  order: string;
 }
 
 export const fetchWordsOffsetAction = (words: IWord[]) => ({
@@ -15,11 +16,13 @@ export const fetchWordsOffsetAction = (words: IWord[]) => ({
   words,
 });
 
-export const fetchWordsOffsetRequestAction = (
-  offset: number,
-): IWordsOffsetAction => ({
+export const fetchWordsOffsetRequestAction = ({
+  offset,
+  order,
+}): IWordsOffsetAction => ({
   type: FETCH_WORDS_OFFSET_REQUEST,
   offset,
+  order,
 });
 
 export const deleteWordsOffsetAction = (id: number) => ({

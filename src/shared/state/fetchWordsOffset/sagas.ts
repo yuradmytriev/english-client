@@ -9,11 +9,11 @@ interface IWordsOffset {
   total: number;
 }
 
-export function* fetchWordsOffset({ offset }: IWordsOffsetAction) {
-  const offsetWordsURL = `${SERVER_URL}/words/offset/${offset}`;
+export function* fetchWordsOffset({ offset, order }: IWordsOffsetAction) {
+  const offsetWordsURL = `${SERVER_URL}/words/offset/${offset}/${order}`;
 
   const response = yield call(() => fetch(offsetWordsURL));
-  const { data, total }: IWordsOffset = yield response.json();
+  const { data }: IWordsOffset = yield response.json();
 
   yield put(fetchWordsOffsetAction(data));
 }

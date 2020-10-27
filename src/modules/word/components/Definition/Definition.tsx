@@ -32,15 +32,17 @@ export const Definition = ({ id, word, definition }) => {
   const { isEditMode } = useEditMode();
 
   return (
-    <S.WordProperty>
-      {isEditMode ? (
-        <EditMode id={id} definition={definition} />
-      ) : (
-        <ViewMode definition={definition} />
-      )}
+    <S.WordPropertySpacer>
+      <S.WordProperty>
+        {isEditMode ? (
+          <EditMode id={id} definition={definition} />
+        ) : (
+          <ViewMode definition={definition} />
+        )}
+      </S.WordProperty>
       <S.MoreExamplesWrapper>
         <MoreDefinitions word={word} />
       </S.MoreExamplesWrapper>
-    </S.WordProperty>
+    </S.WordPropertySpacer>
   );
 };

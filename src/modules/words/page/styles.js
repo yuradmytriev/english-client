@@ -11,6 +11,11 @@ export const LearnedWordsLayout = styled.div`
   justify-content: space-between;
 `;
 
+export const ChangeWordsOrderLayout = styled.div`
+  margin-top: 5px;
+  margin-left: 10px;
+`;
+
 export const WordsCountContainer = styled.div`
   margin-top: 5px;
   margin-right: 10px;
