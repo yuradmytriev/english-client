@@ -1,3 +1,3 @@
-import { AddWord } from './AddWord';
+import { AddWordModal } from './AddWordModal';
 
-export { AddWord };
+export { AddWordModal };

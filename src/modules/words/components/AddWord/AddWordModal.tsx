@@ -1,19 +1,18 @@
 import React, { FC } from 'react';
 import { useFormik } from 'formik';
-import { Button, Form, Icon, Input, message, Modal } from 'antd';
+import { Button, Form, Input, message, Modal } from 'antd';
 import { useToggleModal } from 'shared/hooks';
 import { IWord } from 'shared/interfaces/IWord';
-import { IWordInput } from 'modules/words/interfaces/IWordInput';
+import { SERVER_URL } from 'shared/constants/url';
 import { firstLetterToUpperCase } from 'shared/utils/firstLetterToUpperCase';
-import { useFetchWords } from 'shared/state/fetchWords/useFetchWords';
+import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWordsOffset';
+import { fetchSameWords } from 'modules/sameWords';
 import { useForms } from 'modules/words/hooks/useForms';
 import { fetchSimilarWords } from 'modules/similarWords';
-import { fetchSameWords } from 'modules/sameWords';
-import { SERVER_URL } from 'shared/constants/url';
+import { IWordInput } from 'modules/words/interfaces/IWordInput';
 import { FileInput } from './FileInput';
 import { createFormDataBody } from './utils';
 import * as S from './styles';
-import { useFetchWordsOffset } from '../../../../shared/state/fetchWordsOffset/useFetchWordsOffset';
 
 const inputs: Array<IWordInput> = [
   { name: 'word', type: 'input' },
@@ -104,10 +103,9 @@ const fromConfig = (closeAddWordModal: any, appendWordToList: any): any => ({
   },
 });
 
-const AddWord: FC = () => {
+const AddWordModal: FC = ({ visible, closeModal }) => {
   const [forms, appendForm] = useForms();
   const { appendWordToList } = useFetchWordsOffset();
-  const { visible, openModal, closeModal } = useToggleModal();
 
   const { handleSubmit, handleChange, setFieldValue } = useFormik(
     fromConfig(closeModal, appendWordToList),
@@ -115,9 +113,6 @@ const AddWord: FC = () => {
 
   return (
     <>
-      <S.Container onClick={openModal}>
-        <Icon type="plus" />
-      </S.Container>
       <S.FormModal
         centered
         title="New word"
@@ -153,4 +148,4 @@ const AddWord: FC = () => {
   );
 };
 
-export { AddWord };
+export { AddWordModal };

@@ -6,11 +6,14 @@ import { IWord } from 'shared/interfaces/IWord';
 import { fetchSimilarWords, showSimilarWordsModal } from 'modules/similarWords';
 import { fetchSameWords, showSameWordsModal } from 'modules/sameWords';
 import * as S from './styles';
+import { useToggleModal } from '../../../../shared/hooks';
+import { AddWordModal } from '../AddWord';
 
 const { confirm } = Modal;
 
 export const CheckWord = () => {
   const history = useHistory();
+  const { openModal, visible, closeModal } = useToggleModal();
 
   const fromConfig = (): any => ({
     initialValues: {
@@ -32,6 +35,9 @@ export const CheckWord = () => {
 
       confirm({
         title: `This is a new word`,
+        onOk() {
+          openModal();
+        },
       });
     },
   });
@@ -39,13 +45,16 @@ export const CheckWord = () => {
   const { handleSubmit, handleChange } = useFormik(fromConfig());
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <S.CheckWordWrapper>
-        <Input name="checkWord" onChange={handleChange} />
-        <S.CheckButton type="primary" htmlType="submit">
-          Check word
-        </S.CheckButton>
-      </S.CheckWordWrapper>
-    </Form>
+    <>
+      <Form onSubmit={handleSubmit}>
+        <S.CheckWordWrapper>
+          <Input name="checkWord" onChange={handleChange} />
+          <S.CheckButton type="primary" htmlType="submit">
+            Check word
+          </S.CheckButton>
+        </S.CheckWordWrapper>
+      </Form>
+      <AddWordModal visible={visible} closeModal={closeModal} />
+    </>
   );
 };
