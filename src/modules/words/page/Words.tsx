@@ -1,43 +1,31 @@
-import React, { FC, memo, useState, useEffect } from 'react';
-import { Col, Button } from 'antd';
+import React, { FC, memo } from 'react';
+import { Col } from 'antd';
+import isEmpty from 'lodash/isEmpty';
 import useDeepCompareEffect from 'use-deep-compare-effect';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import isEmpty from 'lodash/isEmpty';
-import { IWord } from 'shared/interfaces/IWord';
 import { Word } from 'shared/components/Word';
+import { IWord } from 'shared/interfaces/IWord';
+import { SERVER_URL } from 'shared/constants/url';
+import { useFetchToState } from 'shared/hooks/useFetchToState';
 import { DropContainer } from 'shared/components/DnD/DropContainer';
 import { WordContainer } from 'shared/components/Word/WordContainer';
-import { Categories } from 'modules/categories/components';
-import { useCategories } from 'modules/categories/state/categories/useCategories';
 import { useFetchWordsOffset } from 'shared/state/fetchWordsOffset/useFetchWordsOffset';
-import { useFetchToState } from 'shared/hooks/useFetchToState';
-import { SERVER_URL } from 'shared/constants/url';
-import { CheckWord } from 'modules/words/components/CheckWord';
-import { toggleWordsOrder } from 'shared/storage/wordsOrder';
 import {
   WordsFilter,
   useWordsFilter,
   IUseWordsFilter,
 } from 'modules/wordsFilter';
+import { ChangeWordsOrder } from 'modules/wordsOrder';
+import { Categories } from 'modules/categories/components';
+import { useLoadMore } from 'modules/words/hooks/useLoadMore';
+import { CheckWord } from 'modules/words/components/CheckWord';
+import { useCategories } from 'modules/categories/state/categories/useCategories';
+import { useWordsOrder } from '../../wordsOrder/useWordsOrder';
 import { WordsCount } from '../components/WordsCount';
 import { LearnedWordsCount } from '../components/LearnedWordsCount';
-import { ChangeWordsOrder } from 'modules/wordsOrder';
 import 'shared/styles/animation.css';
 import * as S from './styles';
-import { useWordsOrder } from '../../wordsOrder/useWordsOrder';
-
-const useLoadMore = (filteredWords, words, wordsOrder) => {
-  const [offset, setOffset] = useState(0);
-  const { fetchWordsOffset } = useFetchWordsOffset();
-
-  useEffect(() => {
-    if (!filteredWords.length || filteredWords.length < 20) {
-      fetchWordsOffset(offset, wordsOrder);
-      setTimeout(() => setOffset(offset + 1), 10);
-    }
-  }, [offset]);
-};
 
 export const Words: FC = memo(() => {
   const { categories, unlinkCategories } = useCategories();
@@ -51,10 +39,10 @@ export const Words: FC = memo(() => {
 
   const {
     setWords,
-    filteredWords,
     showAllWords,
-    showMemoizedWords,
     showDraftWords,
+    filteredWords,
+    showMemoizedWords,
     showUnlearnedWords,
   }: IUseWordsFilter = useWordsFilter(wordsOffset);
 
@@ -67,6 +55,18 @@ export const Words: FC = memo(() => {
     setWords(relatedWordsGroup);
   }, [wordsOffset, categories]);
 
+  const fetchWords = () => {
+    const offset: number = 20;
+
+    fetchWordsOffset(Math.ceil(wordsOffset.length / offset), wordsOrder);
+  };
+
+  const onDropEnd = async (id: string, categoryId?: string) => {
+    if (categoryId) {
+      await unlinkCategories(id, categoryId);
+    }
+  };
+
   const renderWords = word => (
     <CSSTransition key={word.id} timeout={500} classNames="item">
       <Col key={word.id} xs={24} sm={24} md={8} lg={8} xl={6}>
@@ -77,26 +77,14 @@ export const Words: FC = memo(() => {
     </CSSTransition>
   );
 
-  const onDropEnd = async (id: string, categoryId?: string) => {
-    if (categoryId) {
-      await unlinkCategories(id, categoryId);
-    }
-  };
-
-  const fetchWords = () => {
-    const offset: number = 20;
-
-    fetchWordsOffset(Math.ceil(wordsOffset.length / offset), wordsOrder);
-  };
-
   return (
     <>
       <S.LearnedWordsLayout>
         <WordsFilter
           showAllWords={() => showAllWords(relatedWordsGroup)}
+          showDraftWords={() => showDraftWords(relatedWordsGroup)}
           showMemoizedWords={() => showMemoizedWords(relatedWordsGroup)}
           showUnlearnedWords={() => showUnlearnedWords(relatedWordsGroup)}
-          showDraftWords={() => showDraftWords(relatedWordsGroup)}
         />
         <S.WordsCountContainer>
           {!isEmpty(wordsOffset) && <WordsCount words={words} />}
@@ -112,10 +100,10 @@ export const Words: FC = memo(() => {
         <S.WordWrapper gutter={12}>
           <TransitionGroup style={{ width: '100%' }}>
             <InfiniteScroll
-              dataLength={wordsOffset.length}
               next={fetchWords}
-              hasMore={wordsOffset.length !== words}
               loader={<h4>Loading...</h4>}
+              dataLength={wordsOffset.length}
+              hasMore={wordsOffset.length !== words}
             >
               {!isEmpty(wordsOffset) && filteredWords.map(renderWords)}
             </InfiniteScroll>

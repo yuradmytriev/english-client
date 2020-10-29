@@ -41,6 +41,7 @@ export const CheckWord = () => {
             history.push(`word/${sameWord.word}`);
           },
         });
+        return;
       }
 
       confirm({
