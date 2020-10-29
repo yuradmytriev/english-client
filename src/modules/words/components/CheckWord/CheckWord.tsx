@@ -3,16 +3,9 @@ import { useHistory } from 'react-router-dom';
 import { Form, Modal, Input } from 'antd';
 import { useFormik } from 'formik';
 import { IWord } from 'shared/interfaces/IWord';
-import { SERVER_URL } from 'shared/constants/url';
 import { fetchSimilarWords, showSimilarWordsModal } from 'modules/similarWords';
+import { fetchSameWords, showSameWordsModal } from 'modules/sameWords';
 import * as S from './styles';
-
-const fetchSameWords = async (value): Promise<IWord[]> => {
-  const checkWordURL: string = `${SERVER_URL}/word/find/${value}`;
-  const response = await fetch(checkWordURL);
-
-  return response.json();
-};
 
 const { confirm } = Modal;
 
@@ -33,14 +26,7 @@ export const CheckWord = () => {
       }
 
       if (sameWords.length) {
-        const [sameWord] = sameWords;
-
-        confirm({
-          title: `This word is already exists - ${sameWord.word}`,
-          onOk() {
-            history.push(`word/${sameWord.word}`);
-          },
-        });
+        showSameWordsModal(sameWords, history);
         return;
       }
 

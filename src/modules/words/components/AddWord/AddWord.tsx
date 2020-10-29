@@ -8,6 +8,7 @@ import { firstLetterToUpperCase } from 'shared/utils/firstLetterToUpperCase';
 import { useFetchWords } from 'shared/state/fetchWords/useFetchWords';
 import { useForms } from 'modules/words/hooks/useForms';
 import { fetchSimilarWords } from 'modules/similarWords';
+import { fetchSameWords } from 'modules/sameWords';
 import { SERVER_URL } from 'shared/constants/url';
 import { FileInput } from './FileInput';
 import { createFormDataBody } from './utils';
@@ -52,14 +53,6 @@ const appendWord = async (
   } else {
     message.error(statusText);
   }
-};
-
-// TODO: create single function
-const fetchSameWords = async (values: IWord): Promise<IWord[]> => {
-  const checkWordURL: string = `${SERVER_URL}/word/find/${values.word}`;
-  const response = await fetch(checkWordURL);
-
-  return response.json();
 };
 
 const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
