@@ -13,6 +13,7 @@ import { SERVER_URL } from 'shared/constants/url';
 import { FileInput } from './FileInput';
 import { createFormDataBody } from './utils';
 import * as S from './styles';
+import { useFetchWordsOffset } from '../../../../shared/state/fetchWordsOffset/useFetchWordsOffset';
 
 const inputs: Array<IWordInput> = [
   { name: 'word', type: 'input' },
@@ -38,26 +39,28 @@ const FormItem = ({ type, ...props }: any) => {
 
 const appendWord = async (
   values: IWord,
-  fetchWords: Function,
+  appendWordToList: Function,
 ): Promise<void> => {
   const formDataBody: FormData = createFormDataBody(values);
   const hideLoader = message.loading('Action in progress..', 0);
 
-  const { ok, statusText } = await fetch(`${SERVER_URL}/words`, {
+  const response = await fetch(`${SERVER_URL}/words`, {
     method: 'POST',
     body: formDataBody,
   });
 
-  if (ok) {
-    message.success(statusText);
+  const word = await response.json();
+  appendWordToList(word);
+
+  if (response.ok) {
+    message.success(response.statusText);
     hideLoader();
-    fetchWords();
   } else {
-    message.error(statusText);
+    message.error(response.statusText);
   }
 };
 
-const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
+const fromConfig = (closeAddWordModal: any, appendWordToList: any): any => ({
   initialValues: {
     id: '',
     word: '',
@@ -80,7 +83,7 @@ const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
         content: 'Are you sure that you want to add it?',
         onOk() {
           closeAddWordModal();
-          appendWord(values, fetchWords);
+          appendWord(values, appendWordToList);
         },
       });
     } else if (similarWords.length) {
@@ -91,23 +94,23 @@ const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
         content: 'Are you sure that you want to add it?',
         onOk() {
           closeAddWordModal();
-          appendWord(values, fetchWords);
+          appendWord(values, appendWordToList);
         },
       });
     } else {
       closeAddWordModal();
-      await appendWord(values, fetchWords);
+      await appendWord(values, appendWordToList);
     }
   },
 });
 
 const AddWord: FC = () => {
   const [forms, appendForm] = useForms();
-  const { fetchWords } = useFetchWords();
+  const { appendWordToList } = useFetchWordsOffset();
   const { visible, openModal, closeModal } = useToggleModal();
 
   const { handleSubmit, handleChange, setFieldValue } = useFormik(
-    fromConfig(closeModal, fetchWords),
+    fromConfig(closeModal, appendWordToList),
   );
 
   return (

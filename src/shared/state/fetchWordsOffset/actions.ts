@@ -2,6 +2,7 @@ import { IWord } from 'shared/interfaces/IWord';
 import {
   FETCH_WORDS_OFFSET,
   DELETE_WORDS_OFFSET,
+  APPEND_WORD_TO_LIST,
   FETCH_WORDS_OFFSET_REQUEST,
 } from './types';
 
@@ -28,4 +29,9 @@ export const fetchWordsOffsetRequestAction = ({
 export const deleteWordsOffsetAction = (id: number) => ({
   type: DELETE_WORDS_OFFSET,
   id,
+});
+
+export const appendWordToListAction = word => ({
+  type: APPEND_WORD_TO_LIST,
+  word,
 });

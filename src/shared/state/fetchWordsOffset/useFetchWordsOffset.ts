@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IState } from 'shared/interfaces/IState';
 import {
   deleteWordsOffsetAction,
+  appendWordToListAction,
   fetchWordsOffsetRequestAction,
 } from './actions';
 
@@ -18,5 +19,10 @@ export const useFetchWordsOffset = () => {
     dispatch(deleteWordsOffsetAction(id));
   };
 
-  return { wordsOffset, fetchWordsOffset, deleteWordsOffset };
+  const appendWordToList = (word): void => {
+    console.log('appendWordToList');
+    dispatch(appendWordToListAction(word));
+  };
+
+  return { wordsOffset, fetchWordsOffset, deleteWordsOffset, appendWordToList };
 };
