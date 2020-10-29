@@ -41,6 +41,7 @@ const appendWord = async (
   fetchWords: Function,
 ): Promise<void> => {
   const formDataBody: FormData = createFormDataBody(values);
+  const hideLoader = message.loading('Action in progress..', 0);
 
   const { ok, statusText } = await fetch(`${SERVER_URL}/words`, {
     method: 'POST',
@@ -49,6 +50,7 @@ const appendWord = async (
 
   if (ok) {
     message.success(statusText);
+    hideLoader();
     fetchWords();
   } else {
     message.error(statusText);
@@ -67,7 +69,7 @@ const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
     imageSrc: '',
   },
   onSubmit: async (values: IWord) => {
-    const sameWords: IWord[] = await fetchSameWords(values);
+    const sameWords: IWord[] = await fetchSameWords(values.word);
     const similarWords: IWord[] = await fetchSimilarWords(values.word);
 
     if (sameWords.length) {
@@ -77,6 +79,7 @@ const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
         title: `This word is already exists - ${sameWord.word}`,
         content: 'Are you sure that you want to add it?',
         onOk() {
+          closeAddWordModal();
           appendWord(values, fetchWords);
         },
       });
@@ -87,10 +90,12 @@ const fromConfig = (closeAddWordModal: any, fetchWords: any): any => ({
         title: `You have similar word - ${similarWord.word}`,
         content: 'Are you sure that you want to add it?',
         onOk() {
+          closeAddWordModal();
           appendWord(values, fetchWords);
         },
       });
     } else {
+      closeAddWordModal();
       await appendWord(values, fetchWords);
     }
   },

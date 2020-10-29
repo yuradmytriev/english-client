@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { IState } from 'shared/interfaces/IState';
-import { toggleEditModeAction } from './actions';
+import { toggleEditModeAction, disableEditModeAction } from './actions';
 
 export const useEditMode = () => {
   const dispatch = useDispatch();
@@ -11,5 +11,9 @@ export const useEditMode = () => {
     dispatch(toggleEditModeAction());
   };
 
-  return { toggleEditMode, isEditMode };
+  const disableEditMode = (): void => {
+    dispatch(disableEditModeAction());
+  };
+
+  return { toggleEditMode, disableEditMode, isEditMode };
 };

@@ -1,4 +1,3 @@
-import { Video } from './Video';
 import { Synonym } from './Synonym';
 import { Context } from './Context';
 import { Example } from './Example';
@@ -11,7 +10,6 @@ import { UndraftButton } from './UndraftButton';
 import { WordPronunciation } from './WordPronunciation';
 
 export {
-  Video,
   Example,
   Context,
   Synonym,

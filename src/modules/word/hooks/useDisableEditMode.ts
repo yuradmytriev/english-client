@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 
 export const useDisableEditMode = () => {
-  const { toggleEditMode } = useEditMode();
+  const { disableEditMode } = useEditMode();
 
   useEffect(
     () => () => {
-      toggleEditMode();
+      disableEditMode();
     },
     [],
   );

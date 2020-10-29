@@ -7,7 +7,6 @@ import { useDisableEditMode } from 'modules/word/hooks/useDisableEditMode';
 import { useEditMode } from 'modules/word/state/editMode/useEditMode';
 import { useCheckVoiceReader } from 'modules/voiceReader/state/voiceReader/useCheckVoiceReader';
 import {
-  Video,
   Example,
   Context,
   Synonym,
@@ -71,8 +70,6 @@ export const Word: FC = () => {
                   <Context id={id} word={word} context={context} />
                   <Example id={id} example={example} word={word} />
                   <Synonym id={id} word={word} synonym={synonym} />
-
-                  <Video word={word} />
 
                   <br />
                   {isEditMode && <UndraftButton id={id} />}
