@@ -11,7 +11,7 @@ export const Router: FC = () => {
   useVoidReader();
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/english-client'>
       <Menu>
         <Switch>
           <Route path="/words">
