@@ -51,7 +51,7 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js', // use contenthash to solve cache files problem
-    publicPath: '/english-client/',
+    publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
   },
   optimization: {
