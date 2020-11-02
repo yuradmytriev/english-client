@@ -8,6 +8,7 @@
     "vocablurary"
   ],
   "author": "Yurii Dmytriev",
+  "homepage": "http://yuradmytriev.github.io/english-client",
   "email": "yuramijs@gmai.com",
   "scripts": {
     "heroku-prebuild": "npm install --dev",
